@@ -29,4 +29,4 @@ script:
   - git add .
   - git commit -m "Travis CI Auto Builder $TRAVIS_BUILD_NUMBER"
   - git push --force https://${GithubToken}@${GithubPageRepo} ${GithubBranch}
-  #- git push --force https://${CodingUser}:${CodingToken}@${CodingPageRepo} ${CodingBranch}
+  - git push --force https://${CodingUser}:${CodingToken}@${CodingPageRepo} ${CodingBranch}
