@@ -1,0 +1,32 @@
+language: node_js
+node_js:
+  - 11.1.0
+
+cache:
+  directories:
+    - node_modules
+
+# 仓库分支
+branches:
+  only:
+  - master
+
+before_install:
+  - git config user.name ${UserName}
+  - git config user.email ${UserEmail}
+
+install:
+  - cd hexo/
+  - npm install hexo-cli -g
+  - npm install
+  - git clone https://github.com/theme-next/hexo-theme-next themes/next
+
+script:
+  - hexo clean
+  - hexo generate
+  - cd public/
+  - git init
+  - git add .
+  - git commit -m "Travis CI Auto Builder $TRAVIS_BUILD_NUMBER"
+  - git push --force https://${GitToken}@${GitPageRepo} ${GitBranch}
+  - git push --force https://${CodingUser}:${CodingToken}@${CodingPageRepo} ${CodingBranch}

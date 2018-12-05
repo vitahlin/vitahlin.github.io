@@ -1,0 +1,20 @@
+version: '3'
+
+networks:
+  frontend:
+    driver: ${NETWORKS_DRIVER}
+  backend:
+    driver: ${NETWORKS_DRIVER}
+
+services:
+  hexo:
+    build:
+      context: ./hexo
+    ports:
+      - "4000:4000"
+    volumes:
+      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
+    tty: true
+    networks:
+      - frontend
+      - backend
