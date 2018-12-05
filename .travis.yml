@@ -9,7 +9,7 @@ cache:
 # 仓库分支
 branches:
   only:
-  - master
+  - develop
 
 before_install:
   - git config user.name ${UserName}
@@ -28,5 +28,5 @@ script:
   - git init
   - git add .
   - git commit -m "Travis CI Auto Builder $TRAVIS_BUILD_NUMBER"
-  - git push --force https://${GitToken}@${GitPageRepo} ${GitBranch}
-  - git push --force https://${CodingUser}:${CodingToken}@${CodingPageRepo} ${CodingBranch}
+  - git push --force https://${GithubToken}@${GithubPageRepo} ${GithubBranch}
+  #- git push --force https://${CodingUser}:${CodingToken}@${CodingPageRepo} ${CodingBranch}
