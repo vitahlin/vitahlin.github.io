@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.6.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":"fals","onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="系统版本：macOS 10.12.3，Pomelo版本：1.2.3，Unity版本：5.4.4f1 Pomelo Demo 服务端代码：https://github.com/vitahlin/VitahPomeloServer Pomelo Demo 客户端代码：https://github.com/vitahlin/VitahPomeloClient 游戏中，用户经常会涉及到资源的操作，比如说收">
+<meta name="keywords" content="Node.js,Pomelo,Unity3D">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pomelo教程(9)-消息推送之对单个用户的推送">
+<meta property="og:url" content="http://www.vitah.net/2017/03/21/9ed74384/index.html">
+<meta property="og:site_name" content="Vitah&#39;s Blog">
+<meta property="og:description" content="系统版本：macOS 10.12.3，Pomelo版本：1.2.3，Unity版本：5.4.4f1 Pomelo Demo 服务端代码：https://github.com/vitahlin/VitahPomeloServer Pomelo Demo 客户端代码：https://github.com/vitahlin/VitahPomeloClient 游戏中，用户经常会涉及到资源的操作，比如说收">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-03-21T15:07:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pomelo教程(9)-消息推送之对单个用户的推送">
+<meta name="twitter:description" content="系统版本：macOS 10.12.3，Pomelo版本：1.2.3，Unity版本：5.4.4f1 Pomelo Demo 服务端代码：https://github.com/vitahlin/VitahPomeloServer Pomelo Demo 客户端代码：https://github.com/vitahlin/VitahPomeloClient 游戏中，用户经常会涉及到资源的操作，比如说收">
+
+
+
+
+
+
+  <link rel="canonical" href="http://www.vitah.net/2017/03/21/9ed74384/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Pomelo教程(9)-消息推送之对单个用户的推送 | Vitah's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Vitah's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">64</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">13</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">16</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.vitah.net/2017/03/21/9ed74384/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Vitah">
+      <meta itemprop="description" content="深自缄默，如云漂泊。">
+      <meta itemprop="image" content="/images/head.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Vitah's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Pomelo教程(9)-消息推送之对单个用户的推送
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-03-21 15:07:33" itemprop="dateCreated datePublished" datetime="2017-03-21T15:07:33+00:00">2017-03-21</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Pomelo/" itemprop="url" rel="index"><span itemprop="name">Pomelo</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/21/9ed74384/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/21/9ed74384/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>系统版本：macOS 10.12.3，Pomelo版本：1.2.3，Unity版本：5.4.4f1</strong></p>
+<p><strong>Pomelo Demo 服务端代码：<a href="https://github.com/vitahlin/VitahPomeloServer" target="_blank" rel="noopener">https://github.com/vitahlin/VitahPomeloServer</a></strong></p>
+<p><strong>Pomelo Demo 客户端代码：<a href="https://github.com/vitahlin/VitahPomeloClient" target="_blank" rel="noopener">https://github.com/vitahlin/VitahPomeloClient</a></strong></p>
+<p>游戏中，用户经常会涉及到资源的操作，比如说收取资源，购买装备消耗资源，战斗消耗资源，战利品获取资源等，为了保证客户端和数据库数据的统一，我们不得不频繁的调用协议来获取用户的基本信息，这样就显得很是烦琐，所以我们可以用消息推送来做，当数据库里面的数据更新时，服务端主动推送新的资源信息给客户端，而不是由客户端来主动调用。</p>
+<p>消息推送有两类，一类是对单个用户的推送，如这个用户的基本信息啊、装备信息等等；一类是全部用户的推送，如世界聊天，需要对全部用户推送这个内容，如工会聊天、工会信息需要对工会内的全部用户进行推送。这里介绍如果实现对单个用户的推送。</p>
+<h3 id="pomelo-status-plugin"><a href="#pomelo-status-plugin" class="headerlink" title="pomelo-status-plugin"></a>pomelo-status-plugin</h3><p>我们需要用到 pomelo-status-plugin ，它是一个全局的用户状态存储的插件，使用该插件可以对用户所在前端服务器进行查询，同时还能在全局范围内给具体用户进行消息推送。</p>
+<a id="more"></a>
+<h4 id="安装pomelo-status-plugin"><a href="#安装pomelo-status-plugin" class="headerlink" title="安装pomelo-status-plugin"></a>安装pomelo-status-plugin</h4><p>在工程目录下执行命令，安装模块：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install pomelo-status-plugin</span><br></pre></td></tr></table></figure></p>
+<h4 id="增加status的配置文件"><a href="#增加status的配置文件" class="headerlink" title="增加status的配置文件"></a>增加status的配置文件</h4><p>新增<code>game-server/config/development_local/status.json</code>文件配置：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"prefix"</span>: <span class="string">"status"</span>,</span><br><span class="line">    <span class="string">"host"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="string">"port"</span>: <span class="number">6379</span>,</span><br><span class="line">    <span class="string">"cleanOnStartUp"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="采用status配置"><a href="#采用status配置" class="headerlink" title="采用status配置"></a>采用status配置</h4><p>修改 <code>app.js</code> 文件，新增以下代码，采用配置:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var status = require('pomelo-status-plugin');</span><br><span class="line"></span><br><span class="line">app.configure('all', function() &#123;</span><br><span class="line">	<span class="comment">// pomelo-status-plugin配置</span></span><br><span class="line">	var status_config = configUtil.load('status');</span><br><span class="line">	app.use(status, &#123;</span><br><span class="line">		status: status_config</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="服务端实现用户推送的相关代码"><a href="#服务端实现用户推送的相关代码" class="headerlink" title="服务端实现用户推送的相关代码"></a>服务端实现用户推送的相关代码</h3><p>我们新建文件 <code>game-server/app/services/pushServices.js</code> 于来封装用户信息推送的函数：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var roleMgr = require('../mgr/roleMgr.js');</span><br><span class="line">var jsonDiffUtil = require('../util/jsonDiffUtil.js');</span><br><span class="line"></span><br><span class="line">exports.pushRoleModify = function (uid, old_json, new_json) &#123;</span><br><span class="line">	var params = jsonDiffUtil.getChangedJson(old_json, new_json);</span><br><span class="line">	roleMgr.sendRoleChange(</span><br><span class="line">		uid,</span><br><span class="line">		params,</span><br><span class="line">		function (err, fails) &#123;</span><br><span class="line">			<span class="keyword">if</span> (err) &#123;</span><br><span class="line">				console.error('send role message error: %j, fail ids: %j', err, fails);</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>其中 <code>uid</code> 是当前用户的 <code>uid</code> ,<code>old_json</code> 代表旧信息的json格式内容，<code>new_json</code> 代表最新信息等json格式内容，然后通过<code>jsonDiffUtil</code>简单计算信息的更新内容，来实现增量推送。</p>
+<p>什么是增量推送？简单的说就是只推送更改的内容，比如说旧数据内容和新数据内容如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 旧数据内容</span></span><br><span class="line">&#123;<span class="string">"uid"</span>:<span class="number">10001</span>,<span class="string">"gold"</span>:<span class="number">100</span>,<span class="string">"name"</span>:<span class="string">"testname"</span>,<span class="string">"lv"</span>:<span class="number">1</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 新数据内容</span></span><br><span class="line">&#123;<span class="string">"uid"</span>:<span class="number">10001</span>,<span class="string">"diamond"</span>:<span class="number">1000</span>,<span class="string">"gold"</span>:<span class="number">1001</span>,<span class="string">"name"</span>:<span class="string">"testname"</span>,<span class="string">"lv"</span>:<span class="number">1</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>那么通过计算，得出数据的更改只有 <code>dismoand</code> (新增数据)和 <code>gold</code>（内容变化）,那么只需要推送 <code>diamond</code> 和 <code>gold</code> 即可，推送内容如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"diamond"</span>:<span class="number">1000</span>,<span class="string">"gold"</span>:<span class="number">1001</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在<code>mgrUtil.js</code>中封装了推送的基本函数，而后在<code>roleMgr.js</code>继续封装用于用户推送：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var eventType = require('../consts/eventType');</span><br><span class="line">var mgrUtil = require('../util/mgrUtil');</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用户信息推送</span></span><br><span class="line"><span class="comment"> * @param  &#123;[type]&#125;   uid    [用户id]</span></span><br><span class="line"><span class="comment"> * @param  &#123;[type]&#125;   params [推送内容]</span></span><br><span class="line"><span class="comment"> * @param  &#123;Function&#125; cb     [description]</span></span><br><span class="line"><span class="comment"> * @return &#123;[type]&#125;          [description]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">exports.sendRoleChange = function(uid, params, cb) &#123;</span><br><span class="line">	mgrUtil.sendStatusMessage(</span><br><span class="line">		[uid],</span><br><span class="line">		eventType.ON_ROLE_CHANGE,</span><br><span class="line">		params,</span><br><span class="line">		cb</span><br><span class="line">	);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><code>eventType.js</code>定义了推送的定义等等，这里不在赘述，可以参看源代码。</p>
+<h3 id="客户端实现推送相关代码"><a href="#客户端实现推送相关代码" class="headerlink" title="客户端实现推送相关代码"></a>客户端实现推送相关代码</h3><p>在服务端完成了推送的功能以后，客户端需要实现推送的接收，以及对推送的监听。</p>
+<p>新建 <code>Assets/Scripts/Push/ProtocolEvent.cs</code>，用来定义推送，需要注意的是这个值和服务端 <code>eventType.js</code> 定义的值要相同才行：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ProtocolEvent</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="comment">// uset data push</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> ON_ROLE_CHANGE = <span class="string">"onRoleChange"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>同样在 <code>Assets/Scripts/Push/</code> 完成相关需要的工具类，具体可以参看源代码，其中 <code>PushEventNotifyCenter</code> 用观察者模式实现对推送的监听和 UI 刷新。</p>
+<p>然后我们在 Main 场景中创建一个 Text 用于显示用户的基本信息，并且实现一个添加资源协议，调用时增加用户的金币和钻石，来帮助更直观的展现推送的用法。</p>
+<p>在 Main 场景中新建空物体，挂载 <code>MainSceneStart</code> 脚本用于在 Main 场景开始时，实现界面的载入。主场景界面代码 <code>UIMainSceneWindow</code>，实现了初次进入场景时显示用户信息，以及增加资源协议的调用，以及对推送的监听，具体可参看代码注释。</p>
+<p>修改 <code>Login</code> 场景的 <code>UILoginWindow</code> 脚本，在登录成功时，实现推送的初始化<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 登陆数据获取成功</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnLoginDataSuccess</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	PushManager.Instance.Init();</span><br><span class="line">	PushEventNotifyCenter.Instance.RemoveAllListener();		Loom.DispatchToMainThread(() =&gt; SceneManager.LoadScene(<span class="string">"Main"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>完成后，我们运行 Demo，在每次点击按钮实现资源的增加时，客户端都会收到服务端的推送，并实现UI界面显示的资源数目的刷新。</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li>pomelo 消息推送代码示例 <a href="http://blog.csdn.net/linminqin/article/details/24548785" target="_blank" rel="noopener">http://blog.csdn.net/linminqin/article/details/24548785</a></li>
+<li>pomelo-status-plugin <a href="https://github.com/NetEase/pomelo/wiki/Pomelo%E4%BD%BF%E7%94%A8%E5%8F%82%E8%80%83%E6%89%8B%E5%86%8C#pomelo-status-plugin" target="_blank" rel="noopener">https://github.com/NetEase/pomelo/wiki/Pomelo%E4%BD%BF%E7%94%A8%E5%8F%82%E8%80%83%E6%89%8B%E5%86%8C#pomelo-status-plugin</a></li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpeg" alt="Vitah 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpeg" alt="Vitah 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Vitah</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://www.vitah.net/2017/03/21/9ed74384/" title="Pomelo教程(9)-消息推送之对单个用户的推送">http://www.vitah.net/2017/03/21/9ed74384/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
+          
+            <a href="/tags/Pomelo/" rel="tag"># Pomelo</a>
+          
+            <a href="/tags/Unity3D/" rel="tag"># Unity3D</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/10/pomelo_series_session_basic_usage/" rel="next" title="Pomelo教程(8)-session基本用法">
+                <i class="fa fa-chevron-left"></i> Pomelo教程(8)-session基本用法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/05/3c449ea0/" rel="prev" title="shell传入参数处理的简单介绍">
+                shell传入参数处理的简单介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/head.JPG" alt="Vitah">
+            
+              <p class="site-author-name" itemprop="name">Vitah</p>
+              <p class="site-description motion-element" itemprop="description">深自缄默，如云漂泊。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">64</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/vitahlin" title="GitHub &rarr; https://github.com/vitahlin" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:linw1225@gmail.com" title="Mail &rarr; mailto:linw1225@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#pomelo-status-plugin"><span class="nav-number">1.</span> <span class="nav-text">pomelo-status-plugin</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装pomelo-status-plugin"><span class="nav-number">1.1.</span> <span class="nav-text">安装pomelo-status-plugin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#增加status的配置文件"><span class="nav-number">1.2.</span> <span class="nav-text">增加status的配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#采用status配置"><span class="nav-number">1.3.</span> <span class="nav-text">采用status配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端实现用户推送的相关代码"><span class="nav-number">2.</span> <span class="nav-text">服务端实现用户推送的相关代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端实现推送相关代码"><span class="nav-number">3.</span> <span class="nav-text">客户端实现推送相关代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">4.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Vitah</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://http-www-vitah-net.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://www.vitah.net/2017/03/21/9ed74384/';
+        this.page.identifier = '2017/03/21/9ed74384/';
+        this.page.title = 'Pomelo教程(9)-消息推送之对单个用户的推送';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://http-www-vitah-net.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

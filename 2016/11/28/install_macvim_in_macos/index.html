@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.6.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":"fals","onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="系统版本macOS 10.12.1，默认安装Homebrew 安装通过brew安装，执行命令brew install macvim进行安装。brew的用法可以查看介绍：[链接地址]">
+<meta name="keywords" content="Linux&amp;Unix,Vim">
+<meta property="og:type" content="article">
+<meta property="og:title" content="macOS上安装MacVim">
+<meta property="og:url" content="http://www.vitah.net/2016/11/28/install_macvim_in_macos/index.html">
+<meta property="og:site_name" content="Vitah&#39;s Blog">
+<meta property="og:description" content="系统版本macOS 10.12.1，默认安装Homebrew 安装通过brew安装，执行命令brew install macvim进行安装。brew的用法可以查看介绍：[链接地址]">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2016-11-28T22:28:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="macOS上安装MacVim">
+<meta name="twitter:description" content="系统版本macOS 10.12.1，默认安装Homebrew 安装通过brew安装，执行命令brew install macvim进行安装。brew的用法可以查看介绍：[链接地址]">
+
+
+
+
+
+
+  <link rel="canonical" href="http://www.vitah.net/2016/11/28/install_macvim_in_macos/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>macOS上安装MacVim | Vitah's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Vitah's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">64</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">13</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">16</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.vitah.net/2016/11/28/install_macvim_in_macos/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Vitah">
+      <meta itemprop="description" content="深自缄默，如云漂泊。">
+      <meta itemprop="image" content="/images/head.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Vitah's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">macOS上安装MacVim
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-11-28 22:28:33" itemprop="dateCreated datePublished" datetime="2016-11-28T22:28:33+00:00">2016-11-28</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Vim/" itemprop="url" rel="index"><span itemprop="name">Vim</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/11/28/install_macvim_in_macos/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/11/28/install_macvim_in_macos/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>系统版本macOS 10.12.1，默认安装<code>Homebrew</code></strong></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>通过<code>brew</code>安装，执行命令<code>brew install macvim</code>进行安装。<br><code>brew</code>的用法可以查看介绍：<a href="http://www.vitah.net/posts/28edc106/">[链接地址]</a></p>
+<a id="more"></a>
+<h3 id="vimrc设置"><a href="#vimrc设置" class="headerlink" title=".vimrc设置"></a><code>.vimrc</code>设置</h3><h4 id="vimrc文件位置"><a href="#vimrc文件位置" class="headerlink" title=".vimrc文件位置"></a><code>.vimrc</code>文件位置</h4><p>打开MacVim-Edit-Startup Settings，可以打开~/.vimrc，添加配置。在Vim中输入:version可以查看系统中vimrc的位置。会显示如下信息，分别是系统配置文件和用户配置文件：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">system vimrc file: <span class="string">"$VIM/vimrc"</span></span><br><span class="line">user vimrc file: <span class="string">"$HOME/.vimrc"</span></span><br></pre></td></tr></table></figure></p>
+<p>如果不知道$VIM或$HOME具体是哪个目录,可以在Vim中用下面的命令查看:<code>:echo $VIM</code>和<code>:echo $HOME</code>。</p>
+<h4 id="基本的设置"><a href="#基本的设置" class="headerlink" title="基本的设置"></a>基本的设置</h4><p>可以在<code>.vimrc</code>文件中增加一些基本的设置：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">" 设置代码折叠根据语义折叠</span></span><br><span class="line"><span class="string">set foldmethod=syntax</span></span><br><span class="line"><span class="string">"</span> 设置vim开启时不开启折叠</span><br><span class="line"><span class="built_in">set</span> nofoldenable</span><br><span class="line"></span><br><span class="line"><span class="string">" 共享剪贴板</span></span><br><span class="line"><span class="string">set clipboard+=unnamed</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span> 显示行号</span><br><span class="line"><span class="built_in">set</span> number </span><br><span class="line"></span><br><span class="line"><span class="string">" 设置字体及其大小</span></span><br><span class="line"><span class="string">set guifont=Source_Code_Pro:h15</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span> 字符编码相关设置</span><br><span class="line"><span class="built_in">set</span> termencoding=utf<span class="number">-8</span></span><br><span class="line"><span class="built_in">set</span> encoding=utf<span class="number">-8</span></span><br><span class="line"><span class="built_in">set</span> fileencodings=utf8,ucs-bom,gbk,cp936,gb2312,gb18030</span><br><span class="line"></span><br><span class="line"><span class="string">" 设置命令行高度</span></span><br><span class="line"><span class="string">set cmdheight=2</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span> 在编辑过程中，在右下角显示光标位置的状态行</span><br><span class="line"><span class="built_in">set</span> ruler</span><br><span class="line"></span><br><span class="line"><span class="string">" 显示命令</span></span><br><span class="line"><span class="string">set showcmd</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span> autowrite</span><br><span class="line"><span class="built_in">set</span> autowrite</span><br><span class="line"><span class="built_in">set</span> autowriteall</span><br><span class="line"></span><br><span class="line"><span class="string">" autoread</span></span><br><span class="line"><span class="string">set autoread</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">set confirm</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span> 光标移动到buffer的顶部和底部时保持<span class="number">3</span>行距离</span><br><span class="line"><span class="built_in">set</span> scrolloff=<span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> wildmenu</span><br><span class="line"><span class="built_in">set</span> history=<span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="string">" 在Visual模式时，按Ctrl+c复制选择的内容</span></span><br><span class="line"><span class="string">vmap &lt;C-c&gt; "</span>+y</span><br><span class="line"></span><br><span class="line"><span class="string">" 字符间插入的像素行数目</span></span><br><span class="line"><span class="string">set linespace=0</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span> 键入闭括号时显示它与前面的那个开括号匹配</span><br><span class="line"><span class="built_in">set</span> showmatch</span><br><span class="line"><span class="built_in">set</span> matchtime=<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="string">" 语法高亮</span></span><br><span class="line"><span class="string">syntax on</span></span><br><span class="line"><span class="string">syntax enable</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span> 用浅色高亮当前行</span><br><span class="line">autocmd InsertLeave * se nocul</span><br><span class="line">autocmd InsertEnter * se cul</span><br><span class="line"></span><br><span class="line"><span class="string">" search</span></span><br><span class="line"><span class="string">set hlsearch</span></span><br><span class="line"><span class="string">set incsearch</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span> 智能对齐</span><br><span class="line"><span class="built_in">set</span> smartindent</span><br><span class="line"><span class="built_in">set</span> autoindent</span><br><span class="line"></span><br><span class="line"><span class="string">" bakcspace</span></span><br><span class="line"><span class="string">set backspace=eol,start,indent</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span> backup 不进行备份</span><br><span class="line"><span class="built_in">set</span> nobackup</span><br><span class="line"><span class="built_in">set</span> nowb</span><br><span class="line"><span class="built_in">set</span> noswapfile</span><br><span class="line"></span><br><span class="line"><span class="string">" tab</span></span><br><span class="line"><span class="string">set tabstop=4</span></span><br><span class="line"><span class="string">set softtabstop=4</span></span><br><span class="line"><span class="string">set shiftwidth=4</span></span><br><span class="line"><span class="string">set noexpandtab</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span> 主题设置</span><br><span class="line">syntax enable</span><br><span class="line"><span class="built_in">set</span> background=dark</span><br><span class="line">colorscheme solarized</span><br></pre></td></tr></table></figure></p>
+<h3 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h3><p>在这边只介绍管理插件的插件<code>Vundle</code>和状态栏美化插件<code>vim-powerline</code>，这两个我觉得是必须的，而其他的插件，在我看来有些不一定需要，保持简单，在需要时再去安装即可，而不是在开始去安装一大堆插件，毕竟Vim的核心不在于插件。<br>如果你想要更多的插件安装以及设置可以查看我在Github上的介绍：<strong><a href="https://github.com/vitahlin/Vim" target="_blank" rel="noopener">Vim</a></strong></p>
+<h4 id="管理插件的插件Vundle"><a href="#管理插件的插件Vundle" class="headerlink" title="管理插件的插件Vundle"></a>管理插件的插件<a href="https://github.com/vitahlin/Vim/tree/master/Vundle" target="_blank" rel="noopener"><code>Vundle</code></a></h4><p><code>Vundle</code>可以用于管理插件，方便的进行安装、更新和卸载。</p>
+<h5 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h5><p>在终端执行命令<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:<span class="comment">//github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim</span></span><br></pre></td></tr></table></figure></p>
+<p>这样的话，就设置Vundle的插件安装目录是<code>~/.vim/bundle/</code>。如果有需要可以自行修改，不过要注意的是修改此目录的话，<code>vimrc</code>文件中关于<code>Vundle</code>的那个路径设置也要做对应的更改。</p>
+<p><code>git clone</code>完成在<code>.vimrc</code>文件中添加必要的设置：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> nocompatible              <span class="string">" be iMproved, required</span></span><br><span class="line"><span class="string">filetype off                  "</span> required</span><br><span class="line"></span><br><span class="line"><span class="string">" set the runtime path to include Vundle and initialize</span></span><br><span class="line"><span class="string">set rtp+=~/.vim/bundle/Vundle.vim</span></span><br><span class="line"><span class="string">call vundle#begin()</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span> let Vundle manage Vundle, required</span><br><span class="line">Plugin 'VundleVim/Vundle.vim'</span><br><span class="line"></span><br><span class="line"><span class="string">" 在这里填写需要安装的插件</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span> All of your Plugins must be added before the following line</span><br><span class="line">call vundle<span class="meta">#end()            <span class="meta-string">" required</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">filetype plugin indent on    "</span> required</span></span><br><span class="line"><span class="string">" To ignore plugin indent changes, instead use:</span></span><br><span class="line"><span class="string">"</span>filetype plugin on</span><br></pre></td></tr></table></figure></p>
+<p>重启Vim后就可以在Vim中方便的用命令安装和卸载插件<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PluginInstall <span class="comment">// 安装插件</span></span><br><span class="line">PluginClean   <span class="comment">// 卸载插件</span></span><br><span class="line">PluginList    <span class="comment">// 显示已经安装的插件</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="让Vim支持多文件编辑minibufexpl"><a href="#让Vim支持多文件编辑minibufexpl" class="headerlink" title="让Vim支持多文件编辑minibufexpl"></a>让Vim支持多文件编辑<a href="https://github.com/vitahlin/Vim/tree/master/minibufexpl" target="_blank" rel="noopener"><code>minibufexpl</code></a></h4><h5 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h5><p>使用Vundle进行安装：<code>Plugin &#39;fholgado/minibufexpl.vim&#39;</code></p>
+<h5 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h5><p>在.vimrc文件中增加配置：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" minibufexpl 多文件编辑</span></span><br><span class="line"><span class="string">"</span>------------------------------------------------------</span><br><span class="line"><span class="string">"按下Ctrl+h/j/k/l，可以切换到当前窗口的上下左右窗口</span></span><br><span class="line"><span class="string">"</span>let g:miniBufExplMapWindowNavVim = <span class="number">1</span>   </span><br><span class="line"></span><br><span class="line"><span class="string">"按下Ctrl+箭头，可以切换到当前窗口的上下左右窗口</span></span><br><span class="line"><span class="string">"</span>let g:miniBufExplMapWindowNavArrows = <span class="number">1</span> </span><br><span class="line"></span><br><span class="line"><span class="string">"启用以下两个功能：Ctrl+tab移到下一个窗口</span></span><br><span class="line"><span class="string">"</span>let g:miniBufExplMapCTabSwitchBufs = <span class="number">1</span> </span><br><span class="line"></span><br><span class="line"><span class="string">"不要在不可编辑内容的窗口（如TagList窗口）中打开选中的buffe</span></span><br><span class="line"><span class="string">let g:miniBufExplModSelTarget=1  </span></span><br><span class="line"><span class="string">"</span>-----------------------------------------------------</span><br></pre></td></tr></table></figure></p>
+<h4 id="状态栏美化vim-powerline"><a href="#状态栏美化vim-powerline" class="headerlink" title="状态栏美化vim-powerline"></a>状态栏美化<a href="https://github.com/vitahlin/Vim/tree/master/vim-powerline" target="_blank" rel="noopener"><code>vim-powerline</code></a></h4><h5 id="安装-3"><a href="#安装-3" class="headerlink" title="安装"></a>安装</h5><p>用Vundle安装：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Plugin 'Lokaltog/vim-powerline'</span><br></pre></td></tr></table></figure></p>
+<h5 id="设置-1"><a href="#设置-1" class="headerlink" title="设置"></a>设置</h5><p>在.vimrc文件中增加配置：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" vim-powerline 状态栏美化 </span></span><br><span class="line"><span class="string">"</span>---------------------------------------</span><br><span class="line">let g:Powerline_symbols = 'fancy'</span><br><span class="line"><span class="built_in">set</span> laststatus=<span class="number">2</span></span><br><span class="line"><span class="string">"---------------------------------------</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="可能出现的问题"><a href="#可能出现的问题" class="headerlink" title="可能出现的问题"></a>可能出现的问题</h5><p>当出现乱码或者状态栏不正确显示箭头时需要安装对应的字体进行解决。可以参考链接：<a href="https://github.com/vitahlin/Vim/tree/master/vim-powerline" target="_blank" rel="noopener">链接地址</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpeg" alt="Vitah 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpeg" alt="Vitah 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Vitah</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://www.vitah.net/2016/11/28/install_macvim_in_macos/" title="macOS上安装MacVim">http://www.vitah.net/2016/11/28/install_macvim_in_macos/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux-Unix/" rel="tag"># Linux&Unix</a>
+          
+            <a href="/tags/Vim/" rel="tag"># Vim</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/26/install_homebrew/" rel="next" title="Homebrew的安装和使用">
+                <i class="fa fa-chevron-left"></i> Homebrew的安装和使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/29/set-automatically-connect-network-in-centos7/" rel="prev" title="Centos7设置开机自动联网">
+                Centos7设置开机自动联网 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/head.JPG" alt="Vitah">
+            
+              <p class="site-author-name" itemprop="name">Vitah</p>
+              <p class="site-description motion-element" itemprop="description">深自缄默，如云漂泊。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">64</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/vitahlin" title="GitHub &rarr; https://github.com/vitahlin" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:linw1225@gmail.com" title="Mail &rarr; mailto:linw1225@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vimrc设置"><span class="nav-number">2.</span> <span class="nav-text">.vimrc设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vimrc文件位置"><span class="nav-number">2.1.</span> <span class="nav-text">.vimrc文件位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本的设置"><span class="nav-number">2.2.</span> <span class="nav-text">基本的设置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件安装"><span class="nav-number">3.</span> <span class="nav-text">插件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#管理插件的插件Vundle"><span class="nav-number">3.1.</span> <span class="nav-text">管理插件的插件Vundle</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装-1"><span class="nav-number">3.1.1.</span> <span class="nav-text">安装</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#让Vim支持多文件编辑minibufexpl"><span class="nav-number">3.2.</span> <span class="nav-text">让Vim支持多文件编辑minibufexpl</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装-2"><span class="nav-number">3.2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置"><span class="nav-number">3.2.2.</span> <span class="nav-text">设置</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态栏美化vim-powerline"><span class="nav-number">3.3.</span> <span class="nav-text">状态栏美化vim-powerline</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装-3"><span class="nav-number">3.3.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置-1"><span class="nav-number">3.3.2.</span> <span class="nav-text">设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#可能出现的问题"><span class="nav-number">3.3.3.</span> <span class="nav-text">可能出现的问题</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Vitah</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://http-www-vitah-net.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://www.vitah.net/2016/11/28/install_macvim_in_macos/';
+        this.page.identifier = '2016/11/28/install_macvim_in_macos/';
+        this.page.title = 'macOS上安装MacVim';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://http-www-vitah-net.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

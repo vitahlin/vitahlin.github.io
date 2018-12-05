@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.6.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":"fals","onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="题目来源北航某次算法测试题。 问题描述将由数字和四则运算符组成的后缀表达式变换为中缀表达式，输入的后缀表达式的运算符不超过15个，要求转换后的中缀表达式中不出现不必要的括号。例如，整个表达式的括号要省略，不影响计算顺序括号要省略。 输入形式程序从标准输入读入一行字符串，是一个合法的后缀表达式，数字和运算符之间由空格分隔。数字可以是带小数部分的浮点数。 输出形式向标准输出打印结果，输出只有一行，是转">
+<meta name="keywords" content="Algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="后缀表达式转中缀表达式">
+<meta property="og:url" content="http://www.vitah.net/2016/12/28/c02ba867/index.html">
+<meta property="og:site_name" content="Vitah&#39;s Blog">
+<meta property="og:description" content="题目来源北航某次算法测试题。 问题描述将由数字和四则运算符组成的后缀表达式变换为中缀表达式，输入的后缀表达式的运算符不超过15个，要求转换后的中缀表达式中不出现不必要的括号。例如，整个表达式的括号要省略，不影响计算顺序括号要省略。 输入形式程序从标准输入读入一行字符串，是一个合法的后缀表达式，数字和运算符之间由空格分隔。数字可以是带小数部分的浮点数。 输出形式向标准输出打印结果，输出只有一行，是转">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2016-12-28T23:26:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="后缀表达式转中缀表达式">
+<meta name="twitter:description" content="题目来源北航某次算法测试题。 问题描述将由数字和四则运算符组成的后缀表达式变换为中缀表达式，输入的后缀表达式的运算符不超过15个，要求转换后的中缀表达式中不出现不必要的括号。例如，整个表达式的括号要省略，不影响计算顺序括号要省略。 输入形式程序从标准输入读入一行字符串，是一个合法的后缀表达式，数字和运算符之间由空格分隔。数字可以是带小数部分的浮点数。 输出形式向标准输出打印结果，输出只有一行，是转">
+
+
+
+
+
+
+  <link rel="canonical" href="http://www.vitah.net/2016/12/28/c02ba867/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>后缀表达式转中缀表达式 | Vitah's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Vitah's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">64</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">13</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">16</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.vitah.net/2016/12/28/c02ba867/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Vitah">
+      <meta itemprop="description" content="深自缄默，如云漂泊。">
+      <meta itemprop="image" content="/images/head.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Vitah's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">后缀表达式转中缀表达式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-12-28 23:26:33" itemprop="dateCreated datePublished" datetime="2016-12-28T23:26:33+00:00">2016-12-28</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/12/28/c02ba867/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/28/c02ba867/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="题目来源"><a href="#题目来源" class="headerlink" title="题目来源"></a>题目来源</h3><p>北航某次算法测试题。</p>
+<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>将由数字和四则运算符组成的后缀表达式变换为中缀表达式，输入的后缀表达式的运算符不超过15个，要求转换后的中缀表达式中不出现不必要的括号。例如，整个表达式的括号要省略，不影响计算顺序括号要省略。</p>
+<h4 id="输入形式"><a href="#输入形式" class="headerlink" title="输入形式"></a>输入形式</h4><p>程序从标准输入读入一行字符串，是一个合法的后缀表达式，数字和运算符之间由空格分隔。数字可以是带小数部分的浮点数。</p>
+<h4 id="输出形式"><a href="#输出形式" class="headerlink" title="输出形式"></a>输出形式</h4><p>向标准输出打印结果，输出只有一行，是转换后的中缀表达式。并且：</p>
+<ul>
+<li>各分量（包括括号）紧密输出，不使用空格进行分隔；</li>
+<li>在转换后的各运算数的出现顺序不变；</li>
+<li>浮点数保留输入时的小数位数。</li>
+</ul>
+<a id="more"></a>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt; stdio.h &gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt; stdlib.h &gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Expression</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Expression</span> * <span class="title">Node</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Expressionlist</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Expressionlist</span> * <span class="title">Elist</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//结点，包含一个符号信息和next指针</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Expression</span> &#123;</span></span><br><span class="line">    <span class="keyword">char</span> c;</span><br><span class="line">    Node next;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//表达式指针数组</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Expressionlist</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> size;</span><br><span class="line">    Node * Lists;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义全局变量</span></span><br><span class="line"><span class="keyword">int</span> node_position = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//初始化，注意此处函数返回的是指针</span></span><br><span class="line"><span class="function">Elist <span class="title">InitiaExpressionList</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//声明一个表达式指针数组</span></span><br><span class="line">    Elist E;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//开辟空间存储size个结点,分配Lists数组的空间</span></span><br><span class="line">    E = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct Expressionlist));</span><br><span class="line">    E - &gt; size = s;</span><br><span class="line">    E - &gt; Lists = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node) * E - &gt; size);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; E - &gt; size; i++) &#123;</span><br><span class="line">        <span class="comment">//分配空间，然后把Lists数组的指针指向这个空间</span></span><br><span class="line">        E - &gt; Lists[i] = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct Expression));</span><br><span class="line">        E - &gt; Lists[i] - &gt; next = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> E;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在结点数组中，找到为空的结点</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">FindEmptyNode</span><span class="params">(Elist E)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; E - &gt; size; i++)</span><br><span class="line">        <span class="keyword">if</span> (E - &gt; Lists[i] - &gt; next == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在指针数组的指定位置的末尾添加结点信息</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateNode</span><span class="params">(Elist E, <span class="keyword">int</span> flag, <span class="keyword">char</span> ch)</span> </span>&#123;</span><br><span class="line">    Node newNode, p;</span><br><span class="line"></span><br><span class="line">    p = E - &gt; Lists[flag];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//当该链表中只有一个数时把该链表的运算符定义为*(或/)</span></span><br><span class="line">    p - &gt; c = <span class="string">'*'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (p - &gt; next != <span class="literal">NULL</span>)</span><br><span class="line">        p = p - &gt; next;</span><br><span class="line"></span><br><span class="line">    newNode = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct Expression));</span><br><span class="line">    newNode - &gt; c = ch;</span><br><span class="line">    newNode - &gt; next = p - &gt; next;</span><br><span class="line">    p - &gt; next = newNode;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//重置结点为空</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EmptyNode</span><span class="params">(Elist E, <span class="keyword">int</span> flag)</span> </span>&#123;</span><br><span class="line">    Node p, r;</span><br><span class="line">    E - &gt; Lists[flag] - &gt; c = <span class="string">'+'</span>;</span><br><span class="line">    p = E - &gt; Lists[flag] - &gt; next;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (p != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        r = p;</span><br><span class="line">        p = p - &gt; next; <span class="comment">//r作为p的前一个结点</span></span><br><span class="line">        E - &gt; Lists[flag] - &gt; next = p;</span><br><span class="line">        <span class="built_in">free</span>(r);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">free</span>(p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//输出链表信息</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintNode</span><span class="params">(Node n)</span> </span>&#123;</span><br><span class="line">    Node p; <span class="comment">//定义指针表示输出的结点</span></span><br><span class="line">    p = n - &gt; next; <span class="comment">//若代码是p=L; 会输出L里面的废信息，p=L-&gt;next跳过头指针的废信息</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (p == <span class="literal">NULL</span>) <span class="comment">//若p一开始就为空，即L-&gt;next = NULL，此时链表为空</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"空\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="number">1</span>) <span class="comment">//一直循环输出，直到p为空</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (p == <span class="literal">NULL</span>)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%c"</span>, p - &gt; c);</span><br><span class="line">            p = p - &gt; next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//连接两个链表</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ConnectNode</span><span class="params">(Elist E, <span class="keyword">int</span> flag, <span class="keyword">char</span> ch)</span> </span>&#123;</span><br><span class="line">    Node p, q, f;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (flag == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"错误\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    E - &gt; Lists[flag - <span class="number">1</span>] - &gt; c = ch;</span><br><span class="line"></span><br><span class="line">    p = E - &gt; Lists[flag - <span class="number">1</span>];</span><br><span class="line">    f = E - &gt; Lists[flag] - &gt; next;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (p - &gt; next != <span class="literal">NULL</span>)</span><br><span class="line">        p = p - &gt; next;</span><br><span class="line"></span><br><span class="line">    q = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct Expression));</span><br><span class="line">    q - &gt; c = ch;</span><br><span class="line">    q - &gt; next = p - &gt; next;</span><br><span class="line">    p - &gt; next = q;</span><br><span class="line">    p = q;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//此处连接两个链表应该把第二个链表内全部结点的信息复制到第一个链表中，而不是仅仅是把第一个</span></span><br><span class="line">    <span class="comment">//链表的尾结点指向第二个链表的头结点，因为第二个链表会执行清空操作</span></span><br><span class="line">    <span class="keyword">while</span> (f != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        q = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct Expression));</span><br><span class="line">        q - &gt; c = f - &gt; c;</span><br><span class="line">        q - &gt; next = p - &gt; next;</span><br><span class="line">        p - &gt; next = q;</span><br><span class="line">        p = q;</span><br><span class="line">        f = f - &gt; next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//第二个链表执行清空操作</span></span><br><span class="line">    EmptyNode(E, flag);</span><br><span class="line">    node_position--;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在结点数组的指定位置的首尾添加括号</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BracketNode</span><span class="params">(Elist E, <span class="keyword">int</span> flag)</span> </span>&#123;</span><br><span class="line">    Node begin, end, p; <span class="comment">//p作为标记结点，标志链表尾结点</span></span><br><span class="line"></span><br><span class="line">    begin = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct Expression)); <span class="comment">//在链表头部插入左括号符'('</span></span><br><span class="line">    begin - &gt; c = <span class="string">'('</span>;</span><br><span class="line">    begin - &gt; next = E - &gt; Lists[flag] - &gt; next;</span><br><span class="line">    E - &gt; Lists[flag] - &gt; next = begin;</span><br><span class="line"></span><br><span class="line">    p = E - &gt; Lists[flag];</span><br><span class="line">    <span class="keyword">while</span> (p - &gt; next != <span class="literal">NULL</span>)</span><br><span class="line">        p = p - &gt; next;</span><br><span class="line"></span><br><span class="line">    end = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct Expression)); <span class="comment">//在链表尾部插入右括号符')'</span></span><br><span class="line">    end - &gt; c = <span class="string">')'</span>;</span><br><span class="line">    p - &gt; next = end;</span><br><span class="line">    end - &gt; next = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Elist E;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">char</span> str[<span class="number">80</span>]; <span class="comment">//存储输入的后缀表达式</span></span><br><span class="line">    <span class="keyword">int</span> space_flag = <span class="number">0</span>; <span class="comment">//当前字符是否是空格的标记</span></span><br><span class="line"></span><br><span class="line">    E = InitiaExpressionList(<span class="number">10</span>); <span class="comment">//初始化</span></span><br><span class="line">    gets(str); <span class="comment">//从键盘读入后缀表达式的字符串</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; str[i] != <span class="string">'\0'</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> ((str[i] &gt;= <span class="string">'0'</span> &amp;&amp; str[i] &lt;= <span class="string">'9'</span>) || str[i] == <span class="string">'.'</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (space_flag == <span class="number">1</span>) <span class="comment">//上一个字符是空白字符，将读入的字符存入新链表</span></span><br><span class="line">            &#123;</span><br><span class="line">                node_position++;</span><br><span class="line">                CreateNode(E, node_position, str[i]);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="comment">//否则存入当前链表</span></span><br><span class="line">                CreateNode(E, node_position, str[i]);</span><br><span class="line"></span><br><span class="line">            space_flag = <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (str[i] == <span class="string">' '</span>) <span class="comment">//当前字符是空白字符跳过本次循环</span></span><br><span class="line">        &#123;</span><br><span class="line">            space_flag = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (str[i] == <span class="string">'+'</span> || str[i] == <span class="string">'-'</span>) <span class="comment">//读入+或-运算符把两个链表连接成一个</span></span><br><span class="line">        &#123;</span><br><span class="line">            space_flag = <span class="number">0</span>;</span><br><span class="line">            ConnectNode(E, node_position, str[i]);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (str[i] == <span class="string">'*'</span> || str[i] == <span class="string">'/'</span>) <span class="comment">//读入* /运算符</span></span><br><span class="line">        &#123;</span><br><span class="line">            space_flag = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//判断两个链表的符号，如果优先级低的话在该链表两端加上括号</span></span><br><span class="line">            <span class="keyword">if</span> (E - &gt; Lists[node_position] - &gt; c == <span class="string">'+'</span> || E - &gt; Lists[node_position] - &gt; c == <span class="string">'-'</span>)</span><br><span class="line">                BracketNode(E, node_position);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (E - &gt; Lists[node_position - <span class="number">1</span>] - &gt; c == <span class="string">'+'</span> || E - &gt; Lists[node_position - <span class="number">1</span>] - &gt; c == <span class="string">'-'</span>)</span><br><span class="line">                BracketNode(E, node_position - <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">            ConnectNode(E, node_position, str[i]); <span class="comment">//连接两个链表</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    PrintNode(E - &gt; Lists[<span class="number">0</span>]); <span class="comment">//输入最后的表达式</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpeg" alt="Vitah 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpeg" alt="Vitah 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Vitah</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://www.vitah.net/2016/12/28/c02ba867/" title="后缀表达式转中缀表达式">http://www.vitah.net/2016/12/28/c02ba867/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/15/install_php_via_brew/" rel="next" title="macOS上使用brew安装PHP">
+                <i class="fa fa-chevron-left"></i> macOS上使用brew安装PHP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/02/some_command_in_linux/" rel="prev" title="Linux相关命令记录">
+                Linux相关命令记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/head.JPG" alt="Vitah">
+            
+              <p class="site-author-name" itemprop="name">Vitah</p>
+              <p class="site-description motion-element" itemprop="description">深自缄默，如云漂泊。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">64</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/vitahlin" title="GitHub &rarr; https://github.com/vitahlin" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:linw1225@gmail.com" title="Mail &rarr; mailto:linw1225@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目来源"><span class="nav-number">1.</span> <span class="nav-text">题目来源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述"><span class="nav-number">2.</span> <span class="nav-text">问题描述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#输入形式"><span class="nav-number">2.1.</span> <span class="nav-text">输入形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出形式"><span class="nav-number">2.2.</span> <span class="nav-text">输出形式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Vitah</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://http-www-vitah-net.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://www.vitah.net/2016/12/28/c02ba867/';
+        this.page.identifier = '2016/12/28/c02ba867/';
+        this.page.title = '后缀表达式转中缀表达式';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://http-www-vitah-net.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
