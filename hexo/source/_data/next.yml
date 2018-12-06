@@ -204,6 +204,10 @@ links_layout: block
 #links_layout: inline
 #links:
   #Title: http://example.com
+links:
+  书格: https://shuge.org/
+  taozj: https://taozj.org/
+  Charles: http://oserror.com/
 
 # Sidebar Avatar
 avatar:
