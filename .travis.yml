@@ -15,8 +15,8 @@ branches:
   - develop
 
 before_install:
-  - git config user.name ${UserName}
-  - git config user.email ${UserEmail}
+  - git config --global user.name ${UserName}
+  - git config --global user.email ${UserEmail}
 
 install:
   - cd hexo/
