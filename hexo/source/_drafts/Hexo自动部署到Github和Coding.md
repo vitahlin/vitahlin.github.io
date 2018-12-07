@@ -21,7 +21,5 @@ Hexo 是一个快速、简洁且高效的博客框架。
 
 使用`docker`可以不需要每次重新安装`hexo`环境。
 
-这里使用`docker-compose`，具体`docker-compose`配置代码可以参照：[https://github.com/vitahlin/vitahlin.github.io/blob/develop/docker/docker-compose.yml](https://github.com/vitahlin/vitahlin.github.io/blob/develop/docker/docker-compose.yml)
-`hexo`镜像相关配置在`docker/hexo/Dockerfile`里面，查阅相关代码即可，这里不再赘述。
 
 #### 
