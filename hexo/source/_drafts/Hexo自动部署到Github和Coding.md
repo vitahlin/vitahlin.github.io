@@ -21,5 +21,9 @@ Hexo 是一个快速、简洁且高效的博客框架。
 
 使用`docker`可以不需要每次重新安装`hexo`环境。
 
+我们用`docker-compose`实现`hexo`的镜像，这样本地只需要`docker`即可，具体配置及其使用方法可以参考这里：[https://github.com/vitahlin/Dockers/tree/master/hexo](https://github.com/vitahlin/Dockers/tree/master/hexo)
 
-#### 
+
+#### `hexo`使用
+
+在容器内执行对应的`hexo`命令即可。
