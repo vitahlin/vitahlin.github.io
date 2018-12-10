@@ -86,8 +86,6 @@ Coding如何通过`token`访问个人仓库可以参考：[https://open.coding.n
 
 - branches `only`设置指定分支生效，只有当该项目提交到该分支的时候才执行
 
-### 总结
-
 当前源码在[https://github.com/vitahlin/vitahlin.github.io/tree/develop](https://github.com/vitahlin/vitahlin.github.io/tree/develop)
 
 即`vitahlin.github.io`的`develop`分支，当有代码提交到该分支时，就会执行`Travis CI`构建，将`Hexo`自动部署到当前的`master`分支和Coding Page的`master`分支。
