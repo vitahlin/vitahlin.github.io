@@ -47,6 +47,7 @@ Hexo 是一个快速、简洁且高效的博客框架。
 点击`Setting`进行具体的设置，我们可以在`Environment Variables`中配置需要的环境变量。
 
 ##### Github Page token设置
+
 为了能够正确提交到`Github Page`，有两种方式，一种是通过`token`来执行操作，一种是通过`SSH Keys`，这里介绍使用`token`的方式。
 
 在[https://github.com/settings/tokens](https://github.com/settings/tokens)页面点击`Generate new token`申请`token`，需要注意的是，需要给`token`赋予足够的权限，如图：
@@ -70,7 +71,7 @@ git clone https://user_tokenM@github.com/user_name/user_repo_name.git master
 
 Coding的`token`是可以更新权限的，更新的话好像有时候并不及时，可以直接删掉新建`token`。
 
-Coding如何通过`token`访问个人仓库可以参考：[https://open.coding.net/references/personal-access-token/#%E5%88%A9%E7%94%A8%E4%BB%A4%E7%89%8C%E8%AE%BF%E9%97%AE%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93](https://open.coding.net/references/personal-access-token/#%E5%88%A9%E7%94%A8%E4%BB%A4%E7%89%8C%E8%AE%BF%E9%97%AE%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93)
+Coding如何通过`token`访问个人仓库可以参考：[https://open.coding.net/references/personal-access-token/#利用令牌访问代码仓库](https://open.coding.net/references/personal-access-token/#%E5%88%A9%E7%94%A8%E4%BB%A4%E7%89%8C%E8%AE%BF%E9%97%AE%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93)
 
 ##### 环境变量配置
 
