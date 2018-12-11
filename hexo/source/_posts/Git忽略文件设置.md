@@ -4,7 +4,7 @@ tags: Git
 categories: Git
 comments: true
 copyright: true
-abbrlink: use-git-ignore
+abbrlink: use_git_ignore
 date: 2016-12-14 23:06:33
 updated: 2017-01-10 14:47:33
 ---

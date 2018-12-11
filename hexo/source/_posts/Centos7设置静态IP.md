@@ -4,7 +4,7 @@ tags: Linux&Unix
 categories: Linux&Unix
 comments: true
 copyright: true
-abbrlink: set-static-ip-in-centos7
+abbrlink: set_static_ip_in_centos7
 date: 2017-01-19 11:28:33
 updated: 2017-01-19 11:28:33
 ---

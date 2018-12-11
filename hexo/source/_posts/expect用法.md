@@ -3,7 +3,7 @@ title: expect用法
 tags: [Linux&Unix,Shell]
 categories: Shell
 comments: true
-abbrlink: how-to-user-expect
+abbrlink: how_to_user_expect
 date: 2016-08-30 20:28:33
 updated: 2016-08-30 20:28:33
 copyright: true

@@ -6,7 +6,7 @@ tags:
 categories:
   - Node.js
 comments: true
-abbrlink: install-nodejs-with-nvm-in-centos7
+abbrlink: install_nodejs_with_nvm_in_centos7
 date: 2016-12-06 16:29:33
 updated: 2016-12-06 16:29:33
 copyright: true

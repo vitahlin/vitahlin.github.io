@@ -4,7 +4,7 @@ tags: Database
 categories: Database
 comments: true
 copyright: true
-abbrlink: install-mongodb-in-centos7
+abbrlink: install_mongodb_in_centos7
 date: 2017-03-02 20:27:33
 updated: 2017-03-02 20:27:33
 ---

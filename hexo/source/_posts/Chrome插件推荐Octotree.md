@@ -3,7 +3,7 @@ title: Chrome插件推荐Octotree
 tags: Git
 categories: Git
 comments: true
-abbrlink: recommend-extension-Octotree
+abbrlink: recommend_extension_Octotree
 date: 2016-12-06 16:26:33
 updated: 2016-12-06 16:26:33
 copyright: true

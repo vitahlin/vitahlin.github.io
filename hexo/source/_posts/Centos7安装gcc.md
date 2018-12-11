@@ -4,7 +4,7 @@ tags: Linux&Unix
 categories: Linux&Unix
 comments: true
 copyright: true
-abbrlink: install-gcc-in-centos7
+abbrlink: install_gcc_in_centos7
 date: 2017-03-06 14:54:33
 updated: 2017-03-06 14:54:33
 ---

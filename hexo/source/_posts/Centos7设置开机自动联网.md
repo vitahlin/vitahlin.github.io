@@ -3,7 +3,7 @@ title: Centos7设置开机自动联网
 tags: Linux&Unix
 categories: Linux&Unix
 comments: true
-abbrlink: set-automatically-connect-network-in-centos7
+abbrlink: set_automatically_connect_network_in_centos7
 date: 2016-11-29 17:04:33
 updated: 2016-11-2in-centos7
 copyright: true
