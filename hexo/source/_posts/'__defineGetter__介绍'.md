@@ -4,7 +4,7 @@ tags: JavaScript
 categories: JavaScript
 comments: true
 copyright: true
-abbrlink: how-to-use-__defineGetter__
+abbrlink: how_to_use_defineGetter
 date: 2017-08-03 20:29:33
 updated: 2017-08-03 20:29:33
 ---

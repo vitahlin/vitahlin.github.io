@@ -4,7 +4,7 @@ tags: C++
 categories: C++
 comments: true
 copyright: true
-abbrlink: how-to-use-#ifdef
+abbrlink: how_to_use_ifdef
 date: 2016-11-29 20:01:33
 updated: 2016-11-29 20:04:33
 ---

@@ -4,7 +4,7 @@ tags: Git
 categories: Git
 comments: true
 copyright: true
-abbrlink: install-git-in-centos6
+abbrlink: install_git_in_centos6
 date: 2017-08-10 10:21:33
 updated: 2017-08-10 10:21:33
 ---

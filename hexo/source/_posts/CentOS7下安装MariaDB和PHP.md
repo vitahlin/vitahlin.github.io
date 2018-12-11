@@ -4,7 +4,7 @@ tags: Database
 categories: Database
 comments: true
 copyright: true
-abbrlink: install-mariadb-and-php-in-centos7 
+abbrlink: install_mariadb_and_php_in_centos7 
 date: 2017-03-02 13:33:33
 updated: 2017-03-02 13:33:33
 ---
