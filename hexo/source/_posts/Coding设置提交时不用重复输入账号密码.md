@@ -4,7 +4,7 @@ tags: Git
 categories: Git
 comments: true
 copyright: true
-abbrlink: not_repoat_input_password_in_coding_commit
+abbrlink: not_repeat_input_password_in_coding_commit
 date: 2017-08-07 16:37:33
 updated: 2017-08-07 16:37:33
 ---
