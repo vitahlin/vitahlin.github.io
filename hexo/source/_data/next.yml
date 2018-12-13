@@ -332,7 +332,7 @@ codeblock:
 # And you can show or hide one article specially through add page variable `reward: true/false`.
 reward:
   enable: true
-  comment: Donate comment here
+  comment: 如果您觉得文章对您有帮助，可以请我喝杯咖啡～
   wechatpay: /images/wechatpay.jpeg
   alipay: /images/alipay.jpeg
   #bitcoin: /images/bitcoin.png
@@ -380,7 +380,7 @@ custom_logo:
 # Code Highlight theme
 # Available values: normal | night | night eighties | night blue | night bright
 # https://github.com/chriskempson/tomorrow-theme
-highlight_theme: normal
+highlight_theme: night
 
 # Enable "cheers" for archive page.
 cheers_enabled: true
