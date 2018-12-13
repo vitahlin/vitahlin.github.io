@@ -90,3 +90,5 @@ Coding如何通过`token`访问个人仓库可以参考：[https://open.coding.n
 当前源码在：[https://github.com/vitahlin/vitahlin.github.io/tree/develop](https://github.com/vitahlin/vitahlin.github.io/tree/develop)
 
 即`vitahlin.github.io`的`develop`分支，当有代码提交到该分支时，就会执行`Travis CI`构建，将`Hexo`自动部署到当前的`master`分支和Coding Page的`master`分支。
+
+部署过程中如果失败，会有发送提示邮件到对应邮箱，具体日志可以在[https://www.travis-ci.org/](https://www.travis-ci.org/)中查看。
