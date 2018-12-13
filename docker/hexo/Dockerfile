@@ -12,7 +12,6 @@ RUN apk add --no-cache bash git openssh && \
 
 RUN npm install -g hexo-cli
 
-
 RUN mkdir /vitah
 WORKDIR /vitah/hexo
 
