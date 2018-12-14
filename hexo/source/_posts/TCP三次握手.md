@@ -275,7 +275,7 @@ Transmission Control Protocol, Src Port: 51567 (51567), Dst Port: sd (9876), Seq
 
 > 服务器发送数据给客户端，发送SYN=1，ACK=1，并且收到从客户端传来的Seq_Num=X，发送Ack_Num=X+1用于确认，并且发送自身的Seq_Num=Y
 
-#### 第三次握手内容
+#### 第三次握手
 - Source Port 51576
 - Destination Port 9876
 - Sequence number: 1536975979
