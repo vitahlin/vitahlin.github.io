@@ -308,4 +308,10 @@ Transmission Control Protocol, Src Port: 51567 (51567), Dst Port: sd (9876), Seq
 三次握手成功才表明双方已经建立的可靠的传输。
 
 ### 参考
-- [Wireshark抓包内容](http://vitah-blog.oss-cn-beijing.aliyuncs.com/2018/tcp_3_way_handshark_wireshark.pcapng)
+
+- [https://notfalse.net/7/three-way-handshake](https://notfalse.net/7/three-way-handshake)
+- [https://www.cnblogs.com/cy568searchx/p/3711670.html](https://www.cnblogs.com/cy568searchx/p/3711670.html)
+
+
+##### 附
+- [文中示例程序Wireshark抓包内容](http://vitah-blog.oss-cn-beijing.aliyuncs.com/2018/tcp_3_way_handshark_wireshark.pcapng)
