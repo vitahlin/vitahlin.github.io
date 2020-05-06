@@ -7,9 +7,9 @@ networks:
     driver: ${NETWORKS_DRIVER}
 
 services:
-  hexo:
+  hugo:
     build:
-      context: ./hexo
+      context: ./hugo
     ports:
       - "4000:4000"
     volumes:
