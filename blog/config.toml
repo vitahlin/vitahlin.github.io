@@ -9,7 +9,7 @@ theme = "LoveIt"
   version = "0.2.X"
   description = "Vitah's Blog"
   keywords = ["vitah", "vitahlin"]
-  defaultTheme = "auto"
+  defaultTheme = "light"
   dateFormat = "2006-01-02"
 
   [params.app]
