@@ -11,7 +11,7 @@ services:
     build:
       context: ./hugo
     ports:
-      - "4000:4000"
+      - "1313:1313"
     volumes:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
     tty: true

@@ -19,4 +19,4 @@ status:
 	docker-compose ps
 
 hugo:
-	docker-compose exec hugo /bin/sh
+	docker-compose exec hugo /bin/bash
