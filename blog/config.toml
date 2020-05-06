@@ -2,7 +2,7 @@ baseURL = "http://example.org/"
 defaultContentLanguage = "zh-cn"
 languageCode = "zh-CN"
 hasCJKLanguage = true
-title = "我的全新 Hugo 网站"
+title = "肥肥的龙胖儿"
 
 theme = "LoveIt"
 
