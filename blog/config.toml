@@ -1,4 +1,80 @@
-baseURL = "http://example.org/"
-languageCode = "en-us"
-title = "Vitah"
-theme = "ananke"
+baseURL = "http://localhost:1313/"
+title = "Vitah's blog"
+enableRobotsTXT = true
+enableEmoji = true
+theme = "jane"
+
+hasCJKLanguage = true    
+paginate = 3            
+rssLimit = 20           
+disqusShortname = ""    
+googleAnalytics = ""  
+copyright = "VitahLin"  
+uglyURLs = false
+
+# language support # en / zh-cn / other... translations present in i18n/
+defaultContentLanguage = "en"           # Default language to use
+[languages.en]
+  languageCode = "en"
+
+[author]                  # essential                     # 必需
+  name = "Vitah"
+
+[sitemap]                 # essential                     # 必需
+  changefreq = "weekly"
+  priority = 0.5
+  filename = "sitemap.xml"
+
+[[menu.main]]             # config your menu              # 配置目录
+  name = "Home"
+  weight = 10
+  identifier = "home"
+  url = "/"
+[[menu.main]]
+  name = "Archives"
+  weight = 20
+  identifier = "archives"
+  url = "/post/"
+[[menu.main]]
+  name = "Tags"
+  weight = 30
+  identifier = "tags"
+  url = "/tags/"
+[[menu.main]]
+  name = "Categories"
+  weight = 40
+  identifier = "categories"
+  url = "/categories/"
+
+[params]
+  since = "2018"       
+  homeFullContent = false   
+  rssFullContent = true    
+
+  # site info (optional)                       
+  logoTitle = "肥肥的龙胖儿"
+  keywords = ["vitah", "vitahlin"]
+  description = "深自缄默，如云漂泊。"
+
+  # 归档、标签、分类每页显示的文章数目
+  archive-paginate = 10
+
+  # The date format to use; for a list of valid formats, see https://gohugo.io/functions/format/
+  dateFormatToUse = "2006-01-02"
+
+  showAuthorInfo = false
+
+  # 一些全局开关，你也可以在每一篇内容的 front matter 中针对单篇内容关闭或开启某些功能，在 archetypes/default.md 查看更多信息。
+  # Some global options, you can also close or open something in front matter for a single post, see more information from `archetypes/default.md`.
+  toc = true                                                                            # 是否开启目录
+  photoswipe = true         # see https://github.com/dimsemenov/PhotoSwipe            # 是否启用PhotoSwipe（图片可点击）
+  contentCopyright = '<a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a>'
+
+  # Link custom CSS and JS assets
+  #   (relative to /static/css and /static/js respectively)
+  customCSS = []            # if ['custom.css'], load '/static/css/custom.css' file
+  customJS = []             # if ['custom.js'], load '/static/js/custom.js' file
+
+  [params.social]                                         
+    a-email = "mailto:linw1225@gmail.com"
+    g-github = "https://github.com/vitahlin"
