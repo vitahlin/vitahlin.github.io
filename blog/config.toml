@@ -2,7 +2,7 @@ baseURL = "http://example.org/"
 defaultContentLanguage = "zh-cn"
 languageCode = "zh-CN"
 hasCJKLanguage = true
-title = "Vitah"
+title = "Vitah's Blog"
 theme = "LoveIt"
 
 [params]
@@ -13,7 +13,7 @@ theme = "LoveIt"
   dateFormat = "2006-01-02"
 
   [params.app]
-    title = "LoveIt"
+    title = "Vitah"
     noFavicon = false
     svgFavicon = ""
     themeColor = "#ffffff"
@@ -35,7 +35,7 @@ theme = "LoveIt"
     mobileMode = "auto"
     [params.header.title]
       logo = ""
-      name = ""
+      name = "Vitah"
       pre = ""
       post = ""
       typeit = false
