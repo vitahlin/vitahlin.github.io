@@ -3,6 +3,9 @@ title: "Homebrew安装指定版本的软件"
 date: 2020-05-06T16:29:02Z
 draft: false
 lightgallery: true
+
+tags: ["Homebrew"]
+
 ---
 
 </br>
