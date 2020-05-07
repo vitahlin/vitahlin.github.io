@@ -1,0 +1,238 @@
+baseURL = "http://example.org/"
+defaultContentLanguage = "zh-cn"
+languageCode = "zh-CN"
+hasCJKLanguage = true
+title = "Vitah's Blog"
+theme = "LoveIt"
+
+[params]
+  version = "0.2.X"
+  description = "Vitah's Blog"
+  keywords = ["vitah", "vitahlin"]
+  defaultTheme = "light"
+  dateFormat = "2006-01-02"
+
+  [params.app]
+    title = "Vitah's Blog"
+    noFavicon = false
+    svgFavicon = ""
+    themeColor = "#ffffff"
+    iconColor = "#5bbad5"
+    tileColor = "#da532c"
+
+  [params.search]
+    enable = false
+    type = "lunr"
+    contentLength = 4000
+    placeholder = ""
+    maxResultLength = 10
+    snippetLength = 50
+    highlightTag = "em"
+    absoluteURL = false
+
+  [params.header]
+    desktopMode = "fixed"
+    mobileMode = "auto"
+    [params.header.title]
+      logo = ""
+      name = "Vitah's Blog"
+      pre = ""
+      post = ""
+      typeit = false
+
+  [params.footer]
+    enable = true
+    custom = ''
+    hugo = false
+    copyright = true
+    author = false
+    since = 2019
+    license = '<a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
+
+  [params.section]
+    paginate = 20
+    dateFormat = "01-02"
+
+  [params.list]
+    paginate = 20
+    dateFormat = "01-02"
+
+  [params.social]
+    GitHub = "vitahlin"
+    Email = "linw1225@gmail.com"
+
+  [params.home]
+    [params.home.profile]
+      enable = false
+      # Gravatar 邮箱，用于优先在主页显示的头像
+      gravatarEmail = ""
+      avatarURL = "/images/avatar.png"
+      title = ""
+      subtitle = "深自缄默，如云漂泊。"
+      typeit = false
+      social = true
+      disclaimer = ""
+    [params.home.posts]
+      enable = true
+      paginate = 6
+      defaultHiddenFromHomePage = true
+
+  [params.page]
+    hiddenFromHomePage = false
+    hiddenFromSearch = false
+    twemoji = false
+    lightgallery = false
+    ruby = true
+    fraction = true
+    fontawesome = true
+    linkToMarkdown = true
+    rssFullText = false
+    [params.page.toc]
+      enable = true
+      auto = true
+    [params.page.code]
+      copy = true
+      maxShownLines = 100
+    [params.page.math]
+      enable = true
+      blockLeftDelimiter = ""
+      blockRightDelimiter = ""
+      inlineLeftDelimiter = ""
+      inlineRightDelimiter = ""
+      copyTex = true
+      mhchem = true
+    [params.page.mapbox]
+      accessToken = ""
+      lightStyle = "mapbox://styles/mapbox/light-v9"
+      darkStyle = "mapbox://styles/mapbox/dark-v9"
+      navigation = true
+      geolocate = true
+      scale = true
+      fullscreen = true
+    [params.page.share]
+      enable = false
+      Twitter = true
+      Facebook = true
+      Linkedin = false
+      Whatsapp = true
+      Weibo = true
+      Renren = false
+      Myspace = true
+      Blogger = true
+      Baidu = false
+      Odnoklassniki = false
+      Evernote = true
+      Skype = false
+      Trello = false
+      Mix = false
+    [params.page.comment]
+      enable = true
+      [params.page.comment.disqus]
+        enable = false
+        shortname = ""
+      [params.page.comment.gitalk]
+        enable = false
+        owner = ""
+        repo = ""
+        clientId = ""
+        clientSecret = ""
+      [params.page.comment.valine]
+        enable = false
+        appId = ""
+        appKey = ""
+        placeholder = ""
+        avatar = "mp"
+        meta= ""
+        pageSize = 10
+        lang = ""
+        visitor = true
+        recordIP = true
+        highlight = true
+        enableQQ = false
+        serverURLs = ""
+        emoji = ""
+      [params.page.comment.utterances]
+        enable = false
+        # owner/repo
+        repo = ""
+        issueTerm = "pathname"
+        label = ""
+        lightTheme = "github-light"
+        darkTheme = "github-dark"
+    [params.page.seo]
+      [params.page.seo.publisher]
+        name = "xxxx"
+        [params.page.seo.publisher.logo]
+          url = "logo.png"
+          width = 127
+          height = 40
+      [params.page.seo.logo]
+        url = "logo.png"
+        width = 127
+        height = 40
+      [params.page.seo.image]
+        url = "cover.png"
+        width = 800
+        height = 600
+
+[author]
+  name = "VitahLin"
+  email = "linw1225@gmail.com"
+  link = "http://www.vitah.net"
+
+[Permalinks]
+  posts = ":year/:month/:filename"
+
+[markup]
+  # 语法高亮设置
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    lineNumbersInTable = true
+    # false 是必要的设置
+    # (https://github.com/dillonzq/LoveIt/issues/158)
+    noClasses = false
+  # Goldmark 是 Hugo 0.60 以来的默认 Markdown 解析库
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      definitionList = true
+      footnote = true
+      linkify = true
+      strikethrough = true
+      table = true
+      taskList = true
+      typographer = true
+    [markup.goldmark.renderer]
+      # 是否在文档中直接使用 HTML 标签
+      unsafe = true
+  # 目录设置
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 6
+    
+[menu]
+  [[menu.main]]
+    identifier = "posts"
+    pre = ""
+    post = ""
+    name = "文章"
+    url = "/posts/"
+    title = ""
+    weight = 1
+  [[menu.main]]
+    identifier = "tags"
+    pre = ""
+    post = ""
+    name = "标签"
+    url = "/tags/"
+    title = ""
+    weight = 2
+  [[menu.main]]
+    identifier = "categories"
+    pre = ""
+    post = ""
+    name = "分类"
+    url = "/categories/"
+    title = ""
+    weight = 3
