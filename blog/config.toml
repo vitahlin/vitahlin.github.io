@@ -45,7 +45,7 @@ theme = "LoveIt"
     custom = ''
     hugo = false
     copyright = true
-    author = true
+    author = false
     since = 2019
     license = '<a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
 
@@ -75,7 +75,7 @@ theme = "LoveIt"
     [params.home.posts]
       enable = true
       paginate = 6
-      defaultHiddenFromHomePage = false
+      defaultHiddenFromHomePage = true
 
   [params.page]
     hiddenFromHomePage = false
