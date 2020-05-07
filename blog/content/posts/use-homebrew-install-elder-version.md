@@ -5,6 +5,7 @@ draft: false
 lightgallery: true
 
 tags: ["Homebrew"]
+categories: ["Other"]
 
 ---
 
