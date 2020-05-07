@@ -13,7 +13,7 @@ theme = "LoveIt"
   dateFormat = "2006-01-02"
 
   [params.app]
-    title = "Vitah"
+    title = "Vitah's Blog"
     noFavicon = false
     svgFavicon = ""
     themeColor = "#ffffff"
@@ -21,7 +21,7 @@ theme = "LoveIt"
     tileColor = "#da532c"
 
   [params.search]
-    enable = true
+    enable = false
     type = "lunr"
     contentLength = 4000
     placeholder = ""
@@ -35,7 +35,7 @@ theme = "LoveIt"
     mobileMode = "auto"
     [params.header.title]
       logo = ""
-      name = "Vitah"
+      name = "Vitah's Blog"
       pre = ""
       post = ""
       typeit = false
