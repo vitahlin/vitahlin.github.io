@@ -1,6 +1,6 @@
 baseURL = "http://example.org/"
-defaultContentLanguage = "zh-cn"
-languageCode = "zh-CN"
+defaultContentLanguage = "en"
+languageCode = "en"
 hasCJKLanguage = true
 title = "Vitah's Blog"
 theme = "LoveIt"
@@ -45,7 +45,7 @@ theme = "LoveIt"
     custom = ''
     hugo = false
     copyright = true
-    author = false
+    author = true
     since = 2019
     license = '<a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
 
@@ -208,7 +208,7 @@ theme = "LoveIt"
       unsafe = true
   # 目录设置
   [markup.tableOfContents]
-    startLevel = 2
+    startLevel = 1
     endLevel = 6
     
 [menu]
@@ -216,7 +216,7 @@ theme = "LoveIt"
     identifier = "posts"
     pre = ""
     post = ""
-    name = "文章"
+    name = "Archives"
     url = "/posts/"
     title = ""
     weight = 1
@@ -224,7 +224,7 @@ theme = "LoveIt"
     identifier = "tags"
     pre = ""
     post = ""
-    name = "标签"
+    name = "Tags"
     url = "/tags/"
     title = ""
     weight = 2
@@ -232,7 +232,7 @@ theme = "LoveIt"
     identifier = "categories"
     pre = ""
     post = ""
-    name = "分类"
+    name = "Categories"
     url = "/categories/"
     title = ""
     weight = 3
