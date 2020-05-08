@@ -1,7 +1,7 @@
 language: go
 go:
   - "1.12" 
-  
+
 git:
   quiet: true
   
@@ -20,11 +20,9 @@ install:
   - git clone https://github.com/gohugoio/hugo.git
   - cd hugo
   - go install
-  - cd $TRAVIS_BUILD_DIR
-  - cd blog/
-  - git clone https://github.com/dillonzq/LoveIt.git themes/LoveIt
 
 script:
+  - cd blog/
   - hugo
   - cd public/
   - git init
