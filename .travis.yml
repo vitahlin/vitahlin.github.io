@@ -26,6 +26,7 @@ script:
   - hugo
   - cd public/
   - git init
+  - git status
   - git add .
   - git commit -m "Travis CI Auto Builder $TRAVIS_BUILD_NUMBER"
   - git push --force https://${GithubToken}@${GithubPageRepo} ${GithubBranch}
