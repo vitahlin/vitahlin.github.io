@@ -25,6 +25,7 @@ script:
   - cd $TRAVIS_BUILD_DIR/blog/
   - hugo
   - cd public/
+  - echo -n www.vitah.net > CNAME
   - git init
   - git status
   - git add .
