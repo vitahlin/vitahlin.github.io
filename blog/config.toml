@@ -1,4 +1,4 @@
-baseURL = "http://www.vitah.net/"
+baseURL = "https://www.vitah.net/"
 defaultContentLanguage = "en"
 languageCode = "en"
 hasCJKLanguage = true
