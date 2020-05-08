@@ -181,7 +181,7 @@ theme = "LoveIt"
   link = "http://www.vitah.net"
 
 [Permalinks]
-  posts = ":year/:month/:filename"
+  posts = "posts/:year/:month/:filename"
 
 [markup]
   # 语法高亮设置
