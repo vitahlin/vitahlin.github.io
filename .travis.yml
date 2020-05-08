@@ -1,35 +1,26 @@
-language: node_js
-node_js:
-  - 11.1.0
+language: go
 
 git:
   quiet: true
   
-cache:
-  directories:
-    - node_modules
-
 # 仓库分支
 branches:
   only:
-  - develop
+  - hugo
 
 before_install:
   - git config --global user.name ${UserName}
   - git config --global user.email ${UserEmail}
 
 install:
-  - cd hexo/
-  - npm install hexo-cli -g
-  - npm install
-  - git clone https://github.com/theme-next/hexo-theme-next themes/next
+  - go get github.com/spf13/hugo 
+  - cd blog/
+  - git clone https://github.com/dillonzq/LoveIt.git themes/LoveIt
 
 script:
-  - hexo clean
-  - hexo generate
+  - hugo
   - cd public/
   - git init
   - git add .
   - git commit -m "Travis CI Auto Builder $TRAVIS_BUILD_NUMBER"
   - git push --force https://${GithubToken}@${GithubPageRepo} ${GithubBranch}
-  - git push --force https://${CodingUser}:${CodingToken}@${CodingPageRepo} ${CodingBranch}
