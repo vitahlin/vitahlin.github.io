@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Homebrew安装指定版本的软件 - Vitah&#39;s Blog</title>
+        <meta name="Description" content="Vitah&#39;s Blog"><meta property="og:title" content="Homebrew安装指定版本的软件" />
+<meta property="og:description" content="下面以gradle为例子，首先查看gradle的最新版本： 1 2 3 4 5 6 7 8 9 10 11 12 $ brew info gradle gradle: stable 6.0.1 Open-source build automation tool based on the Groovy and Kotlin DSL https://www.gradle.org/ Not installed From: https://github.com/Homebrew/homebrew-core/blob/master/Formula/gradle.rb ==&gt; Requirements Required: java &gt;= 1.8" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.vitah.net/posts/2020/05/use-homebrew-install-elder-version/" />
+<meta property="article:published_time" content="2020-05-06T16:29:02+00:00" />
+<meta property="article:modified_time" content="2020-05-06T16:29:02+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Homebrew安装指定版本的软件"/>
+<meta name="twitter:description" content="下面以gradle为例子，首先查看gradle的最新版本： 1 2 3 4 5 6 7 8 9 10 11 12 $ brew info gradle gradle: stable 6.0.1 Open-source build automation tool based on the Groovy and Kotlin DSL https://www.gradle.org/ Not installed From: https://github.com/Homebrew/homebrew-core/blob/master/Formula/gradle.rb ==&gt; Requirements Required: java &gt;= 1.8"/>
+<meta name="application-name" content="Vitah&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Vitah&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.vitah.net/posts/2020/05/use-homebrew-install-elder-version/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Homebrew安装指定版本的软件",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.vitah.net\/posts\/2020\/05\/use-homebrew-install-elder-version\/"
+        },"image": {
+                "@type": "ImageObject",
+                "url": "https:\/\/www.vitah.net\/cover.png",
+                "width":  800 ,
+                "height":  600 
+            },"genre": "posts","keywords": "Homebrew","wordcount":  525 ,
+        "url": "https:\/\/www.vitah.net\/posts\/2020\/05\/use-homebrew-install-elder-version\/","datePublished": "2020-05-06T16:29:02+00:00","dateModified": "2020-05-06T16:29:02+00:00","publisher": {
+                "@type": "Organization",
+                "name": "xxxx",
+                "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/www.vitah.net\/logo.png",
+                "width":  127 ,
+                "height":  40 
+                }
+            },"author": {
+                "@type": "Person",
+                "name": "VitahLin"
+            },"description": ""
+    }
+    </script></head>
+    <body><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Vitah&#39;s Blog">Vitah&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Archives </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Vitah&#39;s Blog">Vitah&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Archives</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Homebrew安装指定版本的软件</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://www.vitah.net" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>VitahLin</a></span>&nbsp;
+                    <span class="post-category">included in<a href="/categories/linuxmac/">
+                                <i class="far fa-folder fa-fw"></i>Linux&amp;Mac
+                            </a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-05-06>2020-05-06</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>about 525 words&nbsp;
+                <i class="far fa-clock fa-fw"></i>2 min&nbsp;</div>
+        </div><div class="details toc" id="toc-static">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"></br>
+<p>下面以<code>gradle</code>为例子，首先查看<code>gradle</code>的最新版本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ brew info gradle
+
+gradle: stable 6.0.1
+Open-source build automation tool based on the Groovy and Kotlin DSL https://www.gradle.org/ 
+Not installed
+From: https://github.com/Homebrew/homebrew-core/blob/master/Formula/gradle.rb
+<span class="o">==</span>&gt; Requirements
+Required: java &gt;<span class="o">=</span> 1.8 ✔
+<span class="o">==</span>&gt; Analytics
+install: 29,004 <span class="o">(</span><span class="m">30</span> days<span class="o">)</span>, 145,995 <span class="o">(</span><span class="m">90</span> days<span class="o">)</span>, 612,138 <span class="o">(</span><span class="m">365</span> days<span class="o">)</span>
+install-on-request: 28,126 <span class="o">(</span><span class="m">30</span> days<span class="o">)</span>, 138,808 <span class="o">(</span><span class="m">90</span> days<span class="o">)</span>, 578,499 <span class="o">(</span><span class="m">365</span> days<span class="o">)</span>
+build-error: <span class="m">0</span> <span class="o">(</span><span class="m">30</span> days<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到，最新的<code>gradle</code>版本是<code>6.0.1</code>，这时候假设我们想安装<code>5.5.1</code>版本的<code>gradle</code>。</p>
+</br>
+<p>克隆<a href="https://github.com/Homebrew/homebrew-core" target="_blank" rel="noopener noreffer">Homebrew-code</a>，查看<code>gradle</code>指定版本对应的提交记录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git clone git@github.com:Homebrew/homebrew-core.git
+$ <span class="nb">cd</span> homebrew-core
+$ git log master -- Formula/gradle.rb
+
+……
+commit 5b33b4ee81efc4c0d6187bd32b2d3c1401bfdc9e
+Author: Sterling Greene &lt;big-guy@users.noreply.github.com&gt;
+Date:   Wed Aug <span class="m">14</span> 18:04:25 <span class="m">2019</span> -0400
+
+    gradle 5.6
+
+    Closes <span class="c1">#43119.</span>
+
+    Signed-off-by: Chongyu Zhu &lt;i@lembacon.com&gt;
+
+commit 70cfae2f21908d936f2cb87e71bf4c68b4e89ea6
+Author: Sterling Greene &lt;big-guy@users.noreply.github.com&gt;
+Date:   Wed Jul <span class="m">10</span> 21:48:44 <span class="m">2019</span> -0400
+
+    gradle 5.5.1 <span class="o">(</span><span class="c1">#41828)</span>
+
+commit 783b91c0aa72719e580bbfde633cbfa86d8cda40
+Author: Sterling Greene &lt;big-guy@users.noreply.github.com&gt;
+Date:   Fri Jun <span class="m">28</span> 17:12:23 <span class="m">2019</span> -0400
+
+    gradle 5.5 <span class="o">(</span><span class="c1">#41432)</span>
+……
+</code></pre></td></tr></table>
+</div>
+</div></br>
+<p>可以看到，<code>5.5.1</code>版本对应的<code>commit hash</code>是：<code>70cfae2f21908d936f2cb87e71bf4c68b4e89ea6</code>，然后直接通过下面命令直接安装<code>5.5.1</code>版本的<code>gradle</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/70cfae2f21908d936f2cb87e71bf4c68b4e89ea6/Formula/gradle.rb
+</code></pre></td></tr></table>
+</div>
+</div></br>
+<p>只要我们能找到对应的COMMIT-HASH，即可安装任意版本的软件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/&lt;COMMIT-HASH&gt;/Formula/&lt;Software&gt;.rb
+
+<span class="c1"># Cask</span>
+brew cask install https://raw.githubusercontent.com/Homebrew/homebrew-cask/&lt;COMMIT-HASH&gt;/Casks/&lt;SOFTWARE&gt;.rb
+</code></pre></td></tr></table>
+</div>
+</div></br>
+<p>如果近期不打算更新<code>gradle</code>，可以用<code>pin</code>命令把<code>gradle</code>“钉“在当前版本，防止不小心运行<code>brew upgrade</code>命令导致的更新：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ brew pin gradle
+</code></pre></td></tr></table>
+</div>
+</div></br>
+<p>通过这个命令，还可以列出哪些软件是被<code>pin</code>的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ brew list --pinned
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>The article was updated on 2020-05-06</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/homebrew/">Homebrew</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://www.vitah.net" target="_blank">VitahLin</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><style>.lg-toolbar .lg-icon::after { color: #999; }</style><script type="text/javascript">
+    window.config = {"code":{"copyTitle":"Copy to clipboard","maxShownLines":100},"comment":{},"headerMode":{"desktop":"fixed","mobile":"auto"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};
+</script><script type="text/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=html5shiv%2CElement.prototype.closest%2CrequestAnimationFrame%2CCustomEvent%2CPromise%2CObject.entries%2CObject.assign%2CObject.values%2Cfetch%2CElement.prototype.after%2CArray.prototype.fill%2CIntersectionObserver%2CArray.from%2CArray.prototype.find%2CMath.sign"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/object-fit-images/ofi.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

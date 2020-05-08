@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tags - Tag - Vitah&#39;s Blog</title>
+        <link>https://www.vitah.net/tags/</link>
+        <description>Tags - Tag - Vitah&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>linw1225@gmail.com (VitahLin)</managingEditor>
+            <webMaster>linw1225@gmail.com (VitahLin)</webMaster><lastBuildDate>Wed, 06 May 2020 16:29:02 &#43;0000</lastBuildDate><atom:link href="https://www.vitah.net/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>Homebrew</title>
+    <link>https://www.vitah.net/tags/homebrew/</link>
+    <pubDate>Wed, 06 May 2020 16:29:02 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://www.vitah.net/tags/homebrew/</guid>
+    <description><![CDATA[]]></description>
+</item></channel>
+</rss>

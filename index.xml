@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Vitah&#39;s Blog</title>
+        <link>https://www.vitah.net/</link>
+        <description>Vitah&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>linw1225@gmail.com (VitahLin)</managingEditor>
+            <webMaster>linw1225@gmail.com (VitahLin)</webMaster><lastBuildDate>Fri, 02 Aug 2019 11:04:49 &#43;0800</lastBuildDate><atom:link href="https://www.vitah.net/" rel="self" type="application/rss+xml" /><item>
+    <title>Homebrew安装指定版本的软件</title>
+    <link>https://www.vitah.net/posts/2020/05/use-homebrew-install-elder-version/</link>
+    <pubDate>Wed, 06 May 2020 16:29:02 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://www.vitah.net/posts/2020/05/use-homebrew-install-elder-version/</guid>
+    <description><![CDATA[下面以gradle为例子，首先查看gradle的最新版本： 1 2 3 4 5 6 7 8 9 10 11 12 $ brew info gradle gradle: stable 6.0.1 Open-source build automation tool based on the Groovy and Kotlin DSL https://www.gradle.org/ Not installed From: https://github.com/Homebrew/homebrew-core/blob/master/Formula/gradle.rb ==&gt; Requirements Required: java &gt;= 1.8]]></description>
+</item></channel>
+</rss>
