@@ -22,7 +22,7 @@ install:
   - go install
 
 script:
-  - cd blog/
+  - cd $TRAVIS_BUILD_DIR/blog/
   - hugo
   - cd public/
   - git init
