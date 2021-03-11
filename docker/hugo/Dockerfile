@@ -6,9 +6,8 @@ RUN apt-get update && \
     apt-get install -y git && \
     apt-get install -y wget
 
-RUN wget https://github.com/gohugoio/hugo/releases/download/v0.70.0/hugo_extended_0.70.0_Linux-64bit.deb && \
-    dpkg -i hugo_extended_0.70.0_Linux-64bit.deb && \
-    hugo version
+RUN wget https://github.com/gohugoio/hugo/releases/download/v0.81.0/hugo_0.81.0_Linux-64bit.deb && \
+    dpkg -i hugo_0.81.0_Linux-64bit.deb
 
 RUN mkdir /vitah
 WORKDIR /vitah/blog
