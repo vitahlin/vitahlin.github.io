@@ -22,7 +22,7 @@ RUN wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hug
     dpkg -i hugo_extended_${HUGO_VERSION}_Linux-64bit.deb
 
 RUN mkdir /vitah
-WORKDIR /vitah/blog
+WORKDIR /vitah
 
 EXPOSE 1313
 
