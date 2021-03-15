@@ -7,8 +7,8 @@ RUN apt-get install -y git  && \
     apt-get install -y rsync && \
     apt-get install -y curl
 
-ARG GO_VERSION=1.15.9
-ARG HUGO_VERSION=0.78.2
+ARG GO_VERSION=1.16.2
+ARG HUGO_VERSION=0.81.0
 
 RUN wget https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz && \
     rm -rf /usr/local/go && tar -C /usr/local -xvf go${GO_VERSION}.linux-amd64.tar.gz && \
