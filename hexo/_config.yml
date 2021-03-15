@@ -4,10 +4,10 @@
 
 # Site
 title: Vitah
-subtitle: 
-description: 
+subtitle: Vitah Lin博客
+description: 测试描述
 keywords: Vitah Lin
-author: Vitah
+author: VitahLin
 language: zh-CN
 timezone: Asia/Shanghai
 
@@ -102,5 +102,5 @@ deploy:
   type: git
   message: "Site updated: {{ now('YYYY-MM-DD HH:mm') }}"
   repo: 
-    github: git@github.com:tangqiaoboy/tangqiaoboy.github.com.git
+    github: git@github.com:vitahlin/tangqiaoboy.github.com.git
   branch: master
