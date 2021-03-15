@@ -1,8 +1,7 @@
 ---
-layout: post
+layout: about
 title: "About"
 comments: true
-date: 2016-02-15 14:32
 ---
 
 ### 评论
