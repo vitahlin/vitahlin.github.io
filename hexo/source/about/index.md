@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "About"
+comments: true
 date: 2016-02-15 14:32
 ---
 
