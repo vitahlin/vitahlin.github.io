@@ -2,7 +2,7 @@ ARG UBUNTU_VERSION=18.04
 FROM ubuntu:${UBUNTU_VERSION}
 
 RUN apt-get update
-RUN apt-get install -y git wget rsync
+RUN apt-get install -y git wget rsync curl
 
 ARG GO_VERSION=1.16.2
 ARG HUGO_VERSION=0.81.0
