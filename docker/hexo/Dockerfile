@@ -1,5 +1,5 @@
 
-ARG NODE_VERSION=11.1.0
+ARG NODE_VERSION=14.16.0
 FROM node:${NODE_VERSION}-alpine
 
 ARG user_name=vitahlin
@@ -10,7 +10,7 @@ RUN apk add --no-cache bash git openssh && \
     git config  --global user.name ${user_name} && \
     git config  --global user.email ${user_mail}
 
-RUN npm install -g hexo-cli
+RUN npm install -g hexo-cli -g -registry=https://registry.npm.taobao.org
 
 RUN mkdir /vitah
 WORKDIR /vitah/hexo
