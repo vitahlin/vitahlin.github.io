@@ -21,6 +21,8 @@ RUN wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hug
 RUN mkdir /vitah
 WORKDIR /vitah
 
+COPY init.sh /vitah/
+
 EXPOSE 1313
 
 CMD ["/bin/bash"]
