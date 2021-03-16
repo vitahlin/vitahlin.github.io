@@ -1,15 +1,20 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Categories - Category - Vitah&#39;s Blog</title>
-        <link>https://www.vitah.net/categories/</link>
-        <description>Categories - Category - Vitah&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>linw1225@gmail.com (VitahLin)</managingEditor>
-            <webMaster>linw1225@gmail.com (VitahLin)</webMaster><lastBuildDate>Wed, 06 May 2020 16:29:02 &#43;0000</lastBuildDate><atom:link href="https://www.vitah.net/categories/" rel="self" type="application/rss+xml" /><item>
-    <title>Linux&amp;Mac</title>
-    <link>https://www.vitah.net/categories/linuxmac/</link>
-    <pubDate>Wed, 06 May 2020 16:29:02 &#43;0000</pubDate>
-    <author>Author</author>
-    <guid>https://www.vitah.net/categories/linuxmac/</guid>
-    <description><![CDATA[]]></description>
-</item></channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Vitah Lin</title>
+    <link>http://vitahlin.github.io/categories/</link>
+    <description>Recent content in Categories on Vitah Lin</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 28 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://vitahlin.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux</title>
+      <link>http://vitahlin.github.io/categories/linux/</link>
+      <pubDate>Mon, 28 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://vitahlin.github.io/categories/linux/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
 </rss>
