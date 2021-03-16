@@ -9,28 +9,25 @@ jobs:
   build-deploy:
     runs-on:  ubuntu-18.04
     steps:
-      - name: Checkout
+      - name: Checkout hugo branch.
         uses: actions/checkout@v2
         with:
           ref: hugo
           submodules: "true"
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          fetch-depth: 1
 
-      - run: ls -a ./hugo/themes
-      - run: ls -a ./hugo/themes/hugo-coder
-
-      - name: Setup hugo
+      - name: Setup hugo enrironment.
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: 'latest'
           extended: true
 
-      - name: Build
+      - name: Hugo --minify.
         working-directory: ./hugo
         run: |
           hugo --minify
 
-      - name: Deploy
+      - name: Deploy public/ to master branch.
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
