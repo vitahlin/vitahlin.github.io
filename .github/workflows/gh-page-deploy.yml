@@ -33,7 +33,7 @@ jobs:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./hugo/public
           publish_branch: master
-          user_name: 'vitahlin'
+          user_name: 'VitahLin'
           user_email: 'linw1225@gmail.com'
           commit_message: ${{ github.event.head_commit.message }}
           cname: www.vitah.net
