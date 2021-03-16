@@ -16,6 +16,9 @@ jobs:
           submodule: true
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
+      - run: ls -a ./hugo
+      - run: ls -a ./hugo/themes
+
       
       - name: Setup hugo
         uses: peaceiris/actions-hugo@v2
@@ -27,7 +30,6 @@ jobs:
         working-directory: ./hugo
         run: |
           hugo --minify
-          ls -a ./public/
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
