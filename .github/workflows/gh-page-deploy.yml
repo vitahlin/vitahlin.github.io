@@ -14,7 +14,6 @@ jobs:
         with:
           ref: hugo
           submodule: true
-        run: ls -a
       
       - name: Setup hugo
         uses: peaceiris/actions-hugo@v2
@@ -31,6 +30,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./hugo/public
+          # publish_dir: ./hugo/public
           publish_branch: master
           commit_message: ${{ github.event.head_commit.message }}
