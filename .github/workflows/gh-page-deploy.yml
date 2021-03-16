@@ -13,13 +13,12 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: hugo
-          submodule: true
+          submodules: "true"
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
-      - run: ls -a ./hugo
       - run: ls -a ./hugo/themes
+      - run: ls -a ./hugo/themes/hugo-coder
 
-      
       - name: Setup hugo
         uses: peaceiris/actions-hugo@v2
         with:
