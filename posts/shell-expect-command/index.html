@@ -21,7 +21,7 @@ send <span style=font-style:italic>&#34;</span>$password<span style=font-style:i
 send <span style=font-style:italic>&#34;cd /data/Server/\r&#34;</span>
 send <span style=font-style:italic>&#34;sh start.sh\r&#34;</span>
 expect eof
-</code></pre></div><p>代码实现了设置本地服务器地址，以及登录密码，然后通过ssh登录，登录成功后进入<code>/data/Server/</code>目录，执行<code>start.sh</code>脚本。上诉代码在Mac环境下运行成功。</p><p><strong>注：
+</code></pre></div><p>代码实现了设置本地服务器地址，以及登录密码，然后通过ssh登录，登录成功后进入<code>/data/Server/</code>目录，执行<code>start.sh</code>脚本。上述代码在Mac环境下运行成功。</p><p><strong>注：
 值得注意的是不能以<code>sh script_name.sh</code>运行<code>expect</code>相关代码，保证运行权限后，可以通过<code>./script_name</code>方式运行。</strong></p></div><footer><script src=https://utteranc.es/client.js repo=vitahlin/hugo-blog-utterances issue-term=pathname label=Comment theme=github-light crossorigin=anonymous async></script></footer></article></section></div><footer class=footer><section class=container>©
 2019 -
 2021
