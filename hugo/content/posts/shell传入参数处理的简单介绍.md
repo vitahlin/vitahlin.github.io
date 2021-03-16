@@ -1,5 +1,5 @@
 +++ 
-date = "2021-03-16"
+date = "2021-03-15"
 title = "Shell参数介绍"
 slug = "shell-param"
 tags = ["Linux","Shell"]
@@ -13,7 +13,7 @@ disableComments = false
 ./test.sh -f config.conf -v --prefix=/home
 ```
 
-我们称`-f`为选项，它需要一个参数，即`config.conf`,`-v`也是一个选项，但它不需要参数。`--prefix`我们称之为一个长选项，即选项本身多于一个字符，它也需要一个参数，用等号连接，当然等号不是必须的，`/home`可以直接写在`--prefix`后面，即`--prefix/home`。
+我们称`-f`为选项，它需要一个参数，即`config.conf`，`-v` 也是一个选项，但它不需要参数。`--prefix` 我们称之为一个长选项，即选项本身多于一个字符，它也需要一个参数，用等号连接，当然等号不是必须的，`/home`可以直接写在`--prefix`后面，即`--prefix/home`。
 
 以上述的命令为例：
 
