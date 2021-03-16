@@ -63,3 +63,9 @@ pygmentscodefencesguesssyntax = true
   name = "About"
   weight = 2
   url = "about/"
+
+[params.utterances]
+  repo = "vitahlin/hugo-blog-utterances"
+  issueTerm = "pathname"
+  label = "Comment"
+  theme = "github-light"

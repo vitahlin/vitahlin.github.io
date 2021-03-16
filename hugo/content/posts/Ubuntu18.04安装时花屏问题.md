@@ -5,6 +5,7 @@ slug = "install-ubuntu-18.04"
 tags = ["Ubuntu","Linux"]
 categories = ["Linux"]
 series = []
+disableComments = false
 +++
 
 
