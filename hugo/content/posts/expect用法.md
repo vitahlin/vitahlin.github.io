@@ -1,7 +1,7 @@
 +++ 
 date = "2021-03-16"
 title = "Shell expect的介绍"
-slug = "shell expect command"
+slug = "shell-expect-command"
 tags = ["Linux","Shell"]
 categories = ["Linux"]
 series = []
@@ -55,7 +55,7 @@ send "sh start.sh\r"
 expect eof
 ```
 
-代码实现了设置本地服务器地址，以及登录密码，然后通过ssh登录，登录成功后进入`/data/Server/`目录，执行`start.sh`脚本。上诉代码在Mac环境下运行成功。
+代码实现了设置本地服务器地址，以及登录密码，然后通过ssh登录，登录成功后进入`/data/Server/`目录，执行`start.sh`脚本。上述代码在Mac环境下运行成功。
 
 
 **注：
