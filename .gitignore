@@ -63,3 +63,4 @@ db.json
 *.log
 public/
 .deploy*/
+resources/
