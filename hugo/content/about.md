@@ -1,6 +1,7 @@
 +++
 title = "About"
 slug = "about"
+disableComments = false
 +++
 
 ##### 版权说明
