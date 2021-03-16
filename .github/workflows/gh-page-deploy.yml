@@ -1,0 +1,35 @@
+name: Github Pages
+
+on:
+  push:
+    branches:
+      - hugo
+
+jobs:
+  build-deploy:
+    runs-on:  ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: hugo
+          submodule: true
+      
+      - name: Setup hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: build
+        run: |
+          cd hugo
+          hugo
+
+      - name: deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ./hugo/public
+          publish_branch: master
+          commit_message: ${{ github.event.head_commit.message }}
