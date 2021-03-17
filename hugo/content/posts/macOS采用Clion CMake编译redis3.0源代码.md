@@ -143,6 +143,5 @@ $ sh mkreleasehdr.sh
 
 
 # Clion导入项目
-直接打开项目，选择 **Open as：CMake project**：
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/1176204/1615984488542-0c3be33e-6733-4858-b83c-fb66f24cbd57.png#align=left&display=inline&height=194&margin=%5Bobject%20Object%5D&name=image.png&originHeight=388&originWidth=772&size=34113&status=done&style=none&width=386)
-打开后就可以直接运行了， `redis-serve` 即redis服务端， `redis-cli` 即客户端。
+
+直接打开项目，选择 **Open as：CMake project**，打开后就可以直接运行了， `redis-serve` 即redis服务端， `redis-cli` 即客户端。
