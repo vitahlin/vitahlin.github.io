@@ -1,16 +1,16 @@
-
 +++ 
-date = "2021-03-17"
-title = "macOS采用CMake编译redis30源代码"
+date = "2021-03-15"
+title = "macOS采用CMake编译redis3.0源代码"
 slug = "use-cmake-build-redis3.0"
-tags = ["Redis","CMake"]
+tags = ["Linux","Redis"]
 categories = ["Redis"]
 series = []
 disableComments = false
 +++
 
 
-# 版本说明
+# 相关版本说明
+- **redis：3.0.0** 
 - **macOS：11.2.3**
 - **CMake：3.19.6**
 - **Clion：2020.3.2**
@@ -23,7 +23,6 @@ disableComments = false
 
 # 创建对应的CMakeLists.txt
 使用`cmake` 编译`redis` 源码的话需要创建对应的`CMakeLists.txt` 文件，创建完成后，直接在`redis` 目录执行命令`cmake .` 即可。
-
 ## redis/deps/hiredis/CMakeLists.txt
 ```c
 add_library(hiredis STATIC
@@ -31,10 +30,12 @@ add_library(hiredis STATIC
         )
 ```
 
+
 ## redis/deps/linenoise/CMakeLists.txt
 ```c
 add_library(linenoise linenoise.c)
 ```
+
 
 ## redis/deps/lua/CMakeLists.txt
 ```c
@@ -48,6 +49,7 @@ set(LUA_SRC
         )
 add_library(lua STATIC ${LUA_SRC})
 ```
+
 
 ## redis/deps/CMakeLists.txt
 ```c
