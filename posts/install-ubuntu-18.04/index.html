@@ -1,23 +1,125 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=content-language content="en"><meta name=color-scheme content="light dark"><meta name=author content="Vitah Lin"><meta name=description content="选择Install Ubuntu后屏幕花屏    制作U盘安装器后，选择正常的安装方式，即 Intsall Ubuntu 直接安装后后屏幕会花屏。
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=content-language content="en">
+<meta name=color-scheme content="light dark">
+<meta name=author content="Vitah Lin">
+<meta name=description content="选择Install Ubuntu后屏幕花屏    制作U盘安装器后，选择正常的安装方式，即 Intsall Ubuntu 直接安装后后屏幕会花屏。
 此时，应该选中Install Ubuntu不直接回车进入安装，而是按e键进入编辑界面，在linux选项下把后边的---去掉，并加上nomodeset参数，然后按Ctrl+X保存并退出，进入安装程序，就可以正常安装了。
 首次启动后输入正确密码一直循环进不去或者花屏    Nvidia显卡问题，启动Ubuntu时按e键盘进入编辑模式，将 quiet splash 改为 quiet splash nomodeset ，保存后启动即可。
 启动后进入终端，开始安装对应的显卡驱动，输入 ubuntu-drivers devices 查找合适的驱动：
-$ ubuntu-drivers devices == /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0 == modalias : pci:v000010DEd00002182sv00001B4Csd000012E1bc03sc00i00 vendor : NVIDIA Corporation driver : nvidia-driver-450 - distro non-free driver : nvidia-driver-455 - distro non-free recommended driver : nvidia-driver-450-server - distro non-free driver : nvidia-driver-440-server - distro non-free driver : nvidia-driver-418-server - distro non-free driver : xserver-xorg-video-nouveau - distro free builtin 可以看到推荐的驱动为 nvidia-driver-455 ，输入 sudo apt-get install nvidia-driver-455 ，安装完成后重启即可。"><meta name=keywords content="blog,developer,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="Ubuntu18.04安装时花屏问题"><meta name=twitter:description content="选择Install Ubuntu后屏幕花屏    制作U盘安装器后，选择正常的安装方式，即 Intsall Ubuntu 直接安装后后屏幕会花屏。
+$ ubuntu-drivers devices == /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0 == modalias : pci:v000010DEd00002182sv00001B4Csd000012E1bc03sc00i00 vendor : NVIDIA Corporation driver : nvidia-driver-450 - distro non-free driver : nvidia-driver-455 - distro non-free recommended driver : nvidia-driver-450-server - distro non-free driver : nvidia-driver-440-server - distro non-free driver : nvidia-driver-418-server - distro non-free driver : xserver-xorg-video-nouveau - distro free builtin 可以看到推荐的驱动为 nvidia-driver-455 ，输入 sudo apt-get install nvidia-driver-455 ，安装完成后重启即可。">
+<meta name=keywords content="blog,developer,personal">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Ubuntu18.04安装时花屏问题">
+<meta name=twitter:description content="选择Install Ubuntu后屏幕花屏    制作U盘安装器后，选择正常的安装方式，即 Intsall Ubuntu 直接安装后后屏幕会花屏。
 此时，应该选中Install Ubuntu不直接回车进入安装，而是按e键进入编辑界面，在linux选项下把后边的---去掉，并加上nomodeset参数，然后按Ctrl+X保存并退出，进入安装程序，就可以正常安装了。
 首次启动后输入正确密码一直循环进不去或者花屏    Nvidia显卡问题，启动Ubuntu时按e键盘进入编辑模式，将 quiet splash 改为 quiet splash nomodeset ，保存后启动即可。
 启动后进入终端，开始安装对应的显卡驱动，输入 ubuntu-drivers devices 查找合适的驱动：
-$ ubuntu-drivers devices == /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0 == modalias : pci:v000010DEd00002182sv00001B4Csd000012E1bc03sc00i00 vendor : NVIDIA Corporation driver : nvidia-driver-450 - distro non-free driver : nvidia-driver-455 - distro non-free recommended driver : nvidia-driver-450-server - distro non-free driver : nvidia-driver-440-server - distro non-free driver : nvidia-driver-418-server - distro non-free driver : xserver-xorg-video-nouveau - distro free builtin 可以看到推荐的驱动为 nvidia-driver-455 ，输入 sudo apt-get install nvidia-driver-455 ，安装完成后重启即可。"><meta property="og:title" content="Ubuntu18.04安装时花屏问题"><meta property="og:description" content="选择Install Ubuntu后屏幕花屏    制作U盘安装器后，选择正常的安装方式，即 Intsall Ubuntu 直接安装后后屏幕会花屏。
+$ ubuntu-drivers devices == /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0 == modalias : pci:v000010DEd00002182sv00001B4Csd000012E1bc03sc00i00 vendor : NVIDIA Corporation driver : nvidia-driver-450 - distro non-free driver : nvidia-driver-455 - distro non-free recommended driver : nvidia-driver-450-server - distro non-free driver : nvidia-driver-440-server - distro non-free driver : nvidia-driver-418-server - distro non-free driver : xserver-xorg-video-nouveau - distro free builtin 可以看到推荐的驱动为 nvidia-driver-455 ，输入 sudo apt-get install nvidia-driver-455 ，安装完成后重启即可。">
+<meta property="og:title" content="Ubuntu18.04安装时花屏问题">
+<meta property="og:description" content="选择Install Ubuntu后屏幕花屏    制作U盘安装器后，选择正常的安装方式，即 Intsall Ubuntu 直接安装后后屏幕会花屏。
 此时，应该选中Install Ubuntu不直接回车进入安装，而是按e键进入编辑界面，在linux选项下把后边的---去掉，并加上nomodeset参数，然后按Ctrl+X保存并退出，进入安装程序，就可以正常安装了。
 首次启动后输入正确密码一直循环进不去或者花屏    Nvidia显卡问题，启动Ubuntu时按e键盘进入编辑模式，将 quiet splash 改为 quiet splash nomodeset ，保存后启动即可。
 启动后进入终端，开始安装对应的显卡驱动，输入 ubuntu-drivers devices 查找合适的驱动：
-$ ubuntu-drivers devices == /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0 == modalias : pci:v000010DEd00002182sv00001B4Csd000012E1bc03sc00i00 vendor : NVIDIA Corporation driver : nvidia-driver-450 - distro non-free driver : nvidia-driver-455 - distro non-free recommended driver : nvidia-driver-450-server - distro non-free driver : nvidia-driver-440-server - distro non-free driver : nvidia-driver-418-server - distro non-free driver : xserver-xorg-video-nouveau - distro free builtin 可以看到推荐的驱动为 nvidia-driver-455 ，输入 sudo apt-get install nvidia-driver-455 ，安装完成后重启即可。"><meta property="og:type" content="article"><meta property="og:url" content="https://vitahlin.github.io/posts/install-ubuntu-18.04/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2020-09-28T00:00:00+00:00"><meta property="article:modified_time" content="2020-09-28T00:00:00+00:00"><title>Ubuntu18.04安装时花屏问题 · Vitah Lin</title><link rel=canonical href=https://vitahlin.github.io/posts/install-ubuntu-18.04/><link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.1.7" as=font type=font/woff2 integrity="sha256-hEIt6X6xzye8ubyk8/uxjz68cRZHsJxoKS9fQ8idUGQ=" crossorigin><link rel=stylesheet href=/css/coder.min.abe8b6775d85a01169c10329309df501aa8a008ab354002f7858f077cae76020.css integrity="sha256-q+i2d12FoBFpwQMpMJ31AaqKAIqzVAAveFjwd8rnYCA=" crossorigin=anonymous media=screen><link rel=stylesheet href=/css/coder-dark.min.89c82b6022b96f77aeb521b240daec4f87ea029d84d1c78b8acd0735b91b3c92.css integrity="sha256-icgrYCK5b3eutSGyQNrsT4fqAp2E0ceLis0HNbkbPJI=" crossorigin=anonymous media=screen><link rel=icon type=image/png href=/img/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/img/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png><script defer src=https://twemoji.maxcdn.com/v/13.0.1/twemoji.min.js integrity=sha384-5f4X0lBluNY/Ib4VhGx0Pf6iDCF99VGXJIyYy7dDLY5QlEd7Ap0hICSSZA1XYbc4 crossorigin=anonymous></script><meta name=generator content="Hugo 0.81.0"></head><body class=colorscheme-auto onload=twemoji.parse(document.body)><div class=float-container><a id=dark-mode-toggle class=colorscheme-toggle><i class="fa fa-adjust fa-fw" aria-hidden=true></i></a></div><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=/>Vitah Lin</a>
+$ ubuntu-drivers devices == /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0 == modalias : pci:v000010DEd00002182sv00001B4Csd000012E1bc03sc00i00 vendor : NVIDIA Corporation driver : nvidia-driver-450 - distro non-free driver : nvidia-driver-455 - distro non-free recommended driver : nvidia-driver-450-server - distro non-free driver : nvidia-driver-440-server - distro non-free driver : nvidia-driver-418-server - distro non-free driver : xserver-xorg-video-nouveau - distro free builtin 可以看到推荐的驱动为 nvidia-driver-455 ，输入 sudo apt-get install nvidia-driver-455 ，安装完成后重启即可。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://vitahlin.github.io/posts/install-ubuntu-18.04/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2020-09-28T00:00:00+00:00">
+<meta property="article:modified_time" content="2020-09-28T00:00:00+00:00">
+<title>
+Ubuntu18.04安装时花屏问题 · Vitah Lin
+</title>
+<link rel=canonical href=https://vitahlin.github.io/posts/install-ubuntu-18.04/>
+<link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.1.7" as=font type=font/woff2 integrity="sha256-hEIt6X6xzye8ubyk8/uxjz68cRZHsJxoKS9fQ8idUGQ=" crossorigin>
+<link rel=stylesheet href=/css/coder.min.7845183269a9eb35f70d63bb7521ad5e9470a140d020e12172e0b5d3ed3ec9a3.css integrity="sha256-eEUYMmmp6zX3DWO7dSGtXpRwoUDQIOEhcuC10+0+yaM=" crossorigin=anonymous media=screen>
+<link rel=stylesheet href=/css/coder-dark.min.89c82b6022b96f77aeb521b240daec4f87ea029d84d1c78b8acd0735b91b3c92.css integrity="sha256-icgrYCK5b3eutSGyQNrsT4fqAp2E0ceLis0HNbkbPJI=" crossorigin=anonymous media=screen>
+<link rel=icon type=image/png href=/img/favicon-32x32.png sizes=32x32>
+<link rel=icon type=image/png href=/img/favicon-16x16.png sizes=16x16>
+<link rel=apple-touch-icon href=/images/apple-touch-icon.png>
+<link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png>
+<script defer src=https://twemoji.maxcdn.com/v/13.0.1/twemoji.min.js integrity=sha384-5f4X0lBluNY/Ib4VhGx0Pf6iDCF99VGXJIyYy7dDLY5QlEd7Ap0hICSSZA1XYbc4 crossorigin=anonymous></script>
+<meta name=generator content="Hugo 0.89.4">
+</head>
+<body class=colorscheme-auto onload=twemoji.parse(document.body)>
+<div class=float-container>
+<a id=dark-mode-toggle class=colorscheme-toggle>
+<i class="fa fa-adjust fa-fw" aria-hidden=true></i>
+</a>
+</div>
+<main class=wrapper>
+<nav class=navigation>
+<section class=container>
+<a class=navigation-title href=/>
+Vitah Lin
+</a>
 <input type=checkbox id=menu-toggle>
-<label class="menu-button float-right" for=menu-toggle><i class="fa fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=/posts/>Posts</a></li><li class=navigation-item><a class=navigation-link href=/about/>About</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=https://vitahlin.github.io/posts/install-ubuntu-18.04/>Ubuntu18.04安装时花屏问题</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa fa-calendar" aria-hidden=true></i><time datetime=2020-09-28T00:00:00Z>September 28, 2020</time></span>
-<span class=reading-time><i class="fa fa-clock-o" aria-hidden=true></i>One-minute read</span></div><div class=categories><i class="fa fa-folder" aria-hidden=true></i><a href=/categories/linux/>Linux</a></div><div class=tags><i class="fa fa-tag" aria-hidden=true></i><a href=/tags/ubuntu/>Ubuntu</a>
+<label class="menu-button float-right" for=menu-toggle>
+<i class="fa fa-bars fa-fw" aria-hidden=true></i>
+</label>
+<ul class=navigation-list>
+<li class=navigation-item>
+<a class=navigation-link href=/posts/>Posts</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/about/>About</a>
+</li>
+</ul>
+</section>
+</nav>
+<div class=content>
+<section class="container post">
+<article>
+<header>
+<div class=post-title>
+<h1 class=title>
+<a class=title-link href=https://vitahlin.github.io/posts/install-ubuntu-18.04/>
+Ubuntu18.04安装时花屏问题
+</a>
+</h1>
+</div>
+<div class=post-meta>
+<div class=date>
+<span class=posted-on>
+<i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2020-09-28T00:00:00Z>
+September 28, 2020
+</time>
+</span>
+<span class=reading-time>
+<i class="fa fa-clock-o" aria-hidden=true></i>
+One-minute read
+</span>
+</div>
+<div class=categories>
+<i class="fa fa-folder" aria-hidden=true></i>
+<a href=/categories/linux/>Linux</a></div>
+<div class=tags>
+<i class="fa fa-tag" aria-hidden=true></i>
+<a href=/tags/ubuntu/>Ubuntu</a>
 <span class=separator>•</span>
-<a href=/tags/linux/>Linux</a></div></div></header><div><h4 id=选择install-ubuntu后屏幕花屏>选择Install Ubuntu后屏幕花屏
-<a class=heading-link href=#%e9%80%89%e6%8b%a9install-ubuntu%e5%90%8e%e5%b1%8f%e5%b9%95%e8%8a%b1%e5%b1%8f><i class="fa fa-link" aria-hidden=true></i></a></h4><p>制作U盘安装器后，选择正常的安装方式，即 <code>Intsall Ubuntu</code> 直接安装后后屏幕会花屏。</p><p>此时，应该选中<strong>Install Ubuntu</strong>不直接回车进入安装，而是按e键进入编辑界面，在linux选项下把后边的<code>---</code>去掉，并加上<code>nomodeset</code>参数，然后按<code>Ctrl+X</code>保存并退出，进入安装程序，就可以正常安装了。</p><h4 id=首次启动后输入正确密码一直循环进不去或者花屏>首次启动后输入正确密码一直循环进不去或者花屏
-<a class=heading-link href=#%e9%a6%96%e6%ac%a1%e5%90%af%e5%8a%a8%e5%90%8e%e8%be%93%e5%85%a5%e6%ad%a3%e7%a1%ae%e5%af%86%e7%a0%81%e4%b8%80%e7%9b%b4%e5%be%aa%e7%8e%af%e8%bf%9b%e4%b8%8d%e5%8e%bb%e6%88%96%e8%80%85%e8%8a%b1%e5%b1%8f><i class="fa fa-link" aria-hidden=true></i></a></h4><p>Nvidia显卡问题，启动Ubuntu时按e键盘进入编辑模式，将 <code>quiet splash</code> 改为 <code>quiet splash nomodeset</code> ，保存后启动即可。</p><p>启动后进入终端，开始安装对应的显卡驱动，输入 <code>ubuntu-drivers devices</code> 查找合适的驱动：</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ ubuntu-drivers devices
+<a href=/tags/linux/>Linux</a></div>
+</div>
+</header>
+<div>
+<h4 id=选择install-ubuntu后屏幕花屏>
+选择Install Ubuntu后屏幕花屏
+<a class=heading-link href=#%e9%80%89%e6%8b%a9install-ubuntu%e5%90%8e%e5%b1%8f%e5%b9%95%e8%8a%b1%e5%b1%8f>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>制作U盘安装器后，选择正常的安装方式，即 <code>Intsall Ubuntu</code> 直接安装后后屏幕会花屏。</p>
+<p>此时，应该选中<strong>Install Ubuntu</strong>不直接回车进入安装，而是按e键进入编辑界面，在linux选项下把后边的<code>---</code>去掉，并加上<code>nomodeset</code>参数，然后按<code>Ctrl+X</code>保存并退出，进入安装程序，就可以正常安装了。</p>
+<h4 id=首次启动后输入正确密码一直循环进不去或者花屏>
+首次启动后输入正确密码一直循环进不去或者花屏
+<a class=heading-link href=#%e9%a6%96%e6%ac%a1%e5%90%af%e5%8a%a8%e5%90%8e%e8%be%93%e5%85%a5%e6%ad%a3%e7%a1%ae%e5%af%86%e7%a0%81%e4%b8%80%e7%9b%b4%e5%be%aa%e7%8e%af%e8%bf%9b%e4%b8%8d%e5%8e%bb%e6%88%96%e8%80%85%e8%8a%b1%e5%b1%8f>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>Nvidia显卡问题，启动Ubuntu时按e键盘进入编辑模式，将 <code>quiet splash</code> 改为 <code>quiet splash nomodeset</code> ，保存后启动即可。</p>
+<p>启动后进入终端，开始安装对应的显卡驱动，输入 <code>ubuntu-drivers devices</code> 查找合适的驱动：</p>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ ubuntu-drivers devices
 == /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0 ==
 modalias : pci:v000010DEd00002182sv00001B4Csd000012E1bc03sc00i00
 vendor   : NVIDIA Corporation
@@ -27,9 +129,25 @@ driver   : nvidia-driver-450-server - distro non-free
 driver   : nvidia-driver-440-server - distro non-free
 driver   : nvidia-driver-418-server - distro non-free
 driver   : xserver-xorg-video-nouveau - distro free builtin
-</code></pre></div><p>可以看到推荐的驱动为 <code>nvidia-driver-455</code> ，输入 <code>sudo apt-get install nvidia-driver-455</code> ，安装完成后重启即可。</p></div><footer><script src=https://utteranc.es/client.js repo=vitahlin/hugo-blog-utterances issue-term=pathname label=Comment theme=github-light crossorigin=anonymous async></script></footer></article></section></div><footer class=footer><section class=container>©
+</code></pre></div><p>可以看到推荐的驱动为 <code>nvidia-driver-455</code> ，输入 <code>sudo apt-get install nvidia-driver-455</code> ，安装完成后重启即可。</p>
+</div>
+<footer>
+<script src=https://utteranc.es/client.js repo=vitahlin/hugo-blog-utterances issue-term=pathname label=Comment theme=github-light crossorigin=anonymous async></script>
+</footer>
+</article>
+</section>
+</div>
+<footer class=footer>
+<section class=container>
+©
 2019 -
 2021
 Vitah Lin
 ·
-Powered by <a href=https://gohugo.io/>Hugo</a> & <a href=https://github.com/luizdepra/hugo-coder/>Coder</a>.</section></footer></main><script src=/js/dark-mode.min.aee9c8a464eb7b3534c7110f7c5e169e7039e2fd92710e0626d451d6725af137.js integrity="sha256-runIpGTrezU0xxEPfF4WnnA54v2ScQ4GJtRR1nJa8Tc="></script></body></html>
+Powered by <a href=https://gohugo.io/>Hugo</a> & <a href=https://github.com/luizdepra/hugo-coder/>Coder</a>.
+</section>
+</footer>
+</main>
+<script src=/js/dark-mode.min.aee9c8a464eb7b3534c7110f7c5e169e7039e2fd92710e0626d451d6725af137.js integrity="sha256-runIpGTrezU0xxEPfF4WnnA54v2ScQ4GJtRR1nJa8Tc="></script>
+</body>
+</html>
