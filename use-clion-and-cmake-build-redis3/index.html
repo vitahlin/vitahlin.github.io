@@ -9,7 +9,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="http://www.vitahlin.com/use-clion-and-cmake-build-redis3/"><meta property="og:image" content="http://www.vitahlin.com/static/28-011359_630.png"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2022-02-19T21:57:40+08:00">
-<meta property="article:modified_time" content="2022-02-19T23:08:20+08:00">
+<meta property="article:modified_time" content="2022-02-19T23:18:52+08:00">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="http://www.vitahlin.com/static/28-011359_630.png">
 <meta name=twitter:title content="macOS上用Clion CMake编译redis 3.0">
@@ -17,7 +17,7 @@
 <meta name=application-name content="VitahLin">
 <meta name=apple-mobile-web-app-title content="VitahLin"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://www.vitahlin.com/use-clion-and-cmake-build-redis3/><link rel=prev href=http://www.vitahlin.com/install-and-update-rust/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"macOS上用Clion CMake编译redis 3.0","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/www.vitahlin.com\/use-clion-and-cmake-build-redis3\/"},"image":["http:\/\/www.vitahlin.com\/images\/Apple-Devices-Preview.png"],"genre":"posts","keywords":"redis","wordcount":783,"url":"http:\/\/www.vitahlin.com\/use-clion-and-cmake-build-redis3\/","datePublished":"2022-02-19T21:57:40+08:00","dateModified":"2022-02-19T23:08:20+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"http:\/\/www.vitahlin.com\/images\/avatar.png"},"author":{"@type":"Person","name":"VitahLin"},"description":""}</script></head>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://www.vitahlin.com/use-clion-and-cmake-build-redis3/><link rel=prev href=http://www.vitahlin.com/install-and-update-rust/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"macOS上用Clion CMake编译redis 3.0","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/www.vitahlin.com\/use-clion-and-cmake-build-redis3\/"},"image":["http:\/\/www.vitahlin.com\/images\/Apple-Devices-Preview.png"],"genre":"posts","keywords":"redis","wordcount":783,"url":"http:\/\/www.vitahlin.com\/use-clion-and-cmake-build-redis3\/","datePublished":"2022-02-19T21:57:40+08:00","dateModified":"2022-02-19T23:18:52+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"http:\/\/www.vitahlin.com\/images\/avatar.png"},"author":{"@type":"Person","name":"VitahLin"},"description":""}</script></head>
 <body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script>
 <div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
 <div class=header-wrapper>
@@ -316,8 +316,8 @@ sh mkreleasehdr.sh
 <div class=post-info>
 <div class=post-info-line>
 <div class=post-info-mod>
-<span>更新于 2022-02-19&nbsp;<a class=git-hash href=https://github.com/vitahlin/vitahlin.github.io/commit/b260190be0a96297b1719057bc496a7ea56ff4f5 target=_blank title="commit by Vitah(linw1225@gmail.com) b260190be0a96297b1719057bc496a7ea56ff4f5: Chore github action">
-<i class="fas fa-hashtag fa-fw"></i>b260190</a></span>
+<span>更新于 2022-02-19&nbsp;<a class=git-hash href=https://github.com/vitahlin/vitahlin.github.io/commit/d966355f9771e9c920c8bfd4791dfb39f5359e62 target=_blank title="commit by Vitah(linw1225@gmail.com) d966355f9771e9c920c8bfd4791dfb39f5359e62: Feat footer">
+<i class="fas fa-hashtag fa-fw"></i>d966355</a></span>
 </div>
 <div class=post-info-license></div>
 </div>
@@ -339,7 +339,10 @@ sh mkreleasehdr.sh
 <div class=post-nav><a href=/install-and-update-rust/ class=prev rel=prev title=rust安装和升级><i class="fas fa-angle-left fa-fw"></i>rust安装和升级</a></div>
 </div>
 </article></div>
-</main></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>VitahLin</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
+</div>
+</footer></div>
 <div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部>
 <i class="fas fa-arrow-up fa-fw"></i>
 </a><a href=# id=view-comments class=fixed-button title=查看评论>
