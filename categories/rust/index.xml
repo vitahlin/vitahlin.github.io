@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>rust on Vitah Lin</title><link>https://www.vitahlin.com/categories/rust/</link><description>Recent content in rust on Vitah Lin</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 09 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.vitahlin.com/categories/rust/index.xml" rel="self" type="application/rss+xml"/><item><title>rust安装和升级</title><link>https://www.vitahlin.com/posts/install-and-upgrade-rust/</link><pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate><guid>https://www.vitahlin.com/posts/install-and-upgrade-rust/</guid><description>&lt;h2 id="安装-rustup">安装 &lt;code>rustup&lt;/code>&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>rust on Vitah Lin</title><link>https://www.vitahlin.com/categories/rust/</link><description>Recent content in rust on Vitah Lin</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 09 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.vitahlin.com/categories/rust/index.xml" rel="self" type="application/rss+xml"/><item><title>rust安装和升级</title><link>https://www.vitahlin.com/posts/install-and-upgrade-rust/</link><pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate><guid>https://www.vitahlin.com/posts/install-and-upgrade-rust/</guid><description>&lt;h1 id="安装-rustup">安装 &lt;code>rustup&lt;/code>&lt;/h1>
 &lt;p>使用 &lt;code>rustup&lt;/code> 安装 &lt;code>rust&lt;/code> ，安装 &lt;code>rustup&lt;/code>:&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -9,7 +9,7 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>在 Rust 开发环境中，所有工具都安装在 &lt;code>~/.cargo/bin&lt;/code> 目录中，您可以在这里找到包括 &lt;code>rustc&lt;/code>、&lt;code>cargo&lt;/code> 和 &lt;code>rustup&lt;/code> 在内的 Rust 工具链。&lt;/p>
-&lt;h2 id="查看-rust-版本">查看 rust 版本&lt;/h2>
+&lt;h1 id="查看-rust-版本">查看 rust 版本&lt;/h1>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -18,7 +18,7 @@
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">rustc --version
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h2 id="卸载">卸载&lt;/h2>
+&lt;/div>&lt;h1 id="卸载">卸载&lt;/h1>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -27,7 +27,7 @@
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">rustup self uninstall
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h2 id="升级">升级&lt;/h2>
+&lt;/div>&lt;h1 id="升级">升级&lt;/h1>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
