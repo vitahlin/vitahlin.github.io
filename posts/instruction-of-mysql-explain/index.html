@@ -165,14 +165,12 @@
 </span></span><span class=line><span class=cl>    <span class=nt>&#34;Extra&#34;</span><span class=p>:</span> <span class=kc>null</span>
 </span></span><span class=line><span class=cl>  <span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=p>]</span>
-</span></span></code></pre></td></tr></table></div></div><h3 id=primary-subquery-derived>primary, subquery, derived</h3><p><code>primary</code>，复杂查询中最外层的 <code>select</code>
-<code>subquery</code>，包含在 <code>select</code> 中的子查询(不在 <code>from</code> 子句中)
-<code>derived</code>，包含在 <code>from</code> 子句中的子查询。Mysql 会将结果存放在一个临时表中，也称为派生表。</p><p>用下面这个例子来了解 <code>primary</code>、<code>subquery</code> 和 <code>derived</code> 类型</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></span></code></pre></td></tr></table></div></div><h3 id=primary-subquery-derived>primary, subquery, derived</h3><ul><li><code>primary</code>，复杂查询中最外层的 <code>select</code></li><li><code>subquery</code>，包含在 <code>select</code> 中的子查询(不在 <code>from</code> 子句中)</li><li><code>derived</code>，包含在 <code>from</code> 子句中的子查询。Mysql 会将结果存放在一个临时表中，也称为派生表。</li></ul><p>用下面这个例子来了解 <code>primary</code>、<code>subquery</code> 和 <code>derived</code> 类型</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
 </span><span class=lnt>5
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=o>#</span><span class=err>关闭</span><span class=n>mysql5</span><span class=p>.</span><span class=mi>7</span><span class=err>新特性对衍生表的合</span><span class=w> </span><span class=err>并优化</span><span class=w>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=o>#</span><span class=w> </span><span class=err>关闭</span><span class=n>mysql5</span><span class=p>.</span><span class=mi>7</span><span class=err>新特性对衍生表的合并优化</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SET</span><span class=w> </span><span class=k>SESSION</span><span class=w> </span><span class=n>optimizer_switch</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s1>&#39;derived_merge=off&#39;</span><span class=p>;</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=k>EXPLAIN</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=p>(</span><span class=k>SELECT</span><span class=w> </span><span class=mi>1</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>actor</span><span class=w> </span><span class=k>WHERE</span><span class=w> </span><span class=n>id</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>1</span><span class=p>)</span><span class=w>
@@ -331,9 +329,7 @@
 </span></span><span class=line><span class=cl>    <span class=nt>&#34;Extra&#34;</span><span class=p>:</span> <span class=s2>&#34;No tables used&#34;</span>
 </span></span><span class=line><span class=cl>  <span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=p>]</span>
-</span></span></code></pre></td></tr></table></div></div><h2 id=table列>table列</h2><p>这一列表示 <code>explain</code> 的一行正在访问哪个表。
-当 <code>from</code> 子句中有子查询时，<code>table</code> 列是  格式，表示当前查询依赖 <code>id=N</code> 的查询，于是先执行 <code>id=N</code> 的查询。
-当有 <code>union</code> 时，<code>union result</code> 的 <code>table</code> 列值为 <code>&lt;union1,2></code>，1和2表示参与 <code>union</code> 的 <code>select</code> 行 <code>id</code>。</p><h2 id=type列>type列</h2><p>表示关联类型或者访问类型，即 Mysql 决定如何查找表中的行，查找数据行记录的大概范围。
+</span></span></code></pre></td></tr></table></div></div><h2 id=table列>table列</h2><p>这一列表示 <code>explain</code> 的一行正在访问哪个表。它可以是下面值中的一个</p><ul><li><code>&lt;union M,N></code> 这一行引用了ID值为M和N的表的联合。M 和 N 表示 <code>union</code> 的 <code>select</code> 行的 <code>id</code>。</li><li><code>&lt;deriven N></code> 这一行引用了ID值为N的表所派生的表。派生的表可能是一个结果集，比如，FROM 子句中的子查询，表示当前查询依赖 <code>id=N</code> 的查询，于是先执行 <code>id=N</code> 的查询。</li><li><code>subquery N</code> 这一行引用了ID值为N的物化字查询的结果。参考:<a class=link href=https://dev.mysql.com/doc/refman/5.7/en/subquery-materialization.html target=_blank rel=noopener>https://dev.mysql.com/doc/refman/5.7/en/subquery-materialization.html</a></li></ul><h2 id=type列>type列</h2><p>表示关联类型或者访问类型，即 Mysql 决定如何查找表中的行，查找数据行记录的大概范围。
 依次从最优到最差分别为：<code>system</code> > <code>const</code> > <code>eq_ref</code> > <code>ref</code> > <code>range</code> > <code>index</code> > <code>ALL</code>，一般来说，要<strong>保证查询达到 range 级别，最好达到 ref</strong>。</p><h3 id=null值>NULL值</h3><p>mysql 能够在优化阶段分解查询语句，在执行阶段不需要访问表或者索引。例如：在索引列中选取最小值，可以单独查找索引来完成，不需要在执行时访问表。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3

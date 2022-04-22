@@ -202,9 +202,11 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="primary-subquery-derived">primary, subquery, derived&lt;/h3>
-&lt;p>&lt;code>primary&lt;/code>，复杂查询中最外层的 &lt;code>select&lt;/code>
-&lt;code>subquery&lt;/code>，包含在 &lt;code>select&lt;/code> 中的子查询(不在 &lt;code>from&lt;/code> 子句中)
-&lt;code>derived&lt;/code>，包含在 &lt;code>from&lt;/code> 子句中的子查询。Mysql 会将结果存放在一个临时表中，也称为派生表。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>primary&lt;/code>，复杂查询中最外层的 &lt;code>select&lt;/code>&lt;/li>
+&lt;li>&lt;code>subquery&lt;/code>，包含在 &lt;code>select&lt;/code> 中的子查询(不在 &lt;code>from&lt;/code> 子句中)&lt;/li>
+&lt;li>&lt;code>derived&lt;/code>，包含在 &lt;code>from&lt;/code> 子句中的子查询。Mysql 会将结果存放在一个临时表中，也称为派生表。&lt;/li>
+&lt;/ul>
 &lt;p>用下面这个例子来了解 &lt;code>primary&lt;/code>、&lt;code>subquery&lt;/code> 和 &lt;code>derived&lt;/code> 类型&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -215,7 +217,7 @@
 &lt;/span>&lt;span class="lnt">5
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="o">#&lt;/span>&lt;span class="err">关闭&lt;/span>&lt;span class="n">mysql5&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="err">新特性对衍生表的合&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="err">并优化&lt;/span>&lt;span class="w">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="o">#&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="err">关闭&lt;/span>&lt;span class="n">mysql5&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="err">新特性对衍生表的合并优化&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">SET&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">SESSION&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">optimizer_switch&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;derived_merge=off&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">EXPLAIN&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">SELECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">SELECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">FROM&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">actor&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">WHERE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
@@ -398,9 +400,13 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h2 id="table列">table列&lt;/h2>
-&lt;p>这一列表示 &lt;code>explain&lt;/code> 的一行正在访问哪个表。
-当 &lt;code>from&lt;/code> 子句中有子查询时，&lt;code>table&lt;/code> 列是  格式，表示当前查询依赖 &lt;code>id=N&lt;/code> 的查询，于是先执行 &lt;code>id=N&lt;/code> 的查询。
-当有 &lt;code>union&lt;/code> 时，&lt;code>union result&lt;/code> 的 &lt;code>table&lt;/code> 列值为 &lt;code>&amp;lt;union1,2&amp;gt;&lt;/code>，1和2表示参与 &lt;code>union&lt;/code> 的 &lt;code>select&lt;/code> 行 &lt;code>id&lt;/code>。&lt;/p>
+&lt;p>这一列表示 &lt;code>explain&lt;/code> 的一行正在访问哪个表。它可以是下面值中的一个&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>&amp;lt;union M,N&amp;gt;&lt;/code> 这一行引用了ID值为M和N的表的联合。M 和 N 表示 &lt;code>union&lt;/code> 的 &lt;code>select&lt;/code> 行的 &lt;code>id&lt;/code>。&lt;/li>
+&lt;li>&lt;code>&amp;lt;deriven N&amp;gt;&lt;/code> 这一行引用了ID值为N的表所派生的表。派生的表可能是一个结果集，比如，FROM 子句中的子查询，表示当前查询依赖 &lt;code>id=N&lt;/code> 的查询，于是先执行 &lt;code>id=N&lt;/code> 的查询。&lt;/li>
+&lt;li>&lt;code>subquery N&lt;/code> 这一行引用了ID值为N的物化字查询的结果。参考:&lt;a class="link" href="https://dev.mysql.com/doc/refman/5.7/en/subquery-materialization.html" target="_blank" rel="noopener"
+>https://dev.mysql.com/doc/refman/5.7/en/subquery-materialization.html&lt;/a>&lt;/li>
+&lt;/ul>
 &lt;h2 id="type列">type列&lt;/h2>
 &lt;p>表示关联类型或者访问类型，即 Mysql 决定如何查找表中的行，查找数据行记录的大概范围。
 依次从最优到最差分别为：&lt;code>system&lt;/code> &amp;gt; &lt;code>const&lt;/code> &amp;gt; &lt;code>eq_ref&lt;/code> &amp;gt; &lt;code>ref&lt;/code> &amp;gt; &lt;code>range&lt;/code> &amp;gt; &lt;code>index&lt;/code> &amp;gt; &lt;code>ALL&lt;/code>，一般来说，要&lt;strong>保证查询达到 range 级别，最好达到 ref&lt;/strong>。&lt;/p>
