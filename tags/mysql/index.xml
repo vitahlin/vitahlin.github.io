@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mysql on Vitah Lin</title><link>https://www.vitahlin.com/tags/mysql/</link><description>Recent content in mysql on Vitah Lin</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.vitahlin.com/tags/mysql/index.xml" rel="self" type="application/rss+xml"/><item><title>Mysql explain命令介绍</title><link>https://www.vitahlin.com/posts/instruction-of-mysql-explain/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0000</pubDate><guid>https://www.vitahlin.com/posts/instruction-of-mysql-explain/</guid><description>&lt;h1 id="示例表和数据sql">示例表和数据SQL&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mysql on Vitah Lin</title><link>https://www.vitahlin.com/tags/mysql/</link><description>Recent content in mysql on Vitah Lin</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.vitahlin.com/tags/mysql/index.xml" rel="self" type="application/rss+xml"/><item><title>Mysql explain命令介绍</title><link>https://www.vitahlin.com/posts/instruction-of-mysql-explain/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0000</pubDate><guid>https://www.vitahlin.com/posts/instruction-of-mysql-explain/</guid><description>&lt;h2 id="示例表和数据sql">示例表和数据SQL&lt;/h2>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -97,8 +97,7 @@
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h1 id="explain">explain&lt;/h1>
-&lt;h2 id="id列">id列&lt;/h2>
+&lt;/div>&lt;h2 id="id列">id列&lt;/h2>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -145,7 +144,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">]&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>其中，&lt;code>id&lt;/code> 的编号就是 &lt;code>select&lt;/code> 的序列号，有几个 &lt;code>select&lt;/code> 就有几个 &lt;code>id&lt;/code>，并且 id 的顺序是按 &lt;code>select&lt;/code> 出现的顺序增长的，&lt;code>id&lt;/code> 越大执行优先级越高，&lt;code>**id**&lt;/code>** 相同从上往下执行，&lt;strong>&lt;code>**id**&lt;/code>&lt;/strong> 为 &lt;strong>&lt;code>**NULL**&lt;/code>&lt;/strong> 最后执行**。&lt;/p>
+&lt;/div>&lt;p>其中，&lt;code>id&lt;/code> 的编号就是 &lt;code>select&lt;/code> 的序列号，有几个 &lt;code>select&lt;/code> 就有几个 &lt;code>id&lt;/code>，并且 id 的顺序是按 &lt;code>select&lt;/code> 出现的顺序增长的，&lt;code>id&lt;/code> 越大执行优先级越高，&lt;code>id&lt;/code> 相同从上往下执行，&lt;code>id&lt;/code> 为 &lt;code>NULL&lt;/code> 最后执行。&lt;/p>
 &lt;h2 id="select_type列">select_type列&lt;/h2>
 &lt;p>&lt;code>select_type&lt;/code> 表示对应行是简单还是复杂的查询。&lt;/p>
 &lt;h3 id="simple">simple&lt;/h3>
@@ -315,7 +314,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>其中，可以看到 id 最大值为3，表示有3个 &lt;code>select&lt;/code> 语句，&lt;code>id=3&lt;/code> 的查询对应的子查询是&lt;code>(select * from film where id = 1) &lt;/code>部分，&lt;code>id=2&lt;/code> 对应的是&lt;code>(select 1 from actor where id = 1)&lt;/code>语句，&lt;code>id=1&lt;/code> 则是最外层的&lt;code>select&lt;/code>。&lt;/p>
+&lt;/div>&lt;p>其中，可以看到 id 最大值为3，表示有3个 &lt;code>select&lt;/code> 语句，&lt;code>id=3&lt;/code> 的查询对应的子查询是 &lt;code>(select * from film where id = 1)&lt;/code> 部分，&lt;code>id=2&lt;/code> 对应的是 &lt;code>(select 1 from actor where id = 1)&lt;/code> 语句，&lt;code>id=1&lt;/code> 则是最外层的&lt;code>select&lt;/code>。&lt;/p>
 &lt;h3 id="union">union&lt;/h3>
 &lt;p>在 &lt;code>union&lt;/code> 中的第二个和随后的 &lt;code>select&lt;/code>。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -400,7 +399,7 @@
 &lt;/div>
 &lt;/div>&lt;h2 id="table列">table列&lt;/h2>
 &lt;p>这一列表示 &lt;code>explain&lt;/code> 的一行正在访问哪个表。
-当 &lt;code>from&lt;/code> 子句中有子查询时，&lt;code>table&lt;/code> 列是  格式，表示当前查询依赖 &lt;code>id=N&lt;/code> 的查询，于是先执行&lt;code> id=N&lt;/code> 的查询。
+当 &lt;code>from&lt;/code> 子句中有子查询时，&lt;code>table&lt;/code> 列是  格式，表示当前查询依赖 &lt;code>id=N&lt;/code> 的查询，于是先执行 &lt;code>id=N&lt;/code> 的查询。
 当有 &lt;code>union&lt;/code> 时，&lt;code>union result&lt;/code> 的 &lt;code>table&lt;/code> 列值为 &lt;code>&amp;lt;union1,2&amp;gt;&lt;/code>，1和2表示参与 &lt;code>union&lt;/code> 的 &lt;code>select&lt;/code> 行 &lt;code>id&lt;/code>。&lt;/p>
 &lt;h2 id="type列">type列&lt;/h2>
 &lt;p>表示关联类型或者访问类型，即 Mysql 决定如何查找表中的行，查找数据行记录的大概范围。
@@ -458,7 +457,7 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="const-system">const, system&lt;/h3>
-&lt;p>mysql 能对查询对某部分进行优化并将其转为一个常量(可以看 show warnings 的结果)。用于 &lt;code>primary key&lt;/code> 或 &lt;code>unique key&lt;/code> 的所有列与常数比较时，所以表最多有一个匹配行，读取1次，速度比较快。&lt;code>system&lt;/code> 是 &lt;code>const&lt;/code> 的特例，**表里只有一条元组匹配时为 ** &lt;code>**system**&lt;/code>。&lt;/p>
+&lt;p>mysql 能对查询对某部分进行优化并将其转为一个常量(可以看 show warnings 的结果)。用于 &lt;code>primary key&lt;/code> 或 &lt;code>unique key&lt;/code> 的所有列与常数比较时，所以表最多有一个匹配行，读取1次，速度比较快。&lt;code>system&lt;/code> 是 &lt;code>const&lt;/code> 的特例，&lt;strong>表里只有一条元组匹配时为&lt;/strong> &lt;code>**system**&lt;/code>。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -682,7 +681,7 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;ol start="2">
-&lt;li>关联表查询，例如下面语句，&lt;code>idx_film_actor_id&lt;/code> 是表 &lt;code>film_actor&lt;/code> 字段 &lt;code>film_id&lt;/code> 和 &lt;code>actor_id&lt;/code> 的联合索引，这里使用到 &lt;code>film_actor&lt;/code> 的左边前缀 &lt;code>film_id&lt;/code> 部分&lt;/li>
+&lt;li>关联表查询，例如下面语句，&lt;code>idx_film_actor_id&lt;/code> 是表 &lt;code>film_actor&lt;/code> 字段 &lt;code>film_id&lt;/code> 和 &lt;code>actor_id&lt;/code> 的联合索引，这里使用到 &lt;code>film_actor&lt;/code> 的左边前缀 &lt;code>film_id&lt;/code> 部分。&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -924,7 +923,7 @@
 &lt;/div>
 &lt;/div>&lt;h2 id="possible_keys列">possible_keys列&lt;/h2>
 &lt;p>这一列显示查询可能使用哪些索引来查找。
-&lt;code>explain&lt;/code> 时可能&lt;strong>出现 &lt;strong>&lt;code>**possible_keys**&lt;/code>&lt;/strong> 有列，而 &lt;strong>&lt;code>**key**&lt;/code>&lt;/strong> 显示 &lt;strong>&lt;code>**NULL**&lt;/code>&lt;/strong> 的情况，是因为表中数据不多，&lt;/strong>&lt;code>**mysql**&lt;/code>** 认为索引对此查询帮助不大，选择了全表查询。**
+&lt;code>explain&lt;/code> 时可能 &lt;strong>出现&lt;/strong> &lt;code>possible_keys&lt;/code> 有列，而 &lt;code>key&lt;/code> 显示 &lt;code>NULL&lt;/code> 的情况，是因为表中数据不多，&lt;code>mysql&lt;/code> 认为索引对此查询帮助不大，选择了全表查询。
 如果该列是 &lt;code>NULL&lt;/code>，则没有相关的索引。在这种情况下，可以通过检查 &lt;code>where&lt;/code> 子句看是否可以创造一个适当的索引来提高查询性能，然后用 &lt;code>explain&lt;/code> 查询效果。&lt;/p>
 &lt;h2 id="key列">key列&lt;/h2>
 &lt;p>显示 &lt;code>mysql&lt;/code> 实际采用哪个索引来优化对该表的访问。
@@ -986,7 +985,7 @@
 &lt;/div>
 &lt;/div>&lt;p>&lt;code>key_len&lt;/code> 的计算规则&lt;/p>
 &lt;ul>
-&lt;li>字符串，&lt;code>char(n)&lt;/code> 和 &lt;code>varchar(n)&lt;/code>，&lt;code>n&lt;/code> 代表字符数，不是字节数，如果是 &lt;code>utf-8&lt;/code>，一个数字或者字母占1字节，如果是汉字占3字节。&lt;code>char(n)&lt;/code> 存汉字长度为 &lt;code>3n&lt;/code> 字节，&lt;code>varchar(n)&lt;/code> 存汉字长度为 &lt;code>3n+2 &lt;/code>字节，需要额外2字节用来存储字符串长度。&lt;/li>
+&lt;li>字符串，&lt;code>char(n)&lt;/code> 和 &lt;code>varchar(n)&lt;/code>，&lt;code>n&lt;/code> 代表字符数，不是字节数，如果是 &lt;code>utf-8&lt;/code>，一个数字或者字母占1字节，如果是汉字占3字节。&lt;code>char(n)&lt;/code> 存汉字长度为 &lt;code>3n&lt;/code> 字节，&lt;code>varchar(n)&lt;/code> 存汉字长度为 &lt;code>3n+2&lt;/code> 字节，需要额外2字节用来存储字符串长度。&lt;/li>
 &lt;li>数值类型
 &lt;ul>
 &lt;li>tinyint 1字节&lt;/li>
