@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Vitah Lin</title><link>https://www.vitahlin.com/post/</link><description>Recent content in Posts on Vitah Lin</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.vitahlin.com/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Mysql explain命令介绍</title><link>https://www.vitahlin.com/posts/instruction-of-mysql-explain/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0000</pubDate><guid>https://www.vitahlin.com/posts/instruction-of-mysql-explain/</guid><description>&lt;h1 id="示例表和数据sql">示例表和数据SQL&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mysql on Vitah Lin</title><link>https://www.vitahlin.com/categories/mysql/</link><description>Recent content in mysql on Vitah Lin</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.vitahlin.com/categories/mysql/index.xml" rel="self" type="application/rss+xml"/><item><title>Mysql explain命令介绍</title><link>https://www.vitahlin.com/posts/instruction-of-mysql-explain/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0000</pubDate><guid>https://www.vitahlin.com/posts/instruction-of-mysql-explain/</guid><description>&lt;h1 id="示例表和数据sql">示例表和数据SQL&lt;/h1>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -1510,44 +1510,6 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;Extra&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Select tables optimized away&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">]&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div></description></item><item><title>rust安装和升级</title><link>https://www.vitahlin.com/posts/install-and-upgrade-rust/</link><pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate><guid>https://www.vitahlin.com/posts/install-and-upgrade-rust/</guid><description>&lt;h1 id="安装-rustup">安装 &lt;code>rustup&lt;/code>&lt;/h1>
-&lt;p>使用 &lt;code>rustup&lt;/code> 安装 &lt;code>rust&lt;/code> ，安装 &lt;code>rustup&lt;/code>:&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">curl --proto &lt;span class="s1">&amp;#39;=https&amp;#39;&lt;/span> --tlsv1.2 -sSf https://sh.rustup.rs &lt;span class="p">|&lt;/span> sh
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>在 Rust 开发环境中，所有工具都安装在 &lt;code>~/.cargo/bin&lt;/code> 目录中，您可以在这里找到包括 &lt;code>rustc&lt;/code>、&lt;code>cargo&lt;/code> 和 &lt;code>rustup&lt;/code> 在内的 Rust 工具链。&lt;/p>
-&lt;h1 id="查看-rust-版本">查看 rust 版本&lt;/h1>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">rustc --version
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h1 id="卸载">卸载&lt;/h1>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">rustup self uninstall
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h1 id="升级">升级&lt;/h1>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">rustup update
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div></description></item></channel></rss>
