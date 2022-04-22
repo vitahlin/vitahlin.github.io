@@ -144,7 +144,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">]&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>其中，&lt;code>id&lt;/code> 的编号就是 &lt;code>select&lt;/code> 的序列号，有几个 &lt;code>select&lt;/code> 就有几个 &lt;code>id&lt;/code>，并且 id 的顺序是按 &lt;code>select&lt;/code> 出现的顺序增长的，&lt;code>id&lt;/code> 越大执行优先级越高，&lt;code>id&lt;/code> 相同从上往下执行，&lt;code>id&lt;/code> 为 &lt;code>NULL&lt;/code> 最后执行。&lt;/p>
+&lt;/div>&lt;p>其中，&lt;code>id&lt;/code> 的编号就是 &lt;code>select&lt;/code> 的序列号，有几个 &lt;code>select&lt;/code> 就有几个 &lt;code>id&lt;/code>，并且 id 的顺序是按 &lt;code>select&lt;/code> 出现的顺序增长的，&lt;em>&lt;code>id&lt;/code> 越大执行优先级越高，&lt;code>id&lt;/code> 相同从上往下执行，&lt;code>id&lt;/code> 为 &lt;code>NULL&lt;/code> 最后执行&lt;/em>。&lt;/p>
 &lt;h2 id="select_type列">select_type列&lt;/h2>
 &lt;p>&lt;code>select_type&lt;/code> 表示对应行是简单还是复杂的查询。&lt;/p>
 &lt;h3 id="simple">simple&lt;/h3>

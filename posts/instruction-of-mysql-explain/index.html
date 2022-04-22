@@ -125,7 +125,7 @@
 </span></span><span class=line><span class=cl>    <span class=nt>&#34;Extra&#34;</span><span class=p>:</span> <span class=kc>null</span>
 </span></span><span class=line><span class=cl>  <span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=p>]</span>
-</span></span></code></pre></td></tr></table></div></div><p>其中，<code>id</code> 的编号就是 <code>select</code> 的序列号，有几个 <code>select</code> 就有几个 <code>id</code>，并且 id 的顺序是按 <code>select</code> 出现的顺序增长的，<code>id</code> 越大执行优先级越高，<code>id</code> 相同从上往下执行，<code>id</code> 为 <code>NULL</code> 最后执行。</p><h2 id=select_type列>select_type列</h2><p><code>select_type</code> 表示对应行是简单还是复杂的查询。</p><h3 id=simple>simple</h3><p>简单查询，查询不包含子查询和 <code>union</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></span></code></pre></td></tr></table></div></div><p>其中，<code>id</code> 的编号就是 <code>select</code> 的序列号，有几个 <code>select</code> 就有几个 <code>id</code>，并且 id 的顺序是按 <code>select</code> 出现的顺序增长的，<em><code>id</code> 越大执行优先级越高，<code>id</code> 相同从上往下执行，<code>id</code> 为 <code>NULL</code> 最后执行</em>。</p><h2 id=select_type列>select_type列</h2><p><code>select_type</code> 表示对应行是简单还是复杂的查询。</p><h3 id=simple>simple</h3><p>简单查询，查询不包含子查询和 <code>union</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
