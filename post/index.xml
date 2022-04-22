@@ -457,9 +457,8 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">]&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h3 id="heading">&lt;/h3>
-&lt;h3 id="const-system">const, system&lt;/h3>
-&lt;p>mysql 能对查询对某部分进行优化并将其转为一个常量(可以看 show warnings 的结果)。用于 &lt;code>primary key&lt;/code> 或 &lt;code>unique key&lt;/code> 的所有列与常数比较时，所以表最多有一个匹配行，读取1次，速度比较快。&lt;code>system&lt;/code> 是 &lt;code>const&lt;/code> 的特例，**表里只有一条元组匹配时为 **&lt;code>**system**&lt;/code>。&lt;/p>
+&lt;/div>&lt;h3 id="const-system">const, system&lt;/h3>
+&lt;p>mysql 能对查询对某部分进行优化并将其转为一个常量(可以看 show warnings 的结果)。用于 &lt;code>primary key&lt;/code> 或 &lt;code>unique key&lt;/code> 的所有列与常数比较时，所以表最多有一个匹配行，读取1次，速度比较快。&lt;code>system&lt;/code> 是 &lt;code>const&lt;/code> 的特例，**表里只有一条元组匹配时为 ** &lt;code>**system**&lt;/code>。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -625,8 +624,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">]&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h3 id="heading-1">&lt;/h3>
-&lt;h3 id="ref">ref&lt;/h3>
+&lt;/div>&lt;h3 id="ref">ref&lt;/h3>
 &lt;p>相比 &lt;code>eq_ref&lt;/code>，不使用唯一索引，而是使用普通索引或者唯一性索引的部分前缀，索引要和某个值相比较，可能会找到多个符合条件的行。&lt;/p>
 &lt;ol>
 &lt;li>简单的 &lt;code>select&lt;/code> 查询，&lt;code>name&lt;/code> 是普通索引（非唯一索引）&lt;/li>
@@ -820,8 +818,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">]&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h3 id="heading-2">&lt;/h3>
-&lt;h3 id="index">index&lt;/h3>
+&lt;/div>&lt;h3 id="index">index&lt;/h3>
 &lt;p>扫描全索引就能拿到结果，一般是扫描某个二级索引，这种扫描不会从索引树根结点开始查找，而是直接对二级索引的叶子节点遍历和扫描，速度还是比较慢的，这种查询一般为覆盖索引，二级索引一般比较小，所以这种比 ALL 快一些。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -873,8 +870,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">]&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h3 id="heading-3">&lt;/h3>
-&lt;h3 id="all">ALL&lt;/h3>
+&lt;/div>&lt;h3 id="all">ALL&lt;/h3>
 &lt;p>即全表扫描，扫描你的聚簇索引的所有叶子节点。通常这种情况就需要增加索引来优化了。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -1129,8 +1125,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">]&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h3 id="heading-4">&lt;/h3>
-&lt;h3 id="2-using-where">2. Using where&lt;/h3>
+&lt;/div>&lt;h3 id="2-using-where">2. Using where&lt;/h3>
 &lt;p>使用 &lt;code>where&lt;/code> 语句来处理结果，并且查询的列未被索引覆盖。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -1405,9 +1400,9 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;ul>
-&lt;li>利用索引优化
-&lt;code>film.name&lt;/code> 建立了 &lt;code>idx_name&lt;/code> 索引，此时查询时 &lt;code>extra&lt;/code> 是 &lt;code>using index&lt;/code>。&lt;/li>
+&lt;li>利用索引优化&lt;/li>
 &lt;/ul>
+&lt;p>&lt;code>film.name&lt;/code> 建立了 &lt;code>idx_name&lt;/code> 索引，此时查询时 &lt;code>extra&lt;/code> 是 &lt;code>using index&lt;/code>。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
