@@ -404,7 +404,7 @@
 &lt;ul>
 &lt;li>&lt;code>&amp;lt;union M,N&amp;gt;&lt;/code> 这一行引用了ID值为M和N的表的联合。M 和 N 表示 &lt;code>union&lt;/code> 的 &lt;code>select&lt;/code> 行的 &lt;code>id&lt;/code>。&lt;/li>
 &lt;li>&lt;code>&amp;lt;deriven N&amp;gt;&lt;/code> 这一行引用了ID值为N的表所派生的表。派生的表可能是一个结果集，比如，FROM 子句中的子查询，表示当前查询依赖 &lt;code>id=N&lt;/code> 的查询，于是先执行 &lt;code>id=N&lt;/code> 的查询。&lt;/li>
-&lt;li>&lt;code>subquery N&lt;/code> 这一行引用了ID值为N的物化字查询的结果。参考:&lt;a class="link" href="https://dev.mysql.com/doc/refman/5.7/en/subquery-materialization.html" target="_blank" rel="noopener"
+&lt;li>&lt;code>subquery N&lt;/code> 这一行引用了ID值为N的物化字查询的结果。参考：&lt;a class="link" href="https://dev.mysql.com/doc/refman/5.7/en/subquery-materialization.html" target="_blank" rel="noopener"
 >https://dev.mysql.com/doc/refman/5.7/en/subquery-materialization.html&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="type列">type列&lt;/h2>
@@ -463,7 +463,7 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="const-system">const, system&lt;/h3>
-&lt;p>mysql 能对查询对某部分进行优化并将其转为一个常量(可以看 show warnings 的结果)。用于 &lt;code>primary key&lt;/code> 或 &lt;code>unique key&lt;/code> 的所有列与常数比较时，所以表最多有一个匹配行，读取1次，速度比较快。&lt;code>system&lt;/code> 是 &lt;code>const&lt;/code> 的特例，&lt;strong>表里只有一条元组匹配时为&lt;/strong> &lt;code>**system**&lt;/code>。&lt;/p>
+&lt;p>mysql 能对查询对某部分进行优化并将其转为一个常量(可以看 show warnings 的结果)。用于 &lt;code>primary key&lt;/code> 或 &lt;code>unique key&lt;/code> 的所有列与常数比较时，所以表最多有一个匹配行，读取1次，速度比较快。&lt;code>system&lt;/code> 是 &lt;code>const&lt;/code> 的特例，&lt;strong>表里只有一条元组匹配时为&lt;/strong> &lt;code>system**&lt;/code>。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -1009,7 +1009,7 @@
 &lt;/li>
 &lt;li>字段允许为 &lt;code>NULL&lt;/code>，需要额外1字节记录是否为 &lt;code>NULL&lt;/code>&lt;/li>
 &lt;/ul>
-&lt;p>&lt;strong>索引的最大长度是768字节&lt;/strong>**，当字符串过长时，mysql 会做一个类似左前缀索引的处理，将前半部分的字符提取出来做索引。**&lt;/p>
+&lt;p>&lt;strong>索引的最大长度是768字节，当字符串过长时，mysql 会做一个类似左前缀索引的处理，将前半部分的字符提取出来做索引。&lt;/strong>&lt;/p>
 &lt;h2 id="ref列">ref列&lt;/h2>
 &lt;p>显示了在 &lt;code>key&lt;/code> 列记录的索引中，表查找值所用到的列或常量，常见的有 &lt;code>const&lt;/code>(常量)，字段名(例如 film.id)&lt;/p>
 &lt;h2 id="rows列">rows列&lt;/h2>
