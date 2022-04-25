@@ -823,11 +823,11 @@ long_query_time的默认值为10，意思是记录运行10秒以上的语句。
 &lt;/tr>
 &lt;tr>
 &lt;td>where b=3&lt;/td>
-&lt;td>&lt;/td>
+&lt;td>没有&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>where b=3 and c=4&lt;/td>
-&lt;td>&lt;/td>
+&lt;td>没有&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>where c=4&lt;/td>
