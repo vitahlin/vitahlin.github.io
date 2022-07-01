@@ -1,0 +1,749 @@
+<!doctype html><html lang=zh-cn class=lang-zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=keywords content="mysql,database,vitah,blog,vitahlin,VitahLin,"><meta name=description content="示例表 表结构 1 2 3 4 5 6 7 8 9 10 11 12 13 DROP TABLE IF EXISTS employees; CREATE TABLE `employees` ( `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(24) NOT NULL DEFAULT &amp;#39;&amp;#39; COMMENT &amp;#39;姓名&amp;#39;, `age` int(11) NOT NULL DEFAULT &amp;#39;0&amp;#39; COMMENT &amp;#39;年龄&#3"><meta itemprop=description content="示例表 表结构 1 2 3 4 5 6 7 8 9 10 11 12 13 DROP TABLE IF EXISTS employees; CREATE TABLE `employees` ( `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(24) NOT NULL DEFAULT &amp;#39;&amp;#39; COMMENT &amp;#39;姓名&amp;#39;, `age` int(11) NOT NULL DEFAULT &amp;#39;0&amp;#39; COMMENT &amp;#39;年龄&#3"><meta http-equiv=x-ua-compatible content="ie=edge"><meta itemprop=name content="Mysql如何选择合适的索引 - VitahLin"><link href=https://www.vitahlin.com/index.xml title="Mysql如何选择合适的索引 - VitahLin" type=application/rss+xml rel=alternate><title>Mysql如何选择合适的索引 - VitahLin</title><link rel=stylesheet href="/main.526d1f57d2d32596c3872b9ff96051d6de625ede20a98dec110aaa23d6d6fee7.css" integrity="sha256-Um0fV9LTJZbDhyuf+WBR1t5iXt4gqY3sEQqqI9bW/uc="><meta property="og:site_name" content="Mysql如何选择合适的索引 - VitahLin"><meta property="og:type" content="article"><meta property="og:title" content="Mysql如何选择合适的索引"><meta property="og:description" content="示例表 表结构 1 2 3 4 5 6 7 8 9 10 11 12 13 DROP TABLE IF EXISTS employees; CREATE TABLE `employees` ( `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(24) NOT NULL DEFAULT &amp;#39;&amp;#39; COMMENT &amp;#39;姓名&amp;#39;, `age` int(11) NOT NULL DEFAULT &amp;#39;0&amp;#39; COMMENT &amp;#39;年龄&#3"><meta property="og:url" content="https://www.vitahlin.com/2022/04/13/mysql-how-to-choose-the-right-index.html/"><meta property="article:publisher" content="https://www.vitahlin.com/2022/04/13/mysql-how-to-choose-the-right-index.html/"><meta property="article:published_time" content="2022-04-13T00:00:00+08:00"><meta property="article:modified_time" content="2022-07-01T14:53:32+00:00"><meta name=theme-color content="#dd6065"><meta name=mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-title content="Mysql如何选择合适的索引 - VitahLin"><meta name=apple-mobile-web-app-status-bar-style content="white"><meta name=twitter:card content="summary_large_image"><meta name=twitter:site content="@Ice_Hazymoon"><meta name=twitter:creator content="@Ice_Hazymoon"><meta name=twitter:title content="Mysql如何选择合适的索引 - VitahLin"><meta name=twitter:description content="示例表 表结构 1 2 3 4 5 6 7 8 9 10 11 12 13 DROP TABLE IF EXISTS employees; CREATE TABLE `employees` ( `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(24) NOT NULL DEFAULT &amp;#39;&amp;#39; COMMENT &amp;#39;姓名&amp;#39;, `age` int(11) NOT NULL DEFAULT &amp;#39;0&amp;#39; COMMENT &amp;#39;年龄&#3"><meta name=twitter:url content="https://www.vitahlin.com/2022/04/13/mysql-how-to-choose-the-right-index.html/"><meta name=twitter:image content><link rel="shortcut icon" href=/favicon.ico type=image/x-icon><link rel=manifest href=/manifest.json><link href=/icon.png rel="shortcut icon"><link href=/icon.png rel=bookmark><link rel=apple-touch-icon href=/icon.png><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Mysql如何选择合适的索引","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/www.vitahlin.com\/2022\/04\/13\/mysql-how-to-choose-the-right-index.html\/"},"genre":"posts","keywords":"mysql, database","wordcount":1744,"url":"https:\/\/www.vitahlin.com\/2022\/04\/13\/mysql-how-to-choose-the-right-index.html\/","datePublished":"2022-04-13T00:00:00\u002b08:00","dateModified":"2022-07-01T14:53:32\u002b00:00","author":{"@type":"Person","name":"VitahLin"},"description":""}</script></head><body class="dark:bg-darkBg dark:text-darkText"><div class="relative mx-auto shadow-lg md:max-w-4xl xl:max-w-4xl 2xl:max-w-4xl"><div class="main flex flex-col justify-between bg-white dark:bg-darkFg"><header class=relative><nav id=nav class="navbar top-0 z-10 flex items-center border-b px-5 py-6 dark:border-darkBorder md:px-10"><div class="route-items flex w-full items-center justify-around"><a title=首页 data-active-link=/ href=/ class="relative flex cursor-pointer flex-col items-center text-gray-700 transition duration-300 ease-[ease]"><i class="eva eva-home flex h-8 w-8 items-center justify-center text-3xl leading-none text-gray-500 transition duration-300 ease-[ease] dark:text-darkTextPlaceholder"></i>
+<span class="mt-1 block text-xs text-gray-400 dark:text-darkText sm:text-sm md:hidden">首页</span>
+</a><a title=归档 data-active-link=/archives/ href=/archives/ class="relative flex cursor-pointer flex-col items-center text-gray-700 transition duration-300 ease-[ease]"><i class="eva eva-bar-chart flex h-8 w-8 items-center justify-center text-3xl leading-none text-gray-500 transition duration-300 ease-[ease] dark:text-darkTextPlaceholder"></i>
+<span class="mt-1 block text-xs text-gray-400 dark:text-darkText sm:text-sm md:hidden">归档</span>
+</a><a title=关于我 data-active-link=/about/ href=/about/ class="relative flex cursor-pointer flex-col items-center text-gray-700 transition duration-300 ease-[ease]"><i class="eva eva-heart flex h-8 w-8 items-center justify-center text-3xl leading-none text-gray-500 transition duration-300 ease-[ease] dark:text-darkTextPlaceholder"></i>
+<span class="mt-1 block text-xs text-gray-400 dark:text-darkText sm:text-sm md:hidden">关于我</span>
+</a><a title=搜索 data-active-link=/search/ href=/search/ class="relative flex cursor-pointer flex-col items-center text-gray-700 transition duration-300 ease-[ease]"><i class="eva eva-search flex h-8 w-8 items-center justify-center text-3xl leading-none text-gray-500 transition duration-300 ease-[ease] dark:text-darkTextPlaceholder"></i>
+<span class="mt-1 block text-xs text-gray-400 dark:text-darkText sm:text-sm md:hidden">搜索</span></a></div></nav><div class="dark-mode-switch absolute right-0 top-0 z-10 cursor-pointer pr-2 pt-2 text-xl leading-none"><i class="eva eva-moon opacity-20 dark:opacity-70"></i></div></header><main class="relative flex flex-grow" id=swup><style>:root{--font:Times New Roman,Times,Heti Song,serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol}</style><div class="type-posts layout- w-full"><div class="relative h-full"><div class="relative h-full"><div class="page-view-article flex h-full flex-col bg-white dark:bg-darkFg"><div class=relative><div><div class="-mb-2 w-full p-6 pb-0 text-3xl md:px-10">Mysql如何选择合适的索引</div></div></div><div class="article-info border-b p-6 pb-3 text-sm dark:border-darkBorder md:px-10"><div><div class="mb-3 mr-4 inline-flex items-center sm:rounded-full"><i class="eva eva-clock-outline mr-1"></i>
+<span><time title="发布于 2022年04月13日 00:00:00" datetime=2022-04-13T00:00:00+08:00>2022年04月13日</time></span></div><span class="mb-3 mr-4 inline-flex items-center sm:rounded-full"><i class="eva eva-edit-2-outline mr-1"></i>
+<span><time title="最后修改于：2022年07月01日 14:53:32" datetime=2022-07-01T14:53:32Z>2022年07月01日</time></span></span><div class="mb-3 mr-4 inline-flex items-center sm:rounded-full"><i class="eva eva-flag-outline mr-1"></i>
+<span>阅读约 4 分钟</span></div></div><div class="mb-3 flex items-center"><i class="eva eva-pricetags-outline mr-1"></i>
+<span class=mr-3>标签</span><a href=/tags/mysql title=mysql class="group mr-2 flex items-center text-sm">
+<i class="mr-1 text-gray-400 group-hover:text-theme">#</i>
+<span class="text-gray-400 group-hover:text-theme">mysql</span>
+</a><a href=/tags/database title=database class="group mr-2 flex items-center text-sm"><i class="mr-1 text-gray-400 group-hover:text-theme">#</i>
+<span class="text-gray-400 group-hover:text-theme">database</span></a></div><div class="mb-3 flex items-center"><i class="eva eva-folder-outline mr-1"></i>
+<span class=mr-3>分类</span><a href=/categories/mysql title=mysql class="group flex items-center text-sm">
+<span class="text-gray-400 group-hover:text-theme">mysql</span>
+<span class="mx-0.5 group-last:hidden">,</span></a></div></div><aside class="toc border-b border-gray-300 px-5 py-5 dark:border-darkBorder md:px-10 2xl:fixed 2xl:top-10 2xl:m-0 2xl:-ml-72 2xl:w-72 2xl:border-none 2xl:p-0 2xl:py-4 2xl:pr-4"><header><h1 class="mb-3 text-2xl font-bold 2xl:mb-4">文章目录</h1></header><nav id=TableOfContents><ul><li><a href=#示例表>示例表</a><ul><li><a href=#表结构>表结构</a></li><li><a href=#测试数据>测试数据</a></li></ul></li><li><a href=#不同的索引选择>不同的索引选择</a><ul><li><a href=#全表扫描示例>全表扫描示例</a></li><li><a href=#覆盖索引示例>覆盖索引示例</a></li><li><a href=#走索引示例>走索引示例</a></li></ul></li><li><a href=#trace介绍>trace介绍</a><ul><li><a href=#用法>用法</a></li><li><a href=#结果分析>结果分析</a></li></ul></li></ul></nav></aside><section class="article-content typo relative flex-grow px-6 py-5 md:px-10"><i title=更快的阅读 id=bionicReading class="absolute right-0 top-0 cursor-pointer p-3"><svg class="w-4 h-4 fill-current text-gray-400" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="10811"><path d="M480 192c-19.2.0-32-12.8-32-32V32c0-19.2 12.8-32 32-32s32 12.8 32 32v128c0 19.2-12.8 32-32 32zM160 1024c-6.4.0-19.2.0-25.6-6.4l-128-128c0-6.4-6.4-19.2-6.4-25.6s6.4-19.2 6.4-25.6l512-512c12.8-6.4 38.4-6.4 51.2.0l128 128c0 6.4 6.4 19.2 6.4 25.6s-6.4 19.2-6.4 25.6l-512 512c-6.4 6.4-19.2 6.4-25.6 6.4zM76.8 864l83.2 83.2L627.2 480 544 396.8 76.8 864zM992 576H864c-19.2.0-32-12.8-32-32s12.8-32 32-32h128c19.2.0 32 12.8 32 32s-12.8 32-32 32zM768 288c-6.4.0-19.2.0-25.6-6.4-12.8-12.8-12.8-32 0-44.8l96-96c12.8-12.8 32-12.8 44.8.0s12.8 32 0 44.8l-96 96c0 6.4-12.8 6.4-19.2 6.4zm-512 0c-6.4.0-19.2.0-25.6-6.4l-96-96c-6.4-12.8-6.4-38.4.0-51.2s32-12.8 44.8.0l96 96c12.8 12.8 12.8 32 0 44.8.0 12.8-12.8 12.8-19.2 12.8zM864 896c-6.4.0-19.2.0-25.6-6.4l-96-96c-12.8-12.8-12.8-32 0-44.8s32-12.8 44.8.0l96 96c12.8 12.8 12.8 32 0 44.8.0 6.4-12.8 6.4-19.2 6.4z" p-id="10812"/><path d="M544 640c-6.4.0-19.2.0-25.6-6.4l-128-128c-6.4-12.8-6.4-38.4.0-51.2s32-12.8 44.8.0l128 128c12.8 12.8 12.8 38.4 6.4 51.2-6.4 6.4-19.2 6.4-25.6 6.4z" p-id="10813"/></svg></i><h2 class=group id=示例表>示例表<a href=#%e7%a4%ba%e4%be%8b%e8%a1%a8><i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100"></i></a></h2><h3 class=group id=表结构>表结构<a href=#%e8%a1%a8%e7%bb%93%e6%9e%84><i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100"></i></a></h3><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#ff79c6>DROP</span> <span style=color:#ff79c6>TABLE</span> <span style=color:#ff79c6>IF</span> <span style=color:#ff79c6>EXISTS</span> employees;
+</span></span><span style=display:flex><span><span style=color:#ff79c6>CREATE</span> <span style=color:#ff79c6>TABLE</span> <span style=color:#ff79c6>`</span>employees<span style=color:#ff79c6>`</span>
+</span></span><span style=display:flex><span>(
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>`</span>id<span style=color:#ff79c6>`</span>        <span style=color:#8be9fd;font-style:italic>int</span>(<span style=color:#bd93f9>11</span>)     <span style=color:#ff79c6>NOT</span> <span style=color:#ff79c6>NULL</span> AUTO_INCREMENT,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>`</span>name<span style=color:#ff79c6>`</span>      <span style=color:#8be9fd;font-style:italic>varchar</span>(<span style=color:#bd93f9>24</span>) <span style=color:#ff79c6>NOT</span> <span style=color:#ff79c6>NULL</span> <span style=color:#ff79c6>DEFAULT</span> <span style=color:#f1fa8c>&#39;&#39;</span> <span style=color:#ff79c6>COMMENT</span> <span style=color:#f1fa8c>&#39;姓名&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>`</span>age<span style=color:#ff79c6>`</span>       <span style=color:#8be9fd;font-style:italic>int</span>(<span style=color:#bd93f9>11</span>)     <span style=color:#ff79c6>NOT</span> <span style=color:#ff79c6>NULL</span> <span style=color:#ff79c6>DEFAULT</span> <span style=color:#f1fa8c>&#39;0&#39;</span> <span style=color:#ff79c6>COMMENT</span> <span style=color:#f1fa8c>&#39;年龄&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>`</span><span style=color:#ff79c6>position</span><span style=color:#ff79c6>`</span>  <span style=color:#8be9fd;font-style:italic>varchar</span>(<span style=color:#bd93f9>20</span>) <span style=color:#ff79c6>NOT</span> <span style=color:#ff79c6>NULL</span> <span style=color:#ff79c6>DEFAULT</span> <span style=color:#f1fa8c>&#39;&#39;</span> <span style=color:#ff79c6>COMMENT</span> <span style=color:#f1fa8c>&#39;职位&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>`</span>hire_time<span style=color:#ff79c6>`</span> <span style=color:#ff79c6>timestamp</span>   <span style=color:#ff79c6>NOT</span> <span style=color:#ff79c6>NULL</span> <span style=color:#ff79c6>DEFAULT</span> <span style=color:#ff79c6>CURRENT_TIMESTAMP</span> <span style=color:#ff79c6>COMMENT</span> <span style=color:#f1fa8c>&#39;入职时间&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>PRIMARY</span> <span style=color:#ff79c6>KEY</span> (<span style=color:#ff79c6>`</span>id<span style=color:#ff79c6>`</span>),
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>KEY</span> <span style=color:#ff79c6>`</span>idx_name_age_position<span style=color:#ff79c6>`</span> (<span style=color:#ff79c6>`</span>name<span style=color:#ff79c6>`</span>, <span style=color:#ff79c6>`</span>age<span style=color:#ff79c6>`</span>, <span style=color:#ff79c6>`</span><span style=color:#ff79c6>position</span><span style=color:#ff79c6>`</span>) <span style=color:#ff79c6>USING</span> BTREE
+</span></span><span style=display:flex><span>) ENGINE <span style=color:#ff79c6>=</span> InnoDB
+</span></span><span style=display:flex><span>  AUTO_INCREMENT <span style=color:#ff79c6>=</span> <span style=color:#bd93f9>1</span>
+</span></span><span style=display:flex><span>  <span style=color:#ff79c6>DEFAULT</span> CHARSET <span style=color:#ff79c6>=</span> utf8 <span style=color:#ff79c6>COMMENT</span> <span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#39;员工记录表&#39;</span>;
+</span></span></code></pre></td></tr></table></div></div><h3 class=group id=测试数据>测试数据<a href=#%e6%b5%8b%e8%af%95%e6%95%b0%e6%8d%ae><i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100"></i></a></h3><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#ff79c6>INSERT</span> <span style=color:#ff79c6>INTO</span> employees(name, age, <span style=color:#ff79c6>position</span>, hire_time)
+</span></span><span style=display:flex><span><span style=color:#ff79c6>VALUES</span> (<span style=color:#f1fa8c>&#39;LiLei&#39;</span>, <span style=color:#bd93f9>22</span>, <span style=color:#f1fa8c>&#39;manager&#39;</span>, NOW());
+</span></span><span style=display:flex><span><span style=color:#ff79c6>INSERT</span> <span style=color:#ff79c6>INTO</span> employees(name, age, <span style=color:#ff79c6>position</span>, hire_time)
+</span></span><span style=display:flex><span><span style=color:#ff79c6>VALUES</span> (<span style=color:#f1fa8c>&#39;HanMeimei&#39;</span>, <span style=color:#bd93f9>23</span>, <span style=color:#f1fa8c>&#39;dev&#39;</span>, NOW());
+</span></span><span style=display:flex><span><span style=color:#ff79c6>INSERT</span> <span style=color:#ff79c6>INTO</span> employees(name, age, <span style=color:#ff79c6>position</span>, hire_time)
+</span></span><span style=display:flex><span><span style=color:#ff79c6>VALUES</span> (<span style=color:#f1fa8c>&#39;Lucy&#39;</span>, <span style=color:#bd93f9>23</span>, <span style=color:#f1fa8c>&#39;dev&#39;</span>, NOW());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>#</span> 插入一些示例数据
+</span></span><span style=display:flex><span><span style=color:#ff79c6>drop</span> <span style=color:#ff79c6>procedure</span> <span style=color:#ff79c6>if</span> <span style=color:#ff79c6>exists</span> insert_emp;
+</span></span><span style=display:flex><span><span style=color:#ff79c6>delimiter</span> ;;
+</span></span><span style=display:flex><span><span style=color:#ff79c6>create</span> <span style=color:#ff79c6>procedure</span> insert_emp()
+</span></span><span style=display:flex><span><span style=color:#ff79c6>begin</span>
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>declare</span> i <span style=color:#8be9fd;font-style:italic>int</span>;
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>set</span> i <span style=color:#ff79c6>=</span> <span style=color:#bd93f9>1</span>;
+</span></span><span style=display:flex><span>    while(i <span style=color:#ff79c6>&lt;=</span> <span style=color:#bd93f9>100000</span>)
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>do</span>
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>insert</span> <span style=color:#ff79c6>into</span> employees(name, age, <span style=color:#ff79c6>position</span>) <span style=color:#ff79c6>values</span> (CONCAT(<span style=color:#f1fa8c>&#39;zhuge&#39;</span>, i), i, <span style=color:#f1fa8c>&#39;dev&#39;</span>);
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>set</span> i <span style=color:#ff79c6>=</span> i <span style=color:#ff79c6>+</span> <span style=color:#bd93f9>1</span>;
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>end</span> while;
+</span></span><span style=display:flex><span><span style=color:#ff79c6>end</span>;;
+</span></span><span style=display:flex><span><span style=color:#ff79c6>delimiter</span> ;
+</span></span><span style=display:flex><span><span style=color:#ff79c6>call</span> insert_emp();
+</span></span></code></pre></td></tr></table></div></div><h2 class=group id=不同的索引选择>不同的索引选择<a href=#%e4%b8%8d%e5%90%8c%e7%9a%84%e7%b4%a2%e5%bc%95%e9%80%89%e6%8b%a9><i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100"></i></a></h2><p>我们用一个查询语句来做示例，同样的查询条件，仅仅是查询参数的不同。</p><h3 class=group id=全表扫描示例>全表扫描示例<a href=#%e5%85%a8%e8%a1%a8%e6%89%ab%e6%8f%8f%e7%a4%ba%e4%be%8b><i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100"></i></a></h3><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#ff79c6>EXPLAIN</span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>SELECT</span> <span style=color:#ff79c6>*</span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>FROM</span> employees
+</span></span><span style=display:flex><span><span style=color:#ff79c6>WHERE</span> name <span style=color:#ff79c6>&gt;</span> <span style=color:#f1fa8c>&#39;a&#39;</span>;
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>[
+</span></span><span style=display:flex><span>  {
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;id&#34;</span>: <span style=color:#bd93f9>1</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;select_type&#34;</span>: <span style=color:#f1fa8c>&#34;SIMPLE&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;table&#34;</span>: <span style=color:#f1fa8c>&#34;employees&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;partitions&#34;</span>: <span style=color:#ff79c6>null</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;type&#34;</span>: <span style=color:#f1fa8c>&#34;ALL&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;possible_keys&#34;</span>: <span style=color:#f1fa8c>&#34;idx_name_age_position&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;key&#34;</span>: <span style=color:#ff79c6>null</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;key_len&#34;</span>: <span style=color:#ff79c6>null</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;ref&#34;</span>: <span style=color:#ff79c6>null</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;rows&#34;</span>: <span style=color:#bd93f9>100269</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;filtered&#34;</span>: <span style=color:#bd93f9>50</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;Extra&#34;</span>: <span style=color:#f1fa8c>&#34;Using where&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>]
+</span></span></code></pre></td></tr></table></div></div><h3 class=group id=覆盖索引示例>覆盖索引示例<a href=#%e8%a6%86%e7%9b%96%e7%b4%a2%e5%bc%95%e7%a4%ba%e4%be%8b><i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100"></i></a></h3><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#ff79c6>EXPLAIN</span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>SELECT</span> name, age, <span style=color:#ff79c6>position</span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>FROM</span> employees
+</span></span><span style=display:flex><span><span style=color:#ff79c6>WHERE</span> name <span style=color:#ff79c6>&gt;</span> <span style=color:#f1fa8c>&#39;a&#39;</span>;
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>[
+</span></span><span style=display:flex><span>  {
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;id&#34;</span>: <span style=color:#bd93f9>1</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;select_type&#34;</span>: <span style=color:#f1fa8c>&#34;SIMPLE&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;table&#34;</span>: <span style=color:#f1fa8c>&#34;employees&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;partitions&#34;</span>: <span style=color:#ff79c6>null</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;type&#34;</span>: <span style=color:#f1fa8c>&#34;range&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;possible_keys&#34;</span>: <span style=color:#f1fa8c>&#34;idx_name_age_position&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;key&#34;</span>: <span style=color:#f1fa8c>&#34;idx_name_age_position&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;key_len&#34;</span>: <span style=color:#f1fa8c>&#34;74&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;ref&#34;</span>: <span style=color:#ff79c6>null</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;rows&#34;</span>: <span style=color:#bd93f9>50134</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;filtered&#34;</span>: <span style=color:#bd93f9>100</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;Extra&#34;</span>: <span style=color:#f1fa8c>&#34;Using where; Using index&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>]
+</span></span></code></pre></td></tr></table></div></div><h3 class=group id=走索引示例>走索引示例<a href=#%e8%b5%b0%e7%b4%a2%e5%bc%95%e7%a4%ba%e4%be%8b><i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100"></i></a></h3><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#ff79c6>EXPLAIN</span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>SELECT</span> <span style=color:#ff79c6>*</span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>FROM</span> employees
+</span></span><span style=display:flex><span><span style=color:#ff79c6>WHERE</span> name <span style=color:#ff79c6>&gt;</span> <span style=color:#f1fa8c>&#39;zzz&#39;</span>;
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>[
+</span></span><span style=display:flex><span>  {
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;id&#34;</span>: <span style=color:#bd93f9>1</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;select_type&#34;</span>: <span style=color:#f1fa8c>&#34;SIMPLE&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;table&#34;</span>: <span style=color:#f1fa8c>&#34;employees&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;partitions&#34;</span>: <span style=color:#ff79c6>null</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;type&#34;</span>: <span style=color:#f1fa8c>&#34;range&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;possible_keys&#34;</span>: <span style=color:#f1fa8c>&#34;idx_name_age_position&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;key&#34;</span>: <span style=color:#f1fa8c>&#34;idx_name_age_position&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;key_len&#34;</span>: <span style=color:#f1fa8c>&#34;74&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;ref&#34;</span>: <span style=color:#ff79c6>null</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;rows&#34;</span>: <span style=color:#bd93f9>1</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;filtered&#34;</span>: <span style=color:#bd93f9>100</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;Extra&#34;</span>: <span style=color:#f1fa8c>&#34;Using index condition&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>]
+</span></span></code></pre></td></tr></table></div></div><p>可以看到，上述3种情况，mysql选择了不同的查询方案。
+mysql最终选择是否走索引或者一张表涉及多个索引最终选择哪个索引，我们可以用trace工具来一查究竟。</p><h2 class=group id=trace介绍>trace介绍<a href=#trace%e4%bb%8b%e7%bb%8d><i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100"></i></a></h2><h3 class=group id=用法>用法<a href=#%e7%94%a8%e6%b3%95><i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100"></i></a></h3><p>开启 trace 工具会影响 mysql 性能，所以只能临时分析 sql 使用，使用后应该立即关闭。</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#ff79c6>#</span> 开启trace
+</span></span><span style=display:flex><span><span style=color:#ff79c6>SET</span> <span style=color:#ff79c6>SESSION</span> optimizer_trace <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;enabled=on&#34;</span>,end_markers_in_json <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>ON</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>#</span> 关闭 trace
+</span></span><span style=display:flex><span><span style=color:#ff79c6>SET</span> <span style=color:#ff79c6>SESSION</span> optimizer_trace <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;enabled=off&#34;</span>;
+</span></span></code></pre></td></tr></table></div></div><p>使用trace工具查看语句：</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#ff79c6>SELECT</span> <span style=color:#ff79c6>*</span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>FROM</span> employees
+</span></span><span style=display:flex><span><span style=color:#ff79c6>WHERE</span> name <span style=color:#ff79c6>&gt;</span> <span style=color:#f1fa8c>&#39;a&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>ORDER</span> <span style=color:#ff79c6>BY</span> <span style=color:#ff79c6>position</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>SELECT</span> <span style=color:#ff79c6>*</span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>FROM</span> information_schema.optimizer_trace;
+</span></span></code></pre></td></tr></table></div></div><h3 class=group id=结果分析>结果分析<a href=#%e7%bb%93%e6%9e%9c%e5%88%86%e6%9e%90><i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100"></i></a></h3><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 13
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 14
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 15
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 16
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 17
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 18
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 19
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 20
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 21
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 22
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 23
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 24
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 25
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 26
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 27
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 28
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 29
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 30
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 31
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 32
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 33
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 34
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 35
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 36
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 37
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 38
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 39
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 40
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 41
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 42
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 43
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 44
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 45
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 46
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 47
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 48
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 49
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 50
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 51
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 52
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 53
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 54
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 55
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 56
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 57
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 58
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 59
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 60
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 61
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 62
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 63
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 64
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 65
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 66
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 67
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 68
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 69
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 70
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 71
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 72
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 73
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 74
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 75
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 76
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 77
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 78
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 79
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 80
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 81
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 82
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 83
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 84
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 85
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 86
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 87
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 88
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 89
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 90
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 91
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 92
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 93
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 94
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 95
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 96
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 97
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 98
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 99
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">100
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">101
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">102
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">103
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">104
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">105
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">106
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">107
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">108
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">109
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">110
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">111
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">112
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">113
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">114
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">115
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">116
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">117
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">118
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">119
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">120
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">121
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">122
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">123
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">124
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">125
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">126
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">127
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">128
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">129
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">130
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">131
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">132
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">133
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">134
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">135
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">136
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">137
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">138
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">139
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">140
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">141
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">142
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">143
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">144
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">145
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">146
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">147
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">148
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">149
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">150
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">151
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">152
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">153
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">154
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">155
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">156
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">157
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">158
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">159
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">160
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">161
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">162
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">163
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">164
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">165
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">166
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">167
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">168
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">169
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">170
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">171
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">172
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">173
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">174
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">175
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">176
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">177
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">178
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">179
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">180
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">181
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">182
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">183
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">184
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">185
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">186
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">187
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">188
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">189
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">190
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">191
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">192
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">193
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">194
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">195
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">196
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">197
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">198
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">199
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">200
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">201
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">202
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">203
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">204
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">205
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">206
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">207
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">208
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">209
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">210
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">211
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">212
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">213
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">214
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">215
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">216
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">217
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">218
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">219
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">220
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">221
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">222
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">223
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">224
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">225
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">226
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">227
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">228
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">229
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">230
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">231
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">232
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">233
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">234
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">235
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">236
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">237
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">238
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">239
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">240
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">241
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">242
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">243
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">244
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">245
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">246
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">247
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">248
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">249
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">250
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#ff79c6>&#34;steps&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      /* 第一阶段，sql准备阶段，格式化sql */
+</span></span><span style=display:flex><span>      <span style=color:#ff79c6>&#34;join_preparation&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>&#34;select#&#34;</span>: <span style=color:#bd93f9>1</span>,
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>&#34;steps&#34;</span>: [
+</span></span><span style=display:flex><span>          {
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>&#34;expanded_query&#34;</span>: <span style=color:#f1fa8c>&#34;/* select#1 */ select `employees`.`id` AS `id`,`employees`.`name` AS `name`,`employees`.`age` AS `age`,`employees`.`position` AS `position`,`employees`.`hire_time` AS `hire_time` from `employees` where (`employees`.`name` &gt; &#39;a&#39;) order by `employees`.`position`&#34;</span>
+</span></span><span style=display:flex><span>          }
+</span></span><span style=display:flex><span>        ] /* steps */
+</span></span><span style=display:flex><span>      } /* join_preparation */
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      /* 第二阶段，sql优化阶段 */
+</span></span><span style=display:flex><span>      <span style=color:#ff79c6>&#34;join_optimization&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>&#34;select#&#34;</span>: <span style=color:#bd93f9>1</span>,
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>&#34;steps&#34;</span>: [
+</span></span><span style=display:flex><span>          {
+</span></span><span style=display:flex><span>            /* 条件处理 */
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>&#34;condition_processing&#34;</span>: {
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;condition&#34;</span>: <span style=color:#f1fa8c>&#34;WHERE&#34;</span>,
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;original_condition&#34;</span>: <span style=color:#f1fa8c>&#34;(`employees`.`name` &gt; &#39;a&#39;)&#34;</span>,
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;steps&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                  <span style=color:#ff79c6>&#34;transformation&#34;</span>: <span style=color:#f1fa8c>&#34;equality_propagation&#34;</span>,
+</span></span><span style=display:flex><span>                  <span style=color:#ff79c6>&#34;resulting_condition&#34;</span>: <span style=color:#f1fa8c>&#34;(`employees`.`name` &gt; &#39;a&#39;)&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                  <span style=color:#ff79c6>&#34;transformation&#34;</span>: <span style=color:#f1fa8c>&#34;constant_propagation&#34;</span>,
+</span></span><span style=display:flex><span>                  <span style=color:#ff79c6>&#34;resulting_condition&#34;</span>: <span style=color:#f1fa8c>&#34;(`employees`.`name` &gt; &#39;a&#39;)&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                  <span style=color:#ff79c6>&#34;transformation&#34;</span>: <span style=color:#f1fa8c>&#34;trivial_condition_removal&#34;</span>,
+</span></span><span style=display:flex><span>                  <span style=color:#ff79c6>&#34;resulting_condition&#34;</span>: <span style=color:#f1fa8c>&#34;(`employees`.`name` &gt; &#39;a&#39;)&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>              ] /* steps */
+</span></span><span style=display:flex><span>            } /* condition_processing */
+</span></span><span style=display:flex><span>          },
+</span></span><span style=display:flex><span>          {
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>&#34;substitute_generated_columns&#34;</span>: {
+</span></span><span style=display:flex><span>            } /* substitute_generated_columns */
+</span></span><span style=display:flex><span>          },
+</span></span><span style=display:flex><span>          {
+</span></span><span style=display:flex><span>            /* 表依赖详情 */
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>&#34;table_dependencies&#34;</span>: [
+</span></span><span style=display:flex><span>              {
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;table&#34;</span>: <span style=color:#f1fa8c>&#34;`employees`&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;row_may_be_null&#34;</span>: <span style=color:#ff79c6>false</span>,
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;map_bit&#34;</span>: <span style=color:#bd93f9>0</span>,
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;depends_on_map_bits&#34;</span>: [
+</span></span><span style=display:flex><span>                ] /* depends_on_map_bits */
+</span></span><span style=display:flex><span>              }
+</span></span><span style=display:flex><span>            ] /* table_dependencies */
+</span></span><span style=display:flex><span>          },
+</span></span><span style=display:flex><span>          {
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>&#34;ref_optimizer_key_uses&#34;</span>: [
+</span></span><span style=display:flex><span>            ] /* ref_optimizer_key_uses */
+</span></span><span style=display:flex><span>          },
+</span></span><span style=display:flex><span>          {
+</span></span><span style=display:flex><span>            /* 预估表的访问成本 */
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>&#34;rows_estimation&#34;</span>: [
+</span></span><span style=display:flex><span>              {
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;table&#34;</span>: <span style=color:#f1fa8c>&#34;`employees`&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;range_analysis&#34;</span>: {
+</span></span><span style=display:flex><span>                  /* 全表扫描情况 */
+</span></span><span style=display:flex><span>                  <span style=color:#ff79c6>&#34;table_scan&#34;</span>: {
+</span></span><span style=display:flex><span>                    /* 扫描行数 */
+</span></span><span style=display:flex><span>                    <span style=color:#ff79c6>&#34;rows&#34;</span>: <span style=color:#bd93f9>100269</span>, 
+</span></span><span style=display:flex><span>                    
+</span></span><span style=display:flex><span>                    /* 扫描成本 */
+</span></span><span style=display:flex><span>                    <span style=color:#ff79c6>&#34;cost&#34;</span>: <span style=color:#bd93f9>20345</span>
+</span></span><span style=display:flex><span>                  } /* table_scan */,
+</span></span><span style=display:flex><span>                  
+</span></span><span style=display:flex><span>                  /* 查询可能使用的索引 */
+</span></span><span style=display:flex><span>                  <span style=color:#ff79c6>&#34;potential_range_indexes&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                      /* 主键索引 */
+</span></span><span style=display:flex><span>                      <span style=color:#ff79c6>&#34;index&#34;</span>: <span style=color:#f1fa8c>&#34;PRIMARY&#34;</span>,
+</span></span><span style=display:flex><span>                      <span style=color:#ff79c6>&#34;usable&#34;</span>: <span style=color:#ff79c6>false</span>,
+</span></span><span style=display:flex><span>                      <span style=color:#ff79c6>&#34;cause&#34;</span>: <span style=color:#f1fa8c>&#34;not_applicable&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                      /* 辅助索引 */
+</span></span><span style=display:flex><span>                      <span style=color:#ff79c6>&#34;index&#34;</span>: <span style=color:#f1fa8c>&#34;idx_name_age_position&#34;</span>,
+</span></span><span style=display:flex><span>                      <span style=color:#ff79c6>&#34;usable&#34;</span>: <span style=color:#ff79c6>true</span>,
+</span></span><span style=display:flex><span>                      <span style=color:#ff79c6>&#34;key_parts&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#f1fa8c>&#34;name&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f1fa8c>&#34;age&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f1fa8c>&#34;position&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f1fa8c>&#34;id&#34;</span>
+</span></span><span style=display:flex><span>                      ] /* key_parts */
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                  ] /* potential_range_indexes */,
+</span></span><span style=display:flex><span>                  <span style=color:#ff79c6>&#34;setup_range_conditions&#34;</span>: [
+</span></span><span style=display:flex><span>                  ] /* setup_range_conditions */,
+</span></span><span style=display:flex><span>                  <span style=color:#ff79c6>&#34;group_index_range&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#ff79c6>&#34;chosen&#34;</span>: <span style=color:#ff79c6>false</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#ff79c6>&#34;cause&#34;</span>: <span style=color:#f1fa8c>&#34;not_group_by_or_distinct&#34;</span>
+</span></span><span style=display:flex><span>                  } /* group_index_range */,
+</span></span><span style=display:flex><span>                  
+</span></span><span style=display:flex><span>                  /* 分析各个索引使用成本 */
+</span></span><span style=display:flex><span>                  <span style=color:#ff79c6>&#34;analyzing_range_alternatives&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#ff79c6>&#34;range_scan_alternatives&#34;</span>: [
+</span></span><span style=display:flex><span>                      {
+</span></span><span style=display:flex><span>                        <span style=color:#ff79c6>&#34;index&#34;</span>: <span style=color:#f1fa8c>&#34;idx_name_age_position&#34;</span>,
+</span></span><span style=display:flex><span>                        
+</span></span><span style=display:flex><span>                        /* 索引使用范围 */
+</span></span><span style=display:flex><span>                        <span style=color:#ff79c6>&#34;ranges&#34;</span>: [
+</span></span><span style=display:flex><span>                          <span style=color:#f1fa8c>&#34;a &lt; name&#34;</span>
+</span></span><span style=display:flex><span>                        ] /* ranges */,
+</span></span><span style=display:flex><span>                        <span style=color:#ff79c6>&#34;index_dives_for_eq_ranges&#34;</span>: <span style=color:#ff79c6>true</span>,
+</span></span><span style=display:flex><span>                        
+</span></span><span style=display:flex><span>                        /* 使用该索引获取的记录是否按照主键排序 */
+</span></span><span style=display:flex><span>                        <span style=color:#ff79c6>&#34;rowid_ordered&#34;</span>: <span style=color:#ff79c6>false</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#ff79c6>&#34;using_mrr&#34;</span>: <span style=color:#ff79c6>false</span>,
+</span></span><span style=display:flex><span>                        
+</span></span><span style=display:flex><span>                        /* 是否使用覆盖索引 */
+</span></span><span style=display:flex><span>                        <span style=color:#ff79c6>&#34;index_only&#34;</span>: <span style=color:#ff79c6>false</span>,
+</span></span><span style=display:flex><span>                        /* 索引扫描行数 */
+</span></span><span style=display:flex><span>                        <span style=color:#ff79c6>&#34;rows&#34;</span>: <span style=color:#bd93f9>50134</span>,
+</span></span><span style=display:flex><span>                        /* 索引扫描成本 */
+</span></span><span style=display:flex><span>                        <span style=color:#ff79c6>&#34;cost&#34;</span>: <span style=color:#bd93f9>60162</span>,
+</span></span><span style=display:flex><span>                        /* 是否选择该索引 */
+</span></span><span style=display:flex><span>                        <span style=color:#ff79c6>&#34;chosen&#34;</span>: <span style=color:#ff79c6>false</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#ff79c6>&#34;cause&#34;</span>: <span style=color:#f1fa8c>&#34;cost&#34;</span>
+</span></span><span style=display:flex><span>                      }
+</span></span><span style=display:flex><span>                    ] /* range_scan_alternatives */,
+</span></span><span style=display:flex><span>                    <span style=color:#ff79c6>&#34;analyzing_roworder_intersect&#34;</span>: {
+</span></span><span style=display:flex><span>                      <span style=color:#ff79c6>&#34;usable&#34;</span>: <span style=color:#ff79c6>false</span>,
+</span></span><span style=display:flex><span>                      <span style=color:#ff79c6>&#34;cause&#34;</span>: <span style=color:#f1fa8c>&#34;too_few_roworder_scans&#34;</span>
+</span></span><span style=display:flex><span>                    } /* analyzing_roworder_intersect */
+</span></span><span style=display:flex><span>                  } /* analyzing_range_alternatives */
+</span></span><span style=display:flex><span>                } /* range_analysis */
+</span></span><span style=display:flex><span>              }
+</span></span><span style=display:flex><span>            ] /* rows_estimation */
+</span></span><span style=display:flex><span>          },
+</span></span><span style=display:flex><span>          {
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>&#34;considered_execution_plans&#34;</span>: [
+</span></span><span style=display:flex><span>              {
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;plan_prefix&#34;</span>: [
+</span></span><span style=display:flex><span>                ] /* plan_prefix */,
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;table&#34;</span>: <span style=color:#f1fa8c>&#34;`employees`&#34;</span>,
+</span></span><span style=display:flex><span>                /* 最优访问路径 */
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;best_access_path&#34;</span>: {
+</span></span><span style=display:flex><span>                  /* 最终选择的访问路径 */
+</span></span><span style=display:flex><span>                  <span style=color:#ff79c6>&#34;considered_access_paths&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                      <span style=color:#ff79c6>&#34;rows_to_scan&#34;</span>: <span style=color:#bd93f9>100269</span>,
+</span></span><span style=display:flex><span>                      /* 访问类型，scan为全表扫描 */
+</span></span><span style=display:flex><span>                      <span style=color:#ff79c6>&#34;access_type&#34;</span>: <span style=color:#f1fa8c>&#34;scan&#34;</span>,
+</span></span><span style=display:flex><span>                      <span style=color:#ff79c6>&#34;resulting_rows&#34;</span>: <span style=color:#bd93f9>100269</span>,
+</span></span><span style=display:flex><span>                      <span style=color:#ff79c6>&#34;cost&#34;</span>: <span style=color:#bd93f9>20343</span>,
+</span></span><span style=display:flex><span>                      /* 是否选择：是 */
+</span></span><span style=display:flex><span>                      <span style=color:#ff79c6>&#34;chosen&#34;</span>: <span style=color:#ff79c6>true</span>,
+</span></span><span style=display:flex><span>                      <span style=color:#ff79c6>&#34;use_tmp_table&#34;</span>: <span style=color:#ff79c6>true</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                  ] /* considered_access_paths */
+</span></span><span style=display:flex><span>                } /* best_access_path */,
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;condition_filtering_pct&#34;</span>: <span style=color:#bd93f9>100</span>,
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;rows_for_plan&#34;</span>: <span style=color:#bd93f9>100269</span>,
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;cost_for_plan&#34;</span>: <span style=color:#bd93f9>20343</span>,
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;sort_cost&#34;</span>: <span style=color:#bd93f9>100269</span>,
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;new_cost_for_plan&#34;</span>: <span style=color:#bd93f9>120612</span>,
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;chosen&#34;</span>: <span style=color:#ff79c6>true</span>
+</span></span><span style=display:flex><span>              }
+</span></span><span style=display:flex><span>            ] /* considered_execution_plans */
+</span></span><span style=display:flex><span>          },
+</span></span><span style=display:flex><span>          {
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>&#34;attaching_conditions_to_tables&#34;</span>: {
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;original_condition&#34;</span>: <span style=color:#f1fa8c>&#34;(`employees`.`name` &gt; &#39;a&#39;)&#34;</span>,
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;attached_conditions_computation&#34;</span>: [
+</span></span><span style=display:flex><span>              ] /* attached_conditions_computation */,
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;attached_conditions_summary&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                  <span style=color:#ff79c6>&#34;table&#34;</span>: <span style=color:#f1fa8c>&#34;`employees`&#34;</span>,
+</span></span><span style=display:flex><span>                  <span style=color:#ff79c6>&#34;attached&#34;</span>: <span style=color:#f1fa8c>&#34;(`employees`.`name` &gt; &#39;a&#39;)&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>              ] /* attached_conditions_summary */
+</span></span><span style=display:flex><span>            } /* attaching_conditions_to_tables */
+</span></span><span style=display:flex><span>          },
+</span></span><span style=display:flex><span>          {
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>&#34;clause_processing&#34;</span>: {
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;clause&#34;</span>: <span style=color:#f1fa8c>&#34;ORDER BY&#34;</span>,
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;original_clause&#34;</span>: <span style=color:#f1fa8c>&#34;`employees`.`position`&#34;</span>,
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;items&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                  <span style=color:#ff79c6>&#34;item&#34;</span>: <span style=color:#f1fa8c>&#34;`employees`.`position`&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>              ] /* items */,
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;resulting_clause_is_simple&#34;</span>: <span style=color:#ff79c6>true</span>,
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;resulting_clause&#34;</span>: <span style=color:#f1fa8c>&#34;`employees`.`position`&#34;</span>
+</span></span><span style=display:flex><span>            } /* clause_processing */
+</span></span><span style=display:flex><span>          },
+</span></span><span style=display:flex><span>          {
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>&#34;reconsidering_access_paths_for_index_ordering&#34;</span>: {
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;clause&#34;</span>: <span style=color:#f1fa8c>&#34;ORDER BY&#34;</span>,
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;steps&#34;</span>: [
+</span></span><span style=display:flex><span>              ] /* steps */,
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;index_order_summary&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;table&#34;</span>: <span style=color:#f1fa8c>&#34;`employees`&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;index_provides_order&#34;</span>: <span style=color:#ff79c6>false</span>,
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;order_direction&#34;</span>: <span style=color:#f1fa8c>&#34;undefined&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;index&#34;</span>: <span style=color:#f1fa8c>&#34;unknown&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;plan_changed&#34;</span>: <span style=color:#ff79c6>false</span>
+</span></span><span style=display:flex><span>              } /* index_order_summary */
+</span></span><span style=display:flex><span>            } /* reconsidering_access_paths_for_index_ordering */
+</span></span><span style=display:flex><span>          },
+</span></span><span style=display:flex><span>          {
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>&#34;refine_plan&#34;</span>: [
+</span></span><span style=display:flex><span>              {
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;table&#34;</span>: <span style=color:#f1fa8c>&#34;`employees`&#34;</span>
+</span></span><span style=display:flex><span>              }
+</span></span><span style=display:flex><span>            ] /* refine_plan */
+</span></span><span style=display:flex><span>          }
+</span></span><span style=display:flex><span>        ] /* steps */
+</span></span><span style=display:flex><span>      } /* join_optimization */
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      /* 第三阶段，sql执行阶段 */
+</span></span><span style=display:flex><span>      <span style=color:#ff79c6>&#34;join_execution&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>&#34;select#&#34;</span>: <span style=color:#bd93f9>1</span>,
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>&#34;steps&#34;</span>: [
+</span></span><span style=display:flex><span>          {
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>&#34;filesort_information&#34;</span>: [
+</span></span><span style=display:flex><span>              {
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;direction&#34;</span>: <span style=color:#f1fa8c>&#34;asc&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;table&#34;</span>: <span style=color:#f1fa8c>&#34;`employees`&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>&#34;field&#34;</span>: <span style=color:#f1fa8c>&#34;position&#34;</span>
+</span></span><span style=display:flex><span>              }
+</span></span><span style=display:flex><span>            ] /* filesort_information */,
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>&#34;filesort_priority_queue_optimization&#34;</span>: {
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;usable&#34;</span>: <span style=color:#ff79c6>false</span>,
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;cause&#34;</span>: <span style=color:#f1fa8c>&#34;not applicable (no LIMIT)&#34;</span>
+</span></span><span style=display:flex><span>            } /* filesort_priority_queue_optimization */,
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>&#34;filesort_execution&#34;</span>: [
+</span></span><span style=display:flex><span>            ] /* filesort_execution */,
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>&#34;filesort_summary&#34;</span>: {
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;rows&#34;</span>: <span style=color:#bd93f9>100003</span>,
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;examined_rows&#34;</span>: <span style=color:#bd93f9>100003</span>,
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;number_of_tmp_files&#34;</span>: <span style=color:#bd93f9>30</span>,
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;sort_buffer_size&#34;</span>: <span style=color:#bd93f9>262056</span>,
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>&#34;sort_mode&#34;</span>: <span style=color:#f1fa8c>&#34;&lt;sort_key, packed_additional_fields&gt;&#34;</span>
+</span></span><span style=display:flex><span>            } /* filesort_summary */
+</span></span><span style=display:flex><span>          }
+</span></span><span style=display:flex><span>        ] /* steps */
+</span></span><span style=display:flex><span>      } /* join_execution */
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  ] /* steps */
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></td></tr></table></div></div><p>上述 json 结果中给出大部分关键字段的注释，可以看到当前执行语句，mysql分析全表扫描比走索引查询的成本 cost 更低，所以选择了全表扫描。</p></section><div class="px-6 pb-5 pt-4 text-center text-xl text-gray-500 md:px-10 md:pb-10 md:pt-14"><a class="mr-4 inline-flex h-5 w-5 items-center" title="分享到 Twitter" href="https://twitter.com/share?&text=%e7%a4%ba%e4%be%8b%e8%a1%a8%20%e8%a1%a8%e7%bb%93%e6%9e%84%201%202%203%204%205%206%207%208%209%2010%2011%2012%2013%20DROP%20TABLE%20IF%20EXISTS%20employees;%20CREATE%20TABLE%20%60employees%60%20%28%20%60id%60%20int%2811%29%20NOT%20NULL%20AUTO_INCREMENT,%20%60name%60%20varchar%2824%29%20NOT%20NULL%20DEFAULT%20&amp;#39;&amp;#39;%20COMMENT%20&amp;#39;%e5%a7%93%e5%90%8d&amp;#39;,%20%60age%60%20int%2811%29%20NOT%20NULL%20DEFAULT%20&amp;#39;0&amp;#39;%20COMMENT%20&amp;#39;%e5%b9%b4%e9%be%84&#3&url=https://www.vitahlin.com/2022/04/13/mysql-how-to-choose-the-right-index.html/" target=_blank rel="noopener noreferrer"><i class="eva eva-twitter hover:text-theme"></i></a><a class="mr-4 inline-flex h-5 w-5 items-center" title="分享到 Facebook" href="https://www.facebook.com/sharer.php?u=https://www.vitahlin.com/2022/04/13/mysql-how-to-choose-the-right-index.html/" target=_blank rel="noopener noreferrer"><i class="eva eva-facebook hover:text-theme"></i></a><a class="mr-4 inline-flex h-5 w-5 items-center" title=分享到微博 href="https://service.weibo.com/share/share.php?url=https://www.vitahlin.com/2022/04/13/mysql-how-to-choose-the-right-index.html/&title=Mysql%e5%a6%82%e4%bd%95%e9%80%89%e6%8b%a9%e5%90%88%e9%80%82%e7%9a%84%e7%b4%a2%e5%bc%95&sudaref=www.vitahlin.com" target=_blank rel="noopener noreferrer"><svg class="inline-block h-5 w-5 fill-current hover:text-theme" viewBox="0 0 1193 1024" xmlns="http://www.w3.org/2000/svg" p-id="2681" width="200" height="200"><path d="M456.991736 557.336482c-107.598583.0-194.644628 74.956316-194.644629 166.838252s87.046045 166.838253 194.644629 166.838253c107.598583.0 194.644628-74.956316 194.644628-166.838253s-87.046045-166.838253-194.644628-166.838252zM391.707202 822.101535c-36.269185.0-66.493506-27.806375-66.493507-62.866588s29.015348-62.866588 66.493507-62.866588c36.269185.0 66.493506 27.806375 66.493506 62.866588S427.976387 822.101535 391.707202 822.101535zm93.090909-91.881936c-14.507674.0-26.597403-12.089728-26.597403-26.597403s12.089728-26.597403 26.597403-26.597403 26.597403 12.089728 26.597403 26.597403-12.089728 26.597403-26.597403 26.597403zM239.376623 281.690673C97.9268 394.125148-18.134593 600.859504 30.224321 661.308146c32.642267 41.105077 59.239669-19.343566 124.524203-89.46399 30.224321-32.642267 77.374262-54.403778 122.106258-90.672964 20.552538-16.92562 197.062574-35.060213 230.913813-35.060212 97.9268-99.135773 114.85242-207.943329 74.956316-258.720189-48.358914-59.239669-201.898465-16.92562-343.348288 94.299882z" p-id="2682"/><path d="M808.802834 560.9634C906.729634 461.827627 911.565525 377.199528 870.460449 326.422668c-47.149941-60.448642-211.570248-32.642267-351.811098 78.583235" p-id="2683"/><path d="M605.695396 353.020071c-14.507674 8.46281-25.38843 12.089728-29.015349 7.253837-1.208973-2.417946-1.208973-6.044864 1.208973-9.671783-16.92562-1.208973-33.85124-1.208973-50.776859-1.208973C235.749705 349.393152.0 500.514758.0 686.696576S235.749705 1024 527.112161 1024s527.112161-151.121606 527.11216-337.303424c0-170.465171-194.644628-309.497048-448.528925-333.676505zM481.171192 959.924439c-205.525383.0-372.363636-112.434474-372.363636-251.466352s166.838253-251.466352 372.363636-251.466351 372.363636 112.434475 372.363637 251.466351-166.838253 251.466352-372.363637 251.466352z" p-id="2684"/><path d="M1021.582054 423.140496c-3.626919.0-6.044864.0-9.671782-1.208973-18.134593-4.835891-29.015348-24.179457-22.970485-42.31405 2.417946-7.253837 3.626919-16.92562 3.626919-29.015348.0-65.284534-53.194805-119.688312-119.688312-119.688312-19.343566.0-33.85124-15.716647-33.851239-33.851239s15.716647-33.85124 33.851239-33.85124c103.971665.0 187.390791 84.628099 187.390791 187.390791.0 18.134593-2.417946 33.85124-6.044864 48.358914-4.835891 14.507674-18.134593 24.179457-32.642267 24.179457z" p-id="2685"/><path d="M1146.106257 473.917355c-2.417946.0-6.044864.0-8.46281-1.208972-20.552538-4.835891-32.642267-25.38843-27.806375-45.940969 6.044864-24.179457 8.46281-47.149941 8.46281-71.329397.0-153.539552-126.942149-280.481701-281.690673-280.481701-20.552538.0-37.478158-16.92562-37.478158-37.478158S816.056671.0 836.609209.0c197.062574.0 356.646989 159.584416 356.646989 356.646989.0 29.015348-3.626919 59.239669-10.880755 88.255018-3.626919 18.134593-19.343566 29.015348-36.269186 29.015348z" p-id="2686"/></svg>
+</a><i class="eva eva-copy mr-4 cursor-pointer hover:text-theme" title=复制链接 data-clipboard-text=https://www.vitahlin.com/2022/04/13/mysql-how-to-choose-the-right-index.html/></i><div class="group relative hidden cursor-pointer sm:inline-block"><i title=二维码 class="eva show-qrcode eva-smartphone hover:text-theme"></i><div class="qrcode-wrapper pointer-events-none absolute left-2/4 bottom-10 h-32 w-32 -translate-x-1/2 overflow-hidden rounded border border-gray-300 bg-white opacity-0 transition duration-300 ease-[ease] group-hover:opacity-100"><img class="h-full w-full" src="https://www.lofter.com/genBitmaxImage?url=https://www.vitahlin.com/2022/04/13/mysql-how-to-choose-the-right-index.html/" alt=二维码></div></div></div><div class="border-b dark:border-darkBorder"></div><div class="flex justify-between px-2 py-4 text-xl md:px-6 md:text-2xl"><div><a href=/2022/04/12/mysql-indexing-optimization-practices.html/ title=Mysql索引优化实践 class="invisible flex cursor-pointer items-center text-gray-500 transition duration-300 ease-[ease] hover:text-theme dark:text-darkTextPlaceholder dark:hover:text-darkText" style=visibility:visible><span class="flex items-center text-5xl opacity-70 dark:bg-opacity-100"><i class="eva eva-chevron-left-outline"></i></span>
+<span>上一篇</span></a></div><div class="hidden items-center text-xs xl:flex">除特殊声明外，本博客一律使用以下协议进行授权 「
+<a href=https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh target=_blank rel="noopener noreferrer" class=text-theme>署名 - 非商业性使用 - 禁止演绎 4.0</a>
+」</div><div class="flex items-center text-sm xl:hidden"><a href=https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh target=_blank rel="noopener noreferrer" class=text-theme><img src=/Cc-by-nc-nd.svg alt="署名 - 非商业性使用 - 禁止演绎 4.0" title="署名 - 非商业性使用 - 禁止演绎 4.0" class=w-24></a></div><a href title class="invisible flex cursor-pointer items-center text-gray-500 transition duration-300 ease-[ease] hover:text-theme dark:text-darkTextPlaceholder dark:hover:text-darkText"><span>下一篇</span>
+<span class="flex items-center text-5xl opacity-70 dark:bg-opacity-100"><i class="eva eva-chevron-right-outline"></i></span></a></div></div></div></div></div></main><footer><div class="com-footer flex flex-col items-center border-t py-4 px-4 text-sm leading-none text-gray-600 dark:border-darkBorder dark:text-darkTextPlaceholder md:flex-row md:justify-between"><div class="mb-2 flex items-center justify-between text-center md:mb-0"><span>© 2022 - 2022</span>
+<span class="mx-1.5 opacity-50">| </span>由 <a data-no-swup class="mx-1 font-bold hover:text-theme" href=https://gohugo.io/ target=_blank rel="noopener noreferrer">Hugo</a> <span class="text-xs opacity-70">❤</span> <a data-no-swup class="mx-1 font-bold hover:text-theme" href=https://github.com/Ice-Hazymoon/hugo-theme-luna target=_blank rel="noopener noreferrer">Luna</a> 驱动</div><div class="flex items-center"><span class="noscript-hidden mx-1.5 hidden opacity-50 md:block">| </span><a data-no-swup href=https://www.vitahlin.com/index.xml target=_blank class="mr-1.5 hover:text-theme"><span class="md:hidden lg:inline"><svg t="1650887361919" class="mr-0.5 w-96 w-3 fill-current text-inherit inline-block align-top" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="3091"><path d="M320.16155 831.918c0 70.738-57.344 128.082-128.082 128.082S63.99955 902.656 63.99955 831.918s57.344-128.082 128.082-128.082 128.08 57.346 128.08 128.082zm351.32 94.5c-16.708-309.2-264.37-557.174-573.9-573.9C79.31155 351.53 63.99955 366.21 63.99955 384.506v96.138c0 16.83 12.98 30.944 29.774 32.036 223.664 14.568 402.946 193.404 417.544 417.544 1.094 16.794 15.208 29.774 32.036 29.774h96.138c18.298.002 32.978-15.31 31.99-33.58zm288.498.576c-16.788-467.64-393.05-846.104-862.974-862.974C78.94555 63.372 63.99955 77.962 63.99955 96.032v96.136c0 17.25 13.67 31.29 30.906 31.998 382.358 15.678 689.254 322.632 704.93 704.93.706 17.236 14.746 30.906 31.998 30.906h96.136c18.068-.002 32.658-14.948 32.01-33.008z" p-id="3092"/></svg></span><span>RSS</span>
+</a><a data-no-swup href=https://www.vitahlin.com/sitemap.xml target=_blank class="mr-1.5 hover:text-theme"><span class="md:hidden lg:inline"><svg t="1650887940556" class="mr-0.5 w-3 fill-current text-inherit inline-block align-top" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="6291"><path d="M950.044 625.778h-68.266v-56.89c0-45.51-39.822-85.332-85.334-85.332h-256v-85.334h68.267c39.822.0 73.956-34.133 73.956-73.955V130.844c0-39.822-34.134-73.955-73.956-73.955H415.29c-39.822.0-73.956 34.133-73.956 73.955v193.423c0 39.822 34.134 73.955 73.956 73.955h68.267v85.334h-256c-45.512.0-85.334 39.822-85.334 85.333v56.889H73.956C34.133 625.778.0 659.91.0 699.733v193.423c0 39.822 34.133 73.955 73.956 73.955h193.422c39.822.0 73.955-34.133 73.955-73.955V699.733c0-39.822-34.133-73.955-73.955-73.955H199.11v-56.89c0-17.066 11.378-28.444 28.445-28.444h568.888c17.067.0 28.445 11.378 28.445 28.445v56.889h-68.267c-39.822.0-73.955 34.133-73.955 73.955v193.423c0 39.822 34.133 73.955 73.955 73.955h193.422c39.823.0 73.956-34.133 73.956-73.955V699.733c0-39.822-34.133-73.955-73.956-73.955z" p-id="6292"/></svg></span><span>Sitemap</span></a></div><div id=run-time class="mt-2 flex-grow text-right md:mt-0"><span>运行时间： </span><b id=run-time-d>0</b>
+<span class=text-xs>天</span>
+<b id=run-time-h>0</b>
+<span class=text-xs>小时</span>
+<b id=run-time-m>0</b>
+<span class=text-xs>分钟</span>
+<b id=run-time-s>0</b>
+<span class=text-xs>秒</span></div></div><script type=text/javascript>window.__theme={cdn:"",pjax:!0,isServer:!1,$version:"",lang:"zh-cn",imageZoom:!0,lazyload:!0,bionicReading:{enabled:!0,skipLinks:!1,autoBionic:!1,excludeWords:[],excludeClasses:["github"],excludeNodeNames:[]},katex:!0,search:!0,backtop:!0,pangu:!0,autoDarkMode:!1,googleAnalytics:!1,hugoEncrypt:{wrongPasswordText:"密码错误",userStorage:window.sessionStorage},console:{enabled:!0,leftColor:"#dd6065",rightColor:"#feb462",leftText:"Hugo Theme Luna",rightText:"Powered by Hugo ❤ Luna"},assets:{error_svg:"/images/error.svg",search_svg:"/images/search.svg"},i18n:{copy:{success:"复制成功",failed:"复制失败，请手动复制",copyCode:"复制代码"},search:{untitled:"无标题",loadFailure:"初始化搜索引擎失败",input:"请输入内容..."},darkMode:{dark:"切换到夜间模式",light:"切换到日间模式"}},creatTime:"2022/07/01"}</script><script type=text/javascript src=/ts/main.e8b8b7518b766286dcc5ce3cf508ea7b5c739605963ec0e8f8d81a6a91e2f841.js defer integrity="sha256-6Li3UYt2Yobcxc489Qjqe1xzlgWWPsDo+NgaapHi+EE="></script><script>"serviceWorker"in navigator&&window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")})</script>
+<script></script><script data-swup-reload-script></script></footer></div></div><a href=#nav title=返回顶部 id=back-top class="fixed right-6 bottom-9 z-10 translate-y-3 scale-90 cursor-pointer rounded-full bg-white opacity-0 transition duration-300 ease-[ease] dark:bg-darkBgAccent sm:scale-100"><div class=relative><div class="absolute left-0 top-0 flex h-full w-full items-center justify-center text-xl"><i class="eva eva-arrow-upward-outline"></i></div><svg id="svg" width="54" height="54" viewBox="0 0 54 54" preserveAspectRatio="xMinYMin meet"><circle transform="rotate(-90, 27 , 27)" style="stroke-dasharray:157,157;stroke-dashoffset:157" cx="27" cy="27" r="25" fill="none" stroke-width="4" stroke-linecap="round" stroke="var(--theme)"/></svg></div></a><noscript><style>.dark-mode-switch,#run-time,.noscript-hidden,[data-clipboard-text],[data-lazyload]{display:none}#back-top{opacity:1}.noscript-show{display:initial}</style></noscript></body></html>
