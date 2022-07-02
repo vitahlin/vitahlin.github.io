@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/"><channel><title>VitahLin</title><atom:link href="%7balternate%20%7bRSS%20application/rss+xml%20%20index%20alternate%20%20false%20false%20true%20false%20false%200%7d%20/index.xml%20https://www.vitahlin.com/index.xml%7d" rel="self" type="application/rss+xml"/><link>https://www.vitahlin.com/</link><managingEditor>VitahLin</managingEditor><description>深自缄默，如云漂泊</description><lastBuildDate>Sat, 02 Jul 2022 00:00:00 +0800</lastBuildDate><language>zh-cn</language><generator>Hugo -- gohugo.io</generator><item><title>如何理解复杂的指针或引用语句</title><link>https://www.vitahlin.com/2022/07/02/how-to-understand-complex-pointer-or-reference-statements.html/</link><pubDate>Sat, 02 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/02/how-to-understand-complex-pointer-or-reference-statements.html/</guid><description>&lt;p>面对一条比较复杂的指针或引用的声明语句时，&lt;strong>从右向左阅读&lt;/strong>有助于弄清楚它的含义。&lt;/p>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/"><channel><title>VitahLin</title><atom:link href="%7balternate%20%7bRSS%20application/rss+xml%20%20index%20alternate%20%20false%20false%20true%20false%20false%200%7d%20/index.xml%20https://www.vitahlin.com/index.xml%7d" rel="self" type="application/rss+xml"/><link>https://www.vitahlin.com/</link><managingEditor>VitahLin</managingEditor><description>深自缄默，如云漂泊</description><lastBuildDate>Sat, 02 Jul 2022 00:00:00 +0800</lastBuildDate><language>zh-cn</language><generator>Hugo -- gohugo.io</generator><item><title>如何理解复杂的指针或引用语句</title><link>https://www.vitahlin.com/2022/07/how-to-understand-complex-pointer-or-reference-statements.html/</link><pubDate>Sat, 02 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/how-to-understand-complex-pointer-or-reference-statements.html/</guid><description>&lt;p>面对一条比较复杂的指针或引用的声明语句时，&lt;strong>从右向左阅读&lt;/strong>有助于弄清楚它的含义。&lt;/p>
 &lt;p>如：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -10,7 +10,7 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd">int&lt;/span> &lt;span style="color:#ff79c6">*&amp;amp;&lt;/span>r &lt;span style="color:#ff79c6">=&lt;/span> p;
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>离变量最近的符号（此例中&amp;amp;r的符号是&amp;amp;）对变量的类型有最直接的影响，因此r是一个引用，声明符的其余部分用以确定r引用的类型是什么，此例中的符号*说明r引用的是一个指针。最后，声明的基本数据类型表明指针r引用的是一个int指针。&lt;/p></description></item><item><title>Mysql如何选择合适的索引</title><link>https://www.vitahlin.com/2022/04/13/mysql-how-to-choose-the-right-index.html/</link><pubDate>Wed, 13 Apr 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/04/13/mysql-how-to-choose-the-right-index.html/</guid><description>
+&lt;/div>&lt;p>离变量最近的符号（此例中&amp;amp;r的符号是&amp;amp;）对变量的类型有最直接的影响，因此r是一个引用，声明符的其余部分用以确定r引用的类型是什么，此例中的符号*说明r引用的是一个指针。最后，声明的基本数据类型表明指针r引用的是一个int指针。&lt;/p></description></item><item><title>Mysql如何选择合适的索引</title><link>https://www.vitahlin.com/2022/04/mysql-how-to-choose-the-right-index.html/</link><pubDate>Wed, 13 Apr 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/04/mysql-how-to-choose-the-right-index.html/</guid><description>
 &lt;h2 class="group " id="示例表"
 >示例表&lt;a href="#%e7%a4%ba%e4%be%8b%e8%a1%a8"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
@@ -841,7 +841,7 @@ mysql最终选择是否走索引或者一张表涉及多个索引最终选择哪
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>上述 json 结果中给出大部分关键字段的注释，可以看到当前执行语句，mysql分析全表扫描比走索引查询的成本 cost 更低，所以选择了全表扫描。&lt;/p></description></item><item><title>Mysql索引优化实践</title><link>https://www.vitahlin.com/2022/04/12/mysql-indexing-optimization-practices.html/</link><pubDate>Tue, 12 Apr 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/04/12/mysql-indexing-optimization-practices.html/</guid><description>
+&lt;/div>&lt;p>上述 json 结果中给出大部分关键字段的注释，可以看到当前执行语句，mysql分析全表扫描比走索引查询的成本 cost 更低，所以选择了全表扫描。&lt;/p></description></item><item><title>Mysql索引优化实践</title><link>https://www.vitahlin.com/2022/04/mysql-indexing-optimization-practices.html/</link><pubDate>Tue, 12 Apr 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/04/mysql-indexing-optimization-practices.html/</guid><description>
 &lt;h2 class="group " id="示例表"
 >示例表&lt;a href="#%e7%a4%ba%e4%be%8b%e8%a1%a8"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
@@ -3517,7 +3517,7 @@ InnoDB的主键索引树叶子节点上保存的是全行数据，所有这个�
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>]
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>Mysql索引优化规则</title><link>https://www.vitahlin.com/2022/04/10/mysql-indexing-optimization-rules.html/</link><pubDate>Sun, 10 Apr 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/04/10/mysql-indexing-optimization-rules.html/</guid><description>
+&lt;/div></description></item><item><title>Mysql索引优化规则</title><link>https://www.vitahlin.com/2022/04/mysql-indexing-optimization-rules.html/</link><pubDate>Sun, 10 Apr 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/04/mysql-indexing-optimization-rules.html/</guid><description>
 &lt;h2 class="group " id="示例表"
 >示例表&lt;a href="#%e7%a4%ba%e4%be%8b%e8%a1%a8"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
@@ -4469,7 +4469,7 @@ long_query_time的默认值为10，意思是记录运行10秒以上的语句。
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;p>&lt;code>like 'kk%'&lt;/code>相当于等于常量，&lt;code>%kk&lt;/code> 和 &lt;code>%kk%&lt;/code> 相当于范围。&lt;/p></description></item><item><title>Mysql explain命令介绍</title><link>https://www.vitahlin.com/2022/04/01/instruction-of-mysql-explain.html/</link><pubDate>Fri, 01 Apr 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/04/01/instruction-of-mysql-explain.html/</guid><description>
+&lt;p>&lt;code>like 'kk%'&lt;/code>相当于等于常量，&lt;code>%kk&lt;/code> 和 &lt;code>%kk%&lt;/code> 相当于范围。&lt;/p></description></item><item><title>Mysql explain命令介绍</title><link>https://www.vitahlin.com/2022/04/instruction-of-mysql-explain.html/</link><pubDate>Fri, 01 Apr 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/04/instruction-of-mysql-explain.html/</guid><description>
 &lt;h2 class="group " id="示例表和数据sql"
 >示例表和数据SQL&lt;a href="#%e7%a4%ba%e4%be%8b%e8%a1%a8%e5%92%8c%e6%95%b0%e6%8d%aesql"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
@@ -6085,7 +6085,7 @@ href="https://dev.mysql.com/doc/refman/5.7/en/subquery-materialization.html"targ
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>]
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>rust安装和升级</title><link>https://www.vitahlin.com/2020/09/09/install-and-upgrade-rust.html/</link><pubDate>Wed, 09 Sep 2020 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2020/09/09/install-and-upgrade-rust.html/</guid><description>
+&lt;/div></description></item><item><title>rust安装和升级</title><link>https://www.vitahlin.com/2020/09/install-and-upgrade-rust.html/</link><pubDate>Wed, 09 Sep 2020 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2020/09/install-and-upgrade-rust.html/</guid><description>
 &lt;h2 class="group " id="安装-rustup"
 >安装 &lt;code>rustup&lt;/code>&lt;a href="#%e5%ae%89%e8%a3%85-rustup"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
