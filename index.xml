@@ -1,4 +1,95 @@
-<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/"><channel><title>VitahLin</title><atom:link href="%7balternate%20%7bRSS%20application/rss+xml%20%20index%20alternate%20%20false%20false%20true%20false%20false%200%7d%20/index.xml%20https://www.vitahlin.com/index.xml%7d" rel="self" type="application/rss+xml"/><link>https://www.vitahlin.com/</link><managingEditor>VitahLin</managingEditor><description>深自缄默，如云漂泊</description><lastBuildDate>Tue, 05 Jul 2022 00:00:00 +0800</lastBuildDate><language>zh-cn</language><generator>Hugo -- gohugo.io</generator><item><title>左移位和右移位</title><link>https://www.vitahlin.com/2022/07/left-shift-and-right-shift.html/</link><pubDate>Tue, 05 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/left-shift-and-right-shift.html/</guid><description>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/"><channel><title>VitahLin</title><atom:link href="%7balternate%20%7bRSS%20application/rss+xml%20%20index%20alternate%20%20false%20false%20true%20false%20false%200%7d%20/index.xml%20https://www.vitahlin.com/index.xml%7d" rel="self" type="application/rss+xml"/><link>https://www.vitahlin.com/</link><managingEditor>VitahLin</managingEditor><description>深自缄默，如云漂泊</description><lastBuildDate>Tue, 05 Jul 2022 00:00:00 +0800</lastBuildDate><language>zh-cn</language><generator>Hugo -- gohugo.io</generator><item><title>git忽略设置</title><link>https://www.vitahlin.com/2022/07/gitignore-settings.html/</link><pubDate>Tue, 05 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/gitignore-settings.html/</guid><description>&lt;p>在项目目录下新建&lt;code>.gitignore&lt;/code>文件，&lt;code>.gitignore&lt;/code>文件对其所在的目录及所在目录的全部子目录均有效。通过将.gitignore文件添加到仓库，其他开发者更新该文件到本地仓库，可以共享同一套忽略规则。&lt;/p>
+&lt;h2 class="group " id="基本的配置规则"
+>基本的配置规则&lt;a href="#%e5%9f%ba%e6%9c%ac%e7%9a%84%e9%85%8d%e7%bd%ae%e8%a7%84%e5%88%99"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;ul>
+&lt;li>忽略＊.o和＊.a文件
+&lt;ul>
+&lt;li>＊.[oa]&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>忽略＊.b和＊.B文件,my.b除外:
+&lt;ul>
+&lt;li>＊.[bB]&lt;/li>
+&lt;li>!my.b&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>忽略dbg文件和dbg目录
+&lt;ul>
+&lt;li>dbg&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>只忽略dbg目录，不忽略dbg文件
+&lt;ul>
+&lt;li>dbg/&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>只忽略dbg文件，不忽略dbg目录
+&lt;ul>
+&lt;li>dbg&lt;/li>
+&lt;li>!dbg/&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>只忽略当前目录下的dbg文件和目录，子目录的dbg不在忽略范围内
+&lt;ul>
+&lt;li>/dbg&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 class="group " id="从github上下载忽略文件"
+>从Github上下载忽略文件&lt;a href="#%e4%bb%8egithub%e4%b8%8a%e4%b8%8b%e8%bd%bd%e5%bf%bd%e7%95%a5%e6%96%87%e4%bb%b6"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>Github上面有个项目专门收集各种忽略文件，我们可以直接从中下载对应的忽略文件到本地项目中进行应用，地址如下：&lt;a
+class="link"
+href="https://github.com/github/gitignore"target="_blank" rel="noopener">gitignore&lt;/a
+>
+&lt;/p>
+&lt;p>这里以&lt;code>C.gitignore&lt;/code>文件为例，找到该文件，点击文件的&lt;code>Raw&lt;/code>查看文件的地址，然后用如下命令下载&lt;code>C.gitignore&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>wget --no-check-certificate https://raw.githubusercontent.com/github/gitignore/master/C.gitignore -O .gitignore
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>链接地址为上述中查看的地址，下载后即可。&lt;code>-O .gitignore&lt;/code>表示把下载的文件重新命令为&lt;code>.gitignore&lt;/code>。&lt;/p>
+&lt;h2 class="group " id="gitignore忽略规则不生效解决方法"
+>&lt;code>.gitignore&lt;/code>忽略规则不生效解决方法&lt;a href="#gitignore%e5%bf%bd%e7%95%a5%e8%a7%84%e5%88%99%e4%b8%8d%e7%94%9f%e6%95%88%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>有时候在项目开发过程中，突然心血来潮想把某些目录或文件加入忽略规则，按照上述方法定义后发现并未生效，原因是 &lt;strong>.gitignore 只能忽略那些原来没有被track的文件&lt;/strong>，如果某些文件已经被纳入了版本管理中，则修改 .gitignore是 无效的。那么解决方法就是&lt;strong>先把本地缓存删除（改变成未track状态），然后再提交&lt;/strong>：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>git rm &lt;span style="color:#ff79c6">-&lt;/span>r &lt;span style="color:#ff79c6">--&lt;/span>cached .
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git add .
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git commit &lt;span style="color:#ff79c6">-&lt;/span>m &amp;#39;update .gitignore&amp;#39;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;h2 class="group " id="参考链接"
+>参考链接&lt;a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a
+class="link"
+href="https://segmentfault.com/q/1010000003410211"target="_blank" rel="noopener">https://segmentfault.com/q/1010000003410211&lt;/a
+>
+&lt;/li>
+&lt;li>&lt;a
+class="link"
+href="http://www.pfeng.org/archives/840"target="_blank" rel="noopener">http://www.pfeng.org/archives/840&lt;/a
+>
+&lt;/li>
+&lt;/ul></description></item><item><title>左移位和右移位</title><link>https://www.vitahlin.com/2022/07/left-shift-and-right-shift.html/</link><pubDate>Tue, 05 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/left-shift-and-right-shift.html/</guid><description>
 &lt;h3 class="group " id="左移位"
 >左移位&lt;a href="#%e5%b7%a6%e7%a7%bb%e4%bd%8d"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
