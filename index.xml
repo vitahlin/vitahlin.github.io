@@ -117,10 +117,10 @@ href="http://blog.csdn.net/qzwujiaying/article/details/6371246"target="_blank" r
 >
 &lt;/li>
 &lt;/ul></description></item><item><title>左移位和右移位</title><link>https://www.vitahlin.com/2022/07/left-shift-and-right-shift.html/</link><pubDate>Tue, 05 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/left-shift-and-right-shift.html/</guid><description>
-&lt;h3 class="group " id="左移位"
+&lt;h2 class="group " id="左移位"
 >左移位&lt;a href="#%e5%b7%a6%e7%a7%bb%e4%bd%8d"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h3>
+>&lt;/h2>
 &lt;p>操作符：&lt;code>&amp;lt;&amp;lt;&lt;/code>
 值最左边的几位被丢弃，右边多出来的几个空位则由0补齐。&lt;/p>
 &lt;p>例如：&lt;/p>
@@ -137,10 +137,10 @@ href="http://blog.csdn.net/qzwujiaying/article/details/6371246"target="_blank" r
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>
-&lt;h3 class="group " id="右移位"
+&lt;h2 class="group " id="右移位"
 >右移位&lt;a href="#%e5%8f%b3%e7%a7%bb%e4%bd%8d"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h3>
+>&lt;/h2>
 &lt;p>操作符：&lt;code>&amp;gt;&amp;gt;&lt;/code>
 从左边移入新位时，可以选择两种方案：&lt;/p>
 &lt;ul>
