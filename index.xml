@@ -101,13 +101,13 @@ href="http://www.pfeng.org/archives/840"target="_blank" rel="noopener">http://ww
 &lt;/div>&lt;p>我们称 &lt;code>-f&lt;/code> 为选项，它需要一个参数，即 &lt;code>config.conf&lt;/code>,&lt;code>-v&lt;/code> 也是一个选项，但它不需要参数。&lt;code>--prefix&lt;/code> 我们称之为一个长选项，即选项本身多于一个字符，它也需要一个参数，用等号连接，当然等号不是必须的，&lt;code>/home&lt;/code>可以直接写在&lt;code>--prefix&lt;/code>后面，即&lt;code>--prefix/home&lt;/code>。&lt;/p>
 &lt;p>以上述的命令为例：&lt;/p>
 &lt;ul>
-&lt;li>$0 : &lt;code>./test.sh&lt;/code>，即命令本身，相当于C/C++中的 &lt;code>argv[0]&lt;/code>&lt;/li>
-&lt;li>$1 : &lt;code>-f&lt;/code>，第一个参数&lt;/li>
-&lt;li>$2 : &lt;code>config.conf&lt;/code>，第二个参数&lt;/li>
-&lt;li>$3, $4 &amp;hellip; ：类推&lt;/li>
-&lt;li>$# : 参数的个数，不包括命令本身，上例中 &lt;code>$#&lt;/code> 为 &lt;strong>4&lt;/strong>&lt;/li>
-&lt;li>$@ : 参数本身的列表，也不包括命令本身，如上例为 &lt;code>-f&lt;/code>、&lt;code>config.conf&lt;/code>、&lt;code>-v&lt;/code>、&lt;code>--prefix=/home&lt;/code>&lt;/li>
-&lt;li>$* : 和 &lt;code>$@&lt;/code> 相同，但 &lt;code>$*&lt;/code> 和 &lt;code>$@&lt;/code> (加引号)并不同， &lt;code>$*&lt;/code> 将所有的参数解释成一个字符串，而 &lt;code>$@&lt;/code> 是一个参数数组。&lt;/li>
+&lt;li>&lt;code>$0&lt;/code> : &lt;code>./test.sh&lt;/code>，即命令本身，相当于C/C++中的 &lt;code>argv[0]&lt;/code>&lt;/li>
+&lt;li>&lt;code>$1&lt;/code> : &lt;code>-f&lt;/code>，第一个参数&lt;/li>
+&lt;li>&lt;code>$2&lt;/code> : &lt;code>config.conf&lt;/code>，第二个参数&lt;/li>
+&lt;li>&lt;code>$3&lt;/code> , &lt;code>$4&lt;/code> &amp;hellip; ：类推&lt;/li>
+&lt;li>&lt;code>$#&lt;/code> : 参数的个数，不包括命令本身，上例中 &lt;code>$#&lt;/code> 为 &lt;strong>4&lt;/strong>&lt;/li>
+&lt;li>&lt;code>$@&lt;/code> : 参数本身的列表，也不包括命令本身，如上例为 &lt;code>-f&lt;/code>、&lt;code>config.conf&lt;/code>、&lt;code>-v&lt;/code>、&lt;code>--prefix=/home&lt;/code>&lt;/li>
+&lt;li>&lt;code>$*&lt;/code> : 和 &lt;code>$@&lt;/code> 相同，但 &lt;code>$*&lt;/code> 和 &lt;code>$@&lt;/code> (加引号)并不同， &lt;code>$*&lt;/code> 将所有的参数解释成一个字符串，而 &lt;code>$@&lt;/code> 是一个参数数组。&lt;/li>
 &lt;/ul>
 &lt;p>参考链接&lt;/p>
 &lt;ul>
