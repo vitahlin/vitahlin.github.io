@@ -37,10 +37,10 @@ rm -rf fonts
 下载主题美化Terminal，下载地址：[https://github.com/mbadolato/iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes)
 
 下载到本地后，打开Terminal，导入所选主题即可，如图所示：
-![](https://vitahlin.oss-cn-shanghai.aliyuncs.com/images/blog/2022/07/202207051436559.png)
+![Terminal主题](https://vitahlin.oss-cn-shanghai.aliyuncs.com/images/blog/2022/07/202207051436559.png)
 
 这里导入主题 OneHalfDark，效果如下：
-![](https://vitahlin.oss-cn-shanghai.aliyuncs.com/images/blog/2022/07/202207051437188.png)
+![OneHalfDark主题效果](https://vitahlin.oss-cn-shanghai.aliyuncs.com/images/blog/2022/07/202207051437188.png)
 
 ## zsh配置
 
