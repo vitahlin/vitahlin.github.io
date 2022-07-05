@@ -1,0 +1,56 @@
+name: Github Pages
+
+on:
+  push:
+    branches:
+      - hugo
+
+jobs:
+  build-deploy:
+    runs-on:  ubuntu-18.04
+    steps:
+      - name: Checkout hugo branch
+        uses: actions/checkout@v2
+        with:
+          ref: hugo
+          submodules: "true"
+          fetch-depth: 0
+      
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+
+      - name: Install PostCSS-CLI
+        run: npm install postcss-cli -g
+                
+      - name: Install Theme
+        run: cd hugo/themes/hugo-theme-luna && yarn install --production      
+
+      - name: Install hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Build Hugo
+        run: echo "HUGO_VERSION -> $HUGO_VERSION" && cd hugo/ && hugo --gc --minify --cleanDestinationDir
+
+      - name: Hugo-Encrypt
+        run: cd hugo/themes/hugo-theme-luna && node ./hugo-encrypt.js
+
+      # 为了解决hugo-luna主题的cname问题
+      - name: Fix hugo-luna cname
+        working-directory: ./hugo
+        run: cp luna_CNAME ./public/CNAME
+
+      - name: Deploy public/ to master branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ./hugo/public
+          publish_branch: master
+          user_name: 'vitahlin'
+          user_email: 'linw1225@gmail.com'
+          commit_message: ${{ github.event.head_commit.message }}
+          cname: www.vitahlin.com

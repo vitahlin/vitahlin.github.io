@@ -1,0 +1,103 @@
+{
+  "main": {
+    "id": "ca832e5eb9060129",
+    "type": "split",
+    "children": [
+      {
+        "id": "f078004b0a97b9fe",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "hugo/content/posts/macOS终端配置.md",
+            "mode": "source",
+            "source": false
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "71b07a84a1883a81",
+    "type": "split",
+    "children": [
+      {
+        "id": "22d650773ff0f523",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d63532b4f97a2e59",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "14bb5fda507adf75",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 383
+  },
+  "right": {
+    "id": "9ffe7aec2653e212",
+    "type": "split",
+    "children": [
+      {
+        "id": "d626839a890bb03c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "80aba63cb6ef0d20",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "hugo/content/posts/macOS终端配置.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "f078004b0a97b9fe",
+  "lastOpenFiles": [
+    "hugo/content/posts/macOS终端配置.md",
+    "hexo/source/_posts/#ifdef用法.md",
+    "hexo/source/_posts/'__defineGetter__介绍'.md",
+    "hexo/source/_posts/ssh证书登录.md",
+    "hexo/source/_posts/Vim插件YouCompleteMe介绍.md",
+    "hexo/source/_posts/virtualenv介绍.md",
+    "hexo/source/_posts/如何理解较复杂的指针或引用的声明语句.md",
+    "hexo/source/_posts/阿里云安装Ghost.md",
+    "hexo/source/_posts/macOS下的tree命令.md",
+    "hexo/source/_posts/Mac上部署Hexo.md"
+  ]
+}

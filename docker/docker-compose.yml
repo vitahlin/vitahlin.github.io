@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  hugo:
+    build:
+      context: ./hugo
+    ports:
+      - "1313:1313"
+    volumes:
+      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
+      - '~/.ssh/id_ed25519:/root/.ssh/id_ed25519'
+    tty: true
