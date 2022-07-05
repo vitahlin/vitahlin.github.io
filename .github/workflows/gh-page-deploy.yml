@@ -3,7 +3,7 @@ name: Github Pages
 on:
   push:
     branches:
-      - hugo
+      - dev
 
 jobs:
   build-deploy:
@@ -12,7 +12,7 @@ jobs:
       - name: Checkout hugo branch
         uses: actions/checkout@v2
         with:
-          ref: hugo
+          ref: dev
           submodules: "true"
           fetch-depth: 0
       
