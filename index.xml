@@ -1,4 +1,119 @@
-<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/"><channel><title>VitahLin</title><atom:link href="%7balternate%20%7bRSS%20application/rss+xml%20%20index%20alternate%20%20false%20false%20true%20false%20false%200%7d%20/index.xml%20https://www.vitahlin.com/index.xml%7d" rel="self" type="application/rss+xml"/><link>https://www.vitahlin.com/</link><managingEditor>VitahLin</managingEditor><description>深自缄默，如云漂泊</description><lastBuildDate>Sat, 02 Jul 2022 00:00:00 +0800</lastBuildDate><language>zh-cn</language><generator>Hugo -- gohugo.io</generator><item><title>如何理解复杂的指针或引用语句</title><link>https://www.vitahlin.com/2022/07/how-to-understand-complex-pointer-or-reference-statements.html/</link><pubDate>Sat, 02 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/how-to-understand-complex-pointer-or-reference-statements.html/</guid><description>&lt;p>面对一条比较复杂的指针或引用的声明语句时，&lt;strong>从右向左阅读&lt;/strong>有助于弄清楚它的含义。&lt;/p>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/"><channel><title>VitahLin</title><atom:link href="%7balternate%20%7bRSS%20application/rss+xml%20%20index%20alternate%20%20false%20false%20true%20false%20false%200%7d%20/index.xml%20https://www.vitahlin.com/index.xml%7d" rel="self" type="application/rss+xml"/><link>https://www.vitahlin.com/</link><managingEditor>VitahLin</managingEditor><description>深自缄默，如云漂泊</description><lastBuildDate>Tue, 05 Jul 2022 00:00:00 +0800</lastBuildDate><language>zh-cn</language><generator>Hugo -- gohugo.io</generator><item><title>左移位和右移位</title><link>https://www.vitahlin.com/2022/07/left-shift-and-right-shift.html/</link><pubDate>Tue, 05 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/left-shift-and-right-shift.html/</guid><description>
+&lt;h3 class="group " id="左移位"
+>左移位&lt;a href="#%e5%b7%a6%e7%a7%bb%e4%bd%8d"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h3>
+&lt;p>操作符：&lt;code>&amp;lt;&amp;lt;&lt;/code>
+值最左边的几位被丢弃，右边多出来的几个空位则由0补齐。&lt;/p>
+&lt;p>例如：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>移位前：&lt;span style="color:#bd93f9">01101101&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>左移&lt;span style="color:#bd93f9">3&lt;/span>位后：&lt;span style="color:#bd93f9">01101&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>最终结果：&lt;span style="color:#bd93f9">01101000&lt;/span>（右边&lt;span style="color:#bd93f9">3&lt;/span>位用&lt;span style="color:#bd93f9">0&lt;/span>填充）
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;h3 class="group " id="右移位"
+>右移位&lt;a href="#%e5%8f%b3%e7%a7%bb%e4%bd%8d"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h3>
+&lt;p>操作符：&lt;code>&amp;gt;&amp;gt;&lt;/code>
+从左边移入新位时，可以选择两种方案：&lt;/p>
+&lt;ul>
+&lt;li>逻辑移位：左边移入的用0填充&lt;/li>
+&lt;li>算术移位：左边一如的位由原来该值的符号位决定，符号位为1则移入的位均为1，符号位为0则移入的位均为0&lt;/li>
+&lt;/ul>
+&lt;p>例如：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>移位前：&lt;span style="color:#bd93f9">10010110&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>右移&lt;span style="color:#bd93f9">2&lt;/span>位&lt;span style="color:#ff79c6">-&lt;/span>逻辑移位：&lt;span style="color:#bd93f9">00100101&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>算术移位：&lt;span style="color:#bd93f9">11100101&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>注意：标准说明无符号值执行的所有移位操作都是逻辑移位，对于有符号值，到底是采用逻辑移位还是算术移位取决于编译器。&lt;/strong>&lt;/p></description></item><item><title>maxOS环境下终端配置</title><link>https://www.vitahlin.com/2022/07/mac-terminal.html/</link><pubDate>Mon, 04 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/mac-terminal.html/</guid><description>&lt;p>终端软件很多，比如很流行的终端软件&lt;a
+class="link"
+href="https://iterm2.com"target="_blank" rel="noopener">iTerm2&lt;/a
+>
+，但这里不做介绍，macOS其实原生自带了终端工具 Terminal，我们来了解一下如何美化。&lt;/p>
+&lt;h2 class="group " id="字体安装"
+>字体安装&lt;a href="#%e5%ad%97%e4%bd%93%e5%ae%89%e8%a3%85"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>大部分主题都需要特殊的字体支持，所以一开始我们需要下载这些 &lt;code>powerline&lt;/code> 字体。&lt;/p>
+&lt;p>字体下载：&lt;a
+class="link"
+href="https://github.com/powerline/fonts"target="_blank" rel="noopener">https://github.com/powerline/fonts&lt;/a
+>
+&lt;/p>
+&lt;p>可以按如下命令下载并导入：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># clone&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git clone https://github.com/powerline/fonts.git --depth&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#bd93f9">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># install&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">cd&lt;/span> fonts
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>./install.sh
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># clean-up a bit&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">cd&lt;/span> ..
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rm -rf fonts
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;h2 class="group " id="terminal主题美化"
+>Terminal主题美化&lt;a href="#terminal%e4%b8%bb%e9%a2%98%e7%be%8e%e5%8c%96"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>下载主题美化Terminal，下载地址：&lt;a
+class="link"
+href="https://github.com/mbadolato/iTerm2-Color-Schemes"target="_blank" rel="noopener">https://github.com/mbadolato/iTerm2-Color-Schemes&lt;/a
+>
+&lt;/p>
+&lt;p>下载到本地后，打开Terminal，导入所选主题即可，如图所示：
+&lt;/p>
+&lt;p>这里导入主题 OneHalfDark，效果如下：
+&lt;/p>
+&lt;p>zsh配置
+主题美化后，我们需要安装一下插件来优化 zsh 操作。
+首先安装 zinit，用它来管理 zsh 插件，关于 zinit 的介绍网上很多，主要特点是快并且易于配置，一个 .zshrc文件即可拷贝全部配置。参考链接：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a
+class="link"
+href="https://kissandrun.site/shell-3/"target="_blank" rel="noopener">Zsh &amp;amp; Zinit 配置舒服的终端环境&lt;/a
+>
+&lt;/li>
+&lt;li>&lt;a
+class="link"
+href="https://einverne.github.io/post/2020/10/use-zinit-to-manage-zsh-plugins.html"target="_blank" rel="noopener">使用 zinit 管理 zsh 插件 完美代替 Antigen&lt;/a
+>
+&lt;/li>
+&lt;li>&lt;a
+class="link"
+href="https://www.aloxaf.com/2019/11/zplugin_tutorial/"target="_blank" rel="noopener">加速你的 zsh —— 最强 zsh 插件管理器 zplugin/zinit 教程&lt;/a
+>
+&lt;/li>
+&lt;/ul></description></item><item><title>如何理解复杂的指针或引用语句</title><link>https://www.vitahlin.com/2022/07/how-to-understand-complex-pointer-or-reference-statements.html/</link><pubDate>Sat, 02 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/how-to-understand-complex-pointer-or-reference-statements.html/</guid><description>&lt;p>面对一条比较复杂的指针或引用的声明语句时，&lt;strong>从右向左阅读&lt;/strong>有助于弄清楚它的含义。&lt;/p>
 &lt;p>如：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
