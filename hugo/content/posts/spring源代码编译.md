@@ -116,7 +116,7 @@ public class Main {
 }
 ```
 
-执行 main() 函数，结果如下：
+执行 `main` 函数，结果如下：
 
 ```shell
 > Task :spring-vitahlin:Main.main()
