@@ -58,9 +58,9 @@ dependencies {
 }
 ```
 
-模块创建完成后，我们还需要创建测试类来验证导入的 spring 源代码能否实现依赖注入
+模块创建完成后，我们还需要创建测试类来验证导入的 `spring` 源代码能否实现依赖注入。
 
-目录结构如下：
+创建测试类，目录结构如下：
 
 ```shell
 ❯ tree -L 2
@@ -123,3 +123,5 @@ public class Main {
 HelloServiceorg.springframework.vitahlin.bean.HelloService@6279cee3
 Hello Spring!
 ```
+
+成功打印地址和输出提升语，依赖注入验证成功。
