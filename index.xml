@@ -83,8 +83,8 @@ href="https://github.com/spring-projects/spring-framework/tree/v5.3.10"target="_
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>模块创建完成后，我们还需要创建测试类来验证导入的 spring 源代码能否实现依赖注入&lt;/p>
-&lt;p>目录结构如下：&lt;/p>
+&lt;/div>&lt;p>模块创建完成后，我们还需要创建测试类来验证导入的 &lt;code>spring&lt;/code> 源代码能否实现依赖注入。&lt;/p>
+&lt;p>创建测试类，目录结构如下：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
 &lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -203,7 +203,7 @@ href="https://github.com/spring-projects/spring-framework/tree/v5.3.10"target="_
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Hello Spring!
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>git忽略设置</title><link>https://www.vitahlin.com/2022/07/gitignore-settings.html/</link><pubDate>Tue, 05 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/gitignore-settings.html/</guid><description>&lt;p>在项目目录下新建&lt;code>.gitignore&lt;/code>文件，&lt;code>.gitignore&lt;/code>文件对其所在的目录及所在目录的全部子目录均有效。通过将.gitignore文件添加到仓库，其他开发者更新该文件到本地仓库，可以共享同一套忽略规则。&lt;/p>
+&lt;/div>&lt;p>成功打印地址和输出提升语，依赖注入验证成功。&lt;/p></description></item><item><title>git忽略设置</title><link>https://www.vitahlin.com/2022/07/gitignore-settings.html/</link><pubDate>Tue, 05 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/gitignore-settings.html/</guid><description>&lt;p>在项目目录下新建&lt;code>.gitignore&lt;/code>文件，&lt;code>.gitignore&lt;/code>文件对其所在的目录及所在目录的全部子目录均有效。通过将.gitignore文件添加到仓库，其他开发者更新该文件到本地仓库，可以共享同一套忽略规则。&lt;/p>
 &lt;h2 class="group " id="基本的配置规则"
 >基本的配置规则&lt;a href="#%e5%9f%ba%e6%9c%ac%e7%9a%84%e9%85%8d%e7%bd%ae%e8%a7%84%e5%88%99"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
