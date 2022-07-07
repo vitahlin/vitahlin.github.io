@@ -1,4 +1,209 @@
-<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/"><channel><title>VitahLin</title><atom:link href="%7balternate%20%7bRSS%20application/rss+xml%20%20index%20alternate%20%20false%20false%20true%20false%20false%200%7d%20/index.xml%20https://www.vitahlin.com/index.xml%7d" rel="self" type="application/rss+xml"/><link>https://www.vitahlin.com/</link><managingEditor>VitahLin</managingEditor><description>深自缄默，如云漂泊</description><lastBuildDate>Tue, 05 Jul 2022 00:00:00 +0800</lastBuildDate><language>zh-cn</language><generator>Hugo -- gohugo.io</generator><item><title>git忽略设置</title><link>https://www.vitahlin.com/2022/07/gitignore-settings.html/</link><pubDate>Tue, 05 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/gitignore-settings.html/</guid><description>&lt;p>在项目目录下新建&lt;code>.gitignore&lt;/code>文件，&lt;code>.gitignore&lt;/code>文件对其所在的目录及所在目录的全部子目录均有效。通过将.gitignore文件添加到仓库，其他开发者更新该文件到本地仓库，可以共享同一套忽略规则。&lt;/p>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/"><channel><title>VitahLin</title><atom:link href="%7balternate%20%7bRSS%20application/rss+xml%20%20index%20alternate%20%20false%20false%20true%20false%20false%200%7d%20/index.xml%20https://www.vitahlin.com/index.xml%7d" rel="self" type="application/rss+xml"/><link>https://www.vitahlin.com/</link><managingEditor>VitahLin</managingEditor><description>深自缄默，如云漂泊</description><lastBuildDate>Thu, 07 Jul 2022 00:00:00 +0800</lastBuildDate><language>zh-cn</language><generator>Hugo -- gohugo.io</generator><item><title>spring源代码编译</title><link>https://www.vitahlin.com/2022/07/build-spring-framework-source-code.html/</link><pubDate>Thu, 07 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/build-spring-framework-source-code.html/</guid><description>
+&lt;h2 class="group " id="源代码下载"
+>源代码下载&lt;a href="#%e6%ba%90%e4%bb%a3%e7%a0%81%e4%b8%8b%e8%bd%bd"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>Github源码地址：&lt;a
+class="link"
+href="https://github.com/spring-projects/spring-framework/tree/v5.3.10"target="_blank" rel="noopener">https://github.com/spring-projects/spring-framework/tree/v5.3.10&lt;/a
+>
+&lt;br />下载后将目录 &lt;code>spring-framework-5.3.10&lt;/code> 重命名为 &lt;code>spring-5.3.10-analyse&lt;/code>。&lt;/p>
+&lt;p>&lt;strong>注意下载后，不能忽略 &lt;code>spring-aop&lt;/code> 目录下的 &lt;code>target&lt;/code> 目录。&lt;/strong>&lt;/p>
+&lt;h2 class="group " id="编译"
+>编译&lt;a href="#%e7%bc%96%e8%af%91"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>跳转到源代码目录，执行 &lt;code>gradle&lt;/code>命令：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">cd&lt;/span> spring-5.3.10-analyse/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>./gradlew :spring-oxm:compileTestJava
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>出现如下的 &lt;code>BUILD SUCCESSFUL&lt;/code> 后，用 &lt;code>Intellij-Idea&lt;/code> 打开项目即可：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-oxm:xjcGenerate
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Errors occurred &lt;span style="color:#ff79c6">while&lt;/span> build effective model from /Users/vitah/.gradle/caches/modules-2/files-2.1/com.sun.xml.bind/jaxb-xjc/2.2.11/4da3d39ae8ccc39549e3f8971f56035f61d7bf79/jaxb-xjc-2.2.11.pom:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f1fa8c">&amp;#39;dependencyManagement.dependencies.dependency.systemPath&amp;#39;&lt;/span> &lt;span style="color:#ff79c6">for&lt;/span> com.sun🛠jar must specify an absolute path but is &lt;span style="color:#f1fa8c">${&lt;/span>&lt;span style="color:#8be9fd;font-style:italic">tools&lt;/span>.jar&lt;span style="color:#f1fa8c">}&lt;/span> in com.sun.xml.bind:jaxb-xjc:2.2.11
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Errors occurred &lt;span style="color:#ff79c6">while&lt;/span> build effective model from /Users/vitah/.gradle/caches/modules-2/files-2.1/com.sun.xml.bind/jaxb-core/2.2.11/db0f76866c6b1e50084e03ee8cf9ce6b19becdb3/jaxb-core-2.2.11.pom:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f1fa8c">&amp;#39;dependencyManagement.dependencies.dependency.systemPath&amp;#39;&lt;/span> &lt;span style="color:#ff79c6">for&lt;/span> com.sun🛠jar must specify an absolute path but is &lt;span style="color:#f1fa8c">${&lt;/span>&lt;span style="color:#8be9fd;font-style:italic">tools&lt;/span>.jar&lt;span style="color:#f1fa8c">}&lt;/span> in com.sun.xml.bind:jaxb-core:2.2.11
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Errors occurred &lt;span style="color:#ff79c6">while&lt;/span> build effective model from /Users/vitah/.gradle/caches/modules-2/files-2.1/com.sun.xml.bind/jaxb-impl/2.2.11/2d4b554997fd01d1a2233b1529b22fc9ecc0cf5c/jaxb-impl-2.2.11.pom:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f1fa8c">&amp;#39;dependencyManagement.dependencies.dependency.systemPath&amp;#39;&lt;/span> &lt;span style="color:#ff79c6">for&lt;/span> com.sun🛠jar must specify an absolute path but is &lt;span style="color:#f1fa8c">${&lt;/span>&lt;span style="color:#8be9fd;font-style:italic">tools&lt;/span>.jar&lt;span style="color:#f1fa8c">}&lt;/span> in com.sun.xml.bind:jaxb-impl:2.2.11
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>BUILD SUCCESSFUL in 1m 37s
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bd93f9">47&lt;/span> actionable tasks: &lt;span style="color:#bd93f9">47&lt;/span> executed
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>A build scan was not published as you have not authenticated with server &lt;span style="color:#f1fa8c">&amp;#39;ge.spring.io&amp;#39;&lt;/span>.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;h2 class="group " id="新建测试模块"
+>新建测试模块&lt;a href="#%e6%96%b0%e5%bb%ba%e6%b5%8b%e8%af%95%e6%a8%a1%e5%9d%97"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>&lt;code>Intellij-Idea&lt;/code> -&amp;gt; &lt;code>New&lt;/code> -&amp;gt; &lt;code>Module&lt;/code> ，新建测试模块 &lt;code>spring-vitahlin&lt;/code>，然后添加所需依赖：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>dependencies &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> api&lt;span style="color:#ff79c6">(&lt;/span>project&lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;:spring-beans&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> api&lt;span style="color:#ff79c6">(&lt;/span>project&lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;:spring-core&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> api&lt;span style="color:#ff79c6">(&lt;/span>project&lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;:spring-aop&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> api&lt;span style="color:#ff79c6">(&lt;/span>project&lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;:spring-context&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> testImplementation &amp;#39;org&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">junit&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">jupiter&lt;/span>&lt;span style="color:#ff79c6">:&lt;/span>junit&lt;span style="color:#ff79c6">-&lt;/span>jupiter&lt;span style="color:#ff79c6">-&lt;/span>api&lt;span style="color:#ff79c6">:&lt;/span>5&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">8&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">1&lt;/span>&amp;#39;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> testRuntimeOnly &amp;#39;org&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">junit&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">jupiter&lt;/span>&lt;span style="color:#ff79c6">:&lt;/span>junit&lt;span style="color:#ff79c6">-&lt;/span>jupiter&lt;span style="color:#ff79c6">-&lt;/span>engine&lt;span style="color:#ff79c6">:&lt;/span>5&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">8&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">1&lt;/span>&amp;#39;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>模块创建完成后，我们还需要创建测试类来验证导入的 spring 源代码能否实现依赖注入&lt;/p>
+&lt;p>目录结构如下：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>❯ tree -L &lt;span style="color:#bd93f9">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├── BeanScanConfig.java
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├── Main.java
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└── bean
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> └── HelloService.java
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>对应的代码：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">package&lt;/span> org.springframework.vitahlin&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">import&lt;/span> org.springframework.context.annotation.ComponentScan&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">import&lt;/span> org.springframework.context.annotation.Configuration&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>@Configuration
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>@ComponentScan&lt;span style="color:#ff79c6">(&lt;/span>basePackages &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#f1fa8c">&amp;#34;org.springframework.vitahlin.bean&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">class&lt;/span> &lt;span style="color:#50fa7b">BeanScanConfig&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">package&lt;/span> org.springframework.vitahlin.bean&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">import&lt;/span> org.springframework.stereotype.Component&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>@Component
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">class&lt;/span> &lt;span style="color:#50fa7b">HelloService&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#8be9fd">void&lt;/span> &lt;span style="color:#50fa7b">helloSpring&lt;/span>&lt;span style="color:#ff79c6">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> System&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">out&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">println&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;Hello Spring!&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">package&lt;/span> org.springframework.vitahlin&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">import&lt;/span> org.springframework.context.annotation.AnnotationConfigApplicationContext&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">import&lt;/span> org.springframework.vitahlin.bean.HelloService&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">class&lt;/span> &lt;span style="color:#50fa7b">Main&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">static&lt;/span> &lt;span style="color:#8be9fd">void&lt;/span> &lt;span style="color:#50fa7b">main&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>String&lt;span style="color:#ff79c6">[]&lt;/span> args&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> AnnotationConfigApplicationContext ctx &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">new&lt;/span> AnnotationConfigApplicationContext&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ctx&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">register&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>BeanScanConfig&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">class&lt;/span>&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ctx&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">refresh&lt;/span>&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> HelloService service &lt;span style="color:#ff79c6">=&lt;/span> ctx&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">getBean&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>HelloService&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">class&lt;/span>&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> System&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">out&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">println&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;HelloService&amp;#34;&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> service&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> service&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">helloSpring&lt;/span>&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>执行 main() 函数，结果如下：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-vitahlin:Main.main&lt;span style="color:#ff79c6">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>HelloServiceorg.springframework.vitahlin.bean.HelloService@6279cee3
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Hello Spring!
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>git忽略设置</title><link>https://www.vitahlin.com/2022/07/gitignore-settings.html/</link><pubDate>Tue, 05 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/gitignore-settings.html/</guid><description>&lt;p>在项目目录下新建&lt;code>.gitignore&lt;/code>文件，&lt;code>.gitignore&lt;/code>文件对其所在的目录及所在目录的全部子目录均有效。通过将.gitignore文件添加到仓库，其他开发者更新该文件到本地仓库，可以共享同一套忽略规则。&lt;/p>
 &lt;h2 class="group " id="基本的配置规则"
 >基本的配置规则&lt;a href="#%e5%9f%ba%e6%9c%ac%e7%9a%84%e9%85%8d%e7%bd%ae%e8%a7%84%e5%88%99"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
@@ -6459,59 +6664,6 @@ href="https://dev.mysql.com/doc/refman/5.7/en/subquery-materialization.html"targ
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">&amp;#34;Extra&amp;#34;&lt;/span>: &lt;span style="color:#f1fa8c">&amp;#34;Select tables optimized away&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>]
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div></description></item><item><title>rust安装和升级</title><link>https://www.vitahlin.com/2020/09/install-and-upgrade-rust.html/</link><pubDate>Wed, 09 Sep 2020 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2020/09/install-and-upgrade-rust.html/</guid><description>
-&lt;h2 class="group " id="安装-rustup"
->安装 &lt;code>rustup&lt;/code>&lt;a href="#%e5%ae%89%e8%a3%85-rustup"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>使用 &lt;code>rustup&lt;/code> 安装 &lt;code>rust&lt;/code> ，安装 &lt;code>rustup&lt;/code>:&lt;/p>
-&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>curl --proto &lt;span style="color:#f1fa8c">&amp;#39;=https&amp;#39;&lt;/span> --tlsv1.2 -sSf https://sh.rustup.rs | sh
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>在 Rust 开发环境中，所有工具都安装在 &lt;code>~/.cargo/bin&lt;/code> 目录中，您可以在这里找到包括 &lt;code>rustc&lt;/code>、&lt;code>cargo&lt;/code> 和 &lt;code>rustup&lt;/code> 在内的 Rust 工具链。&lt;/p>
-&lt;h2 class="group " id="查看-rust-版本"
->查看 rust 版本&lt;a href="#%e6%9f%a5%e7%9c%8b-rust-%e7%89%88%e6%9c%ac"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>rustc --version
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>
-&lt;h2 class="group " id="卸载"
->卸载&lt;a href="#%e5%8d%b8%e8%bd%bd"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>rustup self uninstall
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>
-&lt;h2 class="group " id="升级"
->升级&lt;a href="#%e5%8d%87%e7%ba%a7"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>rustup update
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div></description></item></channel></rss>
