@@ -124,4 +124,4 @@ HelloServiceorg.springframework.vitahlin.bean.HelloService@6279cee3
 Hello Spring!
 ```
 
-成功打印地址和输出提升语，依赖注入验证成功。
+成功打印地址和输出内容，依赖注入验证成功。
