@@ -105,14 +105,14 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.vitahlin.bean.HelloService;
 
 public class Main {
-	public static void main(String[] args) {
-		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-		ctx.register(BeanScanConfig.class);
-		ctx.refresh();
-		HelloService service = ctx.getBean(HelloService.class);
-		System.out.println("HelloService" + service);
-		service.helloSpring();
-	}
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+        ctx.register(BeanScanConfig.class);
+        ctx.refresh();
+        HelloService service = ctx.getBean(HelloService.class);
+        System.out.println("HelloService" + service);
+        service.helloSpring();
+    }
 }
 ```
 
