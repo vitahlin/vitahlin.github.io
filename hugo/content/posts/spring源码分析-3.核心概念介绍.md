@@ -22,11 +22,11 @@ tags:
 - destoryMethodName，表示 Bean 销毁时要执行的方法
 - ...
 
-在 spring 中，我们通常会通过以下几种方式来定义 Bean：
+在 spring 中，我们通常会通过以下几种方式来定义 `Bean`：
 
-1. <bean/>
-2. @Bean
-3. @Component(@Service, @Controller)
+1. `<bean/>`
+2. `@Bean`
+3. `@Component`(`@Service`, `@Controller`)
 
 这些，我们可以称之为**声明式定义 `Bean`**。
 
@@ -62,7 +62,7 @@ public class BeanDefinitionTest1 {
 org.springframework.vitahlin.bean.UserService@67784306
 ```
 
-我们还可以通过 BeanDefinition 设置一个 Bean 的其他属性：
+我们还可以通过 `BeanDefinition` 设置一个 `Bean` 的其他属性：
 
 ```java
 beanDefinition.setScope("prototype");
@@ -70,7 +70,7 @@ beanDefinition.setInitMethodName("init");
 beanDefinition.setLazyInit(true);
 ```
 
-和声明式事务、编程式事务类似，通过 `<bean/>`、`@Bean`、`@Component` 等声明式方式所定义的 Bean，最终都会被 spring 解析为对应的 BeanDefinition 对象，并放入 spring 容器中。
+和声明式事务、编程式事务类似，通过 `<bean/>`、`@Bean`、`@Component` 等声明式方式所定义的 Bean，最终都会被 spring 解析为对应的 `BeanDefinition` 对象，并放入 spring 容器中。
 
 ## BeanDefinitionReader
 
@@ -185,7 +185,7 @@ org.springframework.vitahlin.bean.HelloService@18a70f16
 
 ## BeanFactory
 
-`BeanFactory` 表示 Bean 工厂，`BeanFactory` 会负责创建 `Bean`，并且提供获取 `Bean` 的 API。
+`BeanFactory` 表示 `Bean` 工厂，`BeanFactory` 会负责创建 `Bean`，并且提供获取 `Bean` 的 API。
 
 `ApplicationContext` 是 `BeanFactory` 的一种，在 spirng 源码中是这么定义的：
 
