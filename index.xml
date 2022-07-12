@@ -12,13 +12,11 @@
 &lt;li>destoryMethodName，表示 Bean 销毁时要执行的方法&lt;/li>
 &lt;li>&amp;hellip;&lt;/li>
 &lt;/ul>
-&lt;p>在 spring 中，我们通常会通过以下几种方式来定义 Bean：&lt;/p>
+&lt;p>在 spring 中，我们通常会通过以下几种方式来定义 &lt;code>Bean&lt;/code>：&lt;/p>
 &lt;ol>
-&lt;li>
-&lt;bean/>
-&lt;/li>
-&lt;li>@Bean&lt;/li>
-&lt;li>@Component(@Service, @Controller)&lt;/li>
+&lt;li>&lt;code>&amp;lt;bean/&amp;gt;&lt;/code>&lt;/li>
+&lt;li>&lt;code>@Bean&lt;/code>&lt;/li>
+&lt;li>&lt;code>@Component&lt;/code>(&lt;code>@Service&lt;/code>, &lt;code>@Controller&lt;/code>)&lt;/li>
 &lt;/ol>
 &lt;p>这些，我们可以称之为&lt;strong>声明式定义 &lt;code>Bean&lt;/code>&lt;/strong>。&lt;/p>
 &lt;p>我们还可以编程式定义 &lt;code>Bean&lt;/code>，那就是直接通过 &lt;code>BeanDefinition&lt;/code>，例如：&lt;/p>
@@ -79,7 +77,7 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>org.springframework.vitahlin.bean.UserService@67784306
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>我们还可以通过 BeanDefinition 设置一个 Bean 的其他属性：&lt;/p>
+&lt;/div>&lt;p>我们还可以通过 &lt;code>BeanDefinition&lt;/code> 设置一个 &lt;code>Bean&lt;/code> 的其他属性：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
 &lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -92,7 +90,7 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>beanDefinition&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">setLazyInit&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#ff79c6">true&lt;/span>&lt;span style="color:#ff79c6">);&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>和声明式事务、编程式事务类似，通过 &lt;code>&amp;lt;bean/&amp;gt;&lt;/code>、&lt;code>@Bean&lt;/code>、&lt;code>@Component&lt;/code> 等声明式方式所定义的 Bean，最终都会被 spring 解析为对应的 BeanDefinition 对象，并放入 spring 容器中。&lt;/p>
+&lt;/div>&lt;p>和声明式事务、编程式事务类似，通过 &lt;code>&amp;lt;bean/&amp;gt;&lt;/code>、&lt;code>@Bean&lt;/code>、&lt;code>@Component&lt;/code> 等声明式方式所定义的 Bean，最终都会被 spring 解析为对应的 &lt;code>BeanDefinition&lt;/code> 对象，并放入 spring 容器中。&lt;/p>
 &lt;h2 class="group " id="beandefinitionreader"
 >BeanDefinitionReader&lt;a href="#beandefinitionreader"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
@@ -291,7 +289,7 @@
 >BeanFactory&lt;a href="#beanfactory"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h2>
-&lt;p>&lt;code>BeanFactory&lt;/code> 表示 Bean 工厂，&lt;code>BeanFactory&lt;/code> 会负责创建 &lt;code>Bean&lt;/code>，并且提供获取 &lt;code>Bean&lt;/code> 的 API。&lt;/p>
+&lt;p>&lt;code>BeanFactory&lt;/code> 表示 &lt;code>Bean&lt;/code> 工厂，&lt;code>BeanFactory&lt;/code> 会负责创建 &lt;code>Bean&lt;/code>，并且提供获取 &lt;code>Bean&lt;/code> 的 API。&lt;/p>
 &lt;p>&lt;code>ApplicationContext&lt;/code> 是 &lt;code>BeanFactory&lt;/code> 的一种，在 spirng 源码中是这么定义的：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
