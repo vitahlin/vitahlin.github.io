@@ -1,4 +1,13 @@
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/"><channel><title>VitahLin</title><atom:link href="%7balternate%20%7bRSS%20application/rss+xml%20%20index%20alternate%20%20false%20false%20true%20false%20false%200%7d%20/index.xml%20https://www.vitahlin.com/index.xml%7d" rel="self" type="application/rss+xml"/><link>https://www.vitahlin.com/</link><managingEditor>VitahLin</managingEditor><description>深自缄默，如云漂泊</description><lastBuildDate>Tue, 12 Jul 2022 00:00:00 +0800</lastBuildDate><language>zh-cn</language><generator>Hugo -- gohugo.io</generator><item><title>spring源码分析-3.核心概念介绍</title><link>https://www.vitahlin.com/2022/07/introduction-to-spring-framework-core-class.html/</link><pubDate>Tue, 12 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/introduction-to-spring-framework-core-class.html/</guid><description>
+&lt;h2 class="group " id="bean"
+>Bean&lt;a href="#bean"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>什么是Bean？我们可以来看下 spring 的官方文档：&lt;/p>
+&lt;blockquote>
+&lt;p>In Spring, the objects that form the backbone of your application and that are managed by the Spring IoC container are called beans. A bean is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container. Otherwise, a bean is simply one of many objects in your application. Beans, and the dependencies among them, are reflected in the configuration metadata used by a container.&lt;/p>
+&lt;/blockquote>
+&lt;p>简而言之，bean 是由 Spring IoC 容器实例化、组装和管理的对象。&lt;/p>
 &lt;h2 class="group " id="beandefinition"
 >BeanDefinition&lt;a href="#beandefinition"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
