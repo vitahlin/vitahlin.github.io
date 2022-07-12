@@ -11,6 +11,13 @@ tags:
     - java
 ---
 
+## Bean
+
+什么是Bean？我们可以来看下 spring 的官方文档：
+> In Spring, the objects that form the backbone of your application and that are managed by the Spring IoC container are called beans. A bean is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container. Otherwise, a bean is simply one of many objects in your application. Beans, and the dependencies among them, are reflected in the configuration metadata used by a container.
+
+简而言之，bean 是由 Spring IoC 容器实例化、组装和管理的对象。
+
 ## BeanDefinition
 
 用来表示 `Bean` 定义，`BeanDefinition` 中存在很多属性来描述一个 `Bean` 的特点。比如：
