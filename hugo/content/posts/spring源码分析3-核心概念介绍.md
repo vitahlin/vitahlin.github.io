@@ -473,6 +473,7 @@ myFactoryBean:MyFactoryBean{}
 
 `FactroyBean` 的作用是生产一个 `bean`，这里有一个疑问 spring 就是用来生产 `bean` 和管理 `bean` 的，为什么还要有FactoryBean？
 > **一般情况下，Spring通过反射机制利用 `<bean>` 的class属性指定实现类实例化Bean，在某些情况下，实例化Bean过程比较复杂，如果按照传统的方式，则需要在 `<bean>` 中提供大量的配置信息。配置方式的灵活性是受限的，这时采用编码的方式可能会得到一个简单的方案。Spring为此提供了一个 `org.springframework.bean.factory.FactoryBean` 的工厂类接口，用户可以通过实现该接口定制实例化bean的逻辑。`FactoryBean` 接口对于Spring框架来说占用重要的地位，Spring自身就提供了70多个FactoryBean的实现。**
+
 > **FactoryBean的真正目的是让开发者自己去定义那些复杂的bean并交给spring管理，如果bean中要初始化很多变量，而且要进行许多操作，那么使用spring的自动装配是很难完成的，所以spring的开发者把这些工作交给了我们。**
 
 ## ExcludeFilter和IncludeFilter
