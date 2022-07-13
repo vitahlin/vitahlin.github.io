@@ -20,7 +20,7 @@ tags:
 
 ## BeanDefinition
 
-用来表示 `Bean` 定义，`BeanDefinition` 中存在很多属性来描述一个 `bean` 的特点。比如：
+用来表示 `bean` 定义，`BeanDefinition` 中存在很多属性来描述一个 `bean` 的特点。比如：
 
 - class，表示 bean 类型
 - scope，表示 bean 作用域，单例或原型等
@@ -344,7 +344,136 @@ System.out.println(resource.contentLength());
 
 ## FactoryBean
 
-我们可以通过 BeanPostProcessor 来干涉 spring 创建 Bean 的过程，但是如果我们想一个 Bean 完完全全由我们来创造，也是可以的，比如通过 FactoryBean。
+我们可以通过 BeanPostProcessor 来干涉 spring 创建 Bean 的过程，但是如果我们想一个 Bean 完完全全由我们来创造，也是可以的，比如通过 `FactoryBean` 接口。
+
+`FactoryBean` 翻译过来是工厂Bean，`BeanFactory` 翻译过来是Bean工厂，`FactoryBean` 是bean工厂`beanFactory` 中的一个 `bean`，只不过这个 `bean` 和一般的 `bean` 不一样，它有着自己的特殊之处，特殊在什么地方呢？**这个Bean不是简单的Bean，而是一个能生产或者修饰对象生成的工厂Bean,它的实现与设计模式中的工厂模式和修饰器模式类似。**
+
+`FactoryBean` 接口源码：
+
+```java
+package org.springframework.beans.factory;
+
+import org.springframework.lang.Nullable;
+
+public interface FactoryBean<T> {
+    
+    String OBJECT_TYPE_ATTRIBUTE = "factoryBeanObjectType";
+    
+    @Nullable
+    T getObject() throws Exception;
+    
+    @Nullable
+    Class<?> getObjectType();
+    
+    default boolean isSingleton() {
+        return true;
+    }
+}
+```
+
+`FactoryBean` 接口很简单，就提供了三个方法 `getObject`、`getObjectType`、`isSingleton`。就是这三个方法却成为了spring中很多功能的基础，搜索整个spring的源码可以找到很多 `FactoryBean`，除了spring自身提供的以外，在和一些框架进行集成的时候，同样有 `FactoryBean` 的影子，比如和mybatis集成的时候的 `SqlSessionFactoryBean`。
+
+示例代码：
+
+```java
+package org.springframework.vitahlin;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = "org.springframework.vitahlin.bean")
+public class BeanScanConfig {
+}
+
+```
+
+```java
+package org.springframework.vitahlin.bean;
+
+public class Student {
+    private String name;
+    private String code;
+    
+    public Student(String name, String code) {
+        this.name = name;
+        this.code = code;
+    }
+    
+    public Student() {
+    }
+    
+    @Override
+    public String toString() {
+        return "Student{}";
+    }
+}
+```
+
+```java
+package org.springframework.vitahlin.bean;
+
+import org.springframework.beans.factory.FactoryBean;
+
+public class MyFactoryBean implements FactoryBean<Student> {
+    
+    @Override
+    public Student getObject() throws Exception {
+        return new Student();
+    }
+    
+    @Override
+    public Class<?> getObjectType() {
+        return null;
+    }
+    
+    @Override
+    public String toString() {
+        return "MyFactoryBean{}";
+    }
+}
+```
+
+```java
+package org.springframework.vitahlin;
+
+import org.springframework.context.annotation.AnnotatedBeanDefinitionReader;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
+import org.springframework.vitahlin.bean.HelloService;
+import org.springframework.vitahlin.bean.MyFactoryBean;
+import org.springframework.vitahlin.bean.Student;
+
+public class FactoryBeanTest {
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(BeanScanConfig.class);
+        AnnotatedBeanDefinitionReader annotatedBeanDefinitionReader = new AnnotatedBeanDefinitionReader(context);
+        
+        annotatedBeanDefinitionReader.register(MyFactoryBean.class);
+        
+        Student stu = (Student) context.getBean("myFactoryBean");
+        
+        MyFactoryBean myFactoryBean = (MyFactoryBean) context.getBean("&myFactoryBean");
+        System.out.println("stu:" + stu);
+        System.out.println("myFactoryBean:" + myFactoryBean);
+    }
+}
+```
+
+运行结果：
+
+```shell
+> Task :spring-vitahlin:FactoryBeanTest.main()
+stu:Student{}
+myFactoryBean:MyFactoryBean{}
+```
+
+打印结果很奇怪，通过 `myFactoryBean` 获得了 `Student` 对象，通过 `&myFactoryBean` 获得了 `MyFactoryBean` 对象。为什么会这样？
+> 这就是FactoryBean的神奇，通俗点讲 FactoryBean 是一个工厂bean，它是一种可以生产bean的bean，通过其getObejct 方法生产bean。当然不论是 FactoryBean 还是 FactoryBean 生产的 bean 都是受spring管理的，不然通过getBean方法是拿不到的。
+
+`FactroyBean` 的作用是生产一个 `bean`，这里有一个疑问 spring 就是用来生产 `bean` 和管理 `bean` 的，为什么还要有FactoryBean？
+> **一般情况下，Spring通过反射机制利用 `<bean>` 的class属性指定实现类实例化Bean，在某些情况下，实例化Bean过程比较复杂，如果按照传统的方式，则需要在 `<bean>` 中提供大量的配置信息。配置方式的灵活性是受限的，这时采用编码的方式可能会得到一个简单的方案。Spring为此提供了一个 `org.springframework.bean.factory.FactoryBean` 的工厂类接口，用户可以通过实现该接口定制实例化bean的逻辑。`FactoryBean` 接口对于Spring框架来说占用重要的地位，Spring自身就提供了70多个FactoryBean的实现。**
+> **FactoryBean的真正目的是让开发者自己去定义那些复杂的bean并交给spring管理，如果bean中要初始化很多变量，而且要进行许多操作，那么使用spring的自动装配是很难完成的，所以spring的开发者把这些工作交给了我们。**
 
 ## ExcludeFilter和IncludeFilter
 
