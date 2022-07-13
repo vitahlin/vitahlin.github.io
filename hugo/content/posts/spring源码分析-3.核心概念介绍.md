@@ -1,5 +1,5 @@
 ---
-title: spring源码分析-3.核心概念介绍
+title: spring源码分析3-核心概念介绍
 <!-- description: 这是一个副标题 -->
 date: 2022-07-12
 slug: introduction-to-spring-framework-core-class
