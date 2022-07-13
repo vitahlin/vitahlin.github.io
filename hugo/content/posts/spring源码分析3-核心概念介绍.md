@@ -11,33 +11,35 @@ tags:
     - java
 ---
 
-## Bean
+## bean
 
-什么是Bean？我们可以来看下 spring 的官方文档：
+什么是 `bean`？我们可以来看下 spring 的官方文档：
 > In Spring, the objects that form the backbone of your application and that are managed by the Spring IoC container are called beans. A bean is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container. Otherwise, a bean is simply one of many objects in your application. Beans, and the dependencies among them, are reflected in the configuration metadata used by a container.
 
-简而言之，bean 是由 Spring IoC 容器实例化、组装和管理的对象。
+简而言之，**`bean` 是由 Spring IoC 容器实例化、组装和管理的对象。**
 
 ## BeanDefinition
 
-用来表示 `Bean` 定义，`BeanDefinition` 中存在很多属性来描述一个 `Bean` 的特点。比如：
+用来表示 `Bean` 定义，`BeanDefinition` 中存在很多属性来描述一个 `bean` 的特点。比如：
 
-- class，表示 Bean 类型
-- scope，表示 Bean 作用域，单例或原型等
-- lazyInit，表示 Bean 是否懒加载
-- initMethodName，表示 Bean 初始化时要执行的方法
-- destoryMethodName，表示 Bean 销毁时要执行的方法
+- class，表示 bean 类型
+- scope，表示 bean 作用域，单例或原型等
+- lazyInit，表示 bean 是否懒加载
+- initMethodName，表示 bean 初始化时要执行的方法
+- destoryMethodName，表示 bean 销毁时要执行的方法
 - ...
 
-在 spring 中，我们通常会通过以下几种方式来定义 `Bean`：
+我们可以简单的认为，spring 在扫描class的时候，会根据class文件中的注解等信息，给 `beanDefinition` 对象赋值，所以，`beanDefinition`是对一个类的描述。那spring在真正去初始化、实例化一个bean的时候，直接根据 `beanDefinition` 去初始化就可以，比如，在判断这个bean是根据类型注入，还是根据名字注入的时候，就直接判断 `autowireMode` 的属性值即可。
+
+在 spring 中，我们通常会通过以下几种方式来定义 `bean`：
 
 1. `<bean/>`
 2. `@Bean`
 3. `@Component`(`@Service`, `@Controller`)
 
-这些，我们可以称之为**声明式定义 `Bean`**。
+这些，我们可以称之为**声明式定义 `bean`**。
 
-我们还可以编程式定义 `Bean`，那就是直接通过 `BeanDefinition`，例如：
+我们还可以编程式定义 `bean`，那就是直接通过 `BeanDefinition`，例如：
 
 ```java
 public class UserService {
@@ -69,7 +71,7 @@ public class BeanDefinitionTest1 {
 org.springframework.vitahlin.bean.UserService@67784306
 ```
 
-我们还可以通过 `BeanDefinition` 设置一个 `Bean` 的其他属性：
+我们还可以通过 `BeanDefinition` 设置一个 `bean` 的其他属性：
 
 ```java
 beanDefinition.setScope("prototype");
@@ -77,7 +79,7 @@ beanDefinition.setInitMethodName("init");
 beanDefinition.setLazyInit(true);
 ```
 
-和声明式事务、编程式事务类似，通过 `<bean/>`、`@Bean`、`@Component` 等声明式方式所定义的 Bean，最终都会被 spring 解析为对应的 `BeanDefinition` 对象，并放入 spring 容器中。
+和声明式事务、编程式事务类似，通过 `<bean/>`、`@Bean`、`@Component` 等声明式方式所定义的 bean，最终都会被 spring 解析为对应的 `BeanDefinition` 对象，并放入 spring 容器中。
 
 ## BeanDefinitionReader
 
