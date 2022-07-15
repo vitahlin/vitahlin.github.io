@@ -9,6 +9,8 @@ categories:
 tags:
     - spring
     - java
+
+draft: true
 ---
 
 早期的Java版本并没有支持注解，所以当时的Spring选择了XML这种语言来描述Bean，后续Java在1.5发布了注解后，Spring在3.0开始大批量引入Annotation。而基于注解注册和组件扫描的容器上下文即  `AnnotationConfigApplicationContext`。
