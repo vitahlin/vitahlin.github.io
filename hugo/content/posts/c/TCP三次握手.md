@@ -1,13 +1,17 @@
 ---
 title: TCP三次握手
-tags: Network
-categories: Network
-comments: true
-copyright: true
-abbrlink: tcp_3_way_handshake
-date: 2018-12-15 01:47:33
-updated: 2018-12-15 01:47:33
+<!-- description: 这是一个副标题 -->
+date: 2022-07-20
+slug: tcp_3_way_handshake
+categories:
+    - c
+
+tags:
+    - c
+draft: true
 ---
+
+
 
 ### 概述
 
