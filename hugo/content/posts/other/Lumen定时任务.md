@@ -1,17 +1,18 @@
 ---
-title: Luemn定时任务
-tags: PHP
-categories: PHP
-comments: true
-copyright: true
-abbrlink: lumen_schedule
-date: 2018-12-10 21:23:33
-updated: 2018-12-10 21:23:33
+title: lumen定时任务
+<!-- description: 这是一个副标题 -->
+date: 2022-07-20
+slug: lumen-schedule
+categories:
+    - tools
+
+tags:
+    - php
 ---
 
 `Lumen`实现定时任务功能的步骤如下。
 
-##### 任务逻辑实现
+# 任务逻辑实现
 
 在目录`app/Console/Commands`目录下新建`TestSchedule.php`文件，用来实现定时任务的具体逻辑，代码结构如下：
 ```php
@@ -62,7 +63,7 @@ class TestSchedule extends Command
 上述代码中，`$signature`代码执行命令，`handler`函数即是具体逻辑的实现函数，这里我们实现一个简单的LOG打印。
 
 
-##### 定时任务配置
+# 定时任务配置
 
 然后在`app/Console/Kernel.php`增加对该定时任务的配置：
 ```php
@@ -110,7 +111,7 @@ class Kernel extends ConsoleKernel
 **值得注意的是，`withoutOverlapping`不能和`when`共用，即使`when`返回值为`true`。所以当有`withoutOverlapping`需求时，是否执行该任务的判断需要放在`handler`函数中。**
 
 
-##### 执行
+# 执行
 
 上述代码创建完成后，我们可以通过命令`php artisan command:test-schedule`来执行一次定时任务，用来验证代码逻辑是否正确，该命令会立即运行定时任务，并且会忽略`when`的判断。
 
