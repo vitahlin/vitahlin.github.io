@@ -7,8 +7,12 @@
   "page-preview",
   "note-composer",
   "command-palette",
+  "slash-command",
   "editor-status",
   "markdown-importer",
+  "outline",
   "word-count",
-  "file-recovery"
+  "workspaces",
+  "file-recovery",
+  "sync"
 ]
