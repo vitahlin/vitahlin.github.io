@@ -4,10 +4,10 @@ title: hexo Next主题设置和优化
 date: 2022-07-20
 slug: hexo-next-theme
 categories:
-    - tools
+    - other
 
 tags:
-    - tools
+    - other
 ---
 
 # 主题样式优化

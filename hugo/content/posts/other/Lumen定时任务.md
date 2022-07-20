@@ -4,10 +4,10 @@ title: lumen定时任务
 date: 2022-07-20
 slug: lumen-schedule
 categories:
-    - tools
+    - other
 
 tags:
-    - php
+    - other
 ---
 
 `Lumen`实现定时任务功能的步骤如下。

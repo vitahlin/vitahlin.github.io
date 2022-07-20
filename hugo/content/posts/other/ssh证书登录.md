@@ -4,10 +4,10 @@ title: ssh证书登录
 date: 2022-07-20
 slug: use-ssh-key-to-login
 categories:
-    - tools
+    - other
 
 tags:
-    - tools
+    - other
 ---
 
 # 证书登陆的步骤

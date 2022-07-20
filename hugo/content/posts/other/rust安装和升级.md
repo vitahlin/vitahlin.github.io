@@ -4,10 +4,10 @@ title: rust安装和升级
 date: 2020-09-09
 slug: install-and-upgrade-rust
 categories:
-    - rust
+    - other
 
 tags:
-    - rust
+    - other
     
 ---
 

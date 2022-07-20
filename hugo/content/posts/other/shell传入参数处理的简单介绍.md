@@ -4,10 +4,10 @@ title: shell参数简单介绍
 date: 2022-07-05
 slug: brief-introduction-of-shell-param
 categories:
-    - shell
+    - other
 
 tags:
-    - shell
+    - other
 ---
 
 如下一个命令：

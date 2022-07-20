@@ -4,10 +4,10 @@ title: git忽略设置
 date: 2022-07-05
 slug: gitignore-settings
 categories:
-    - tools
+    - other
 
 tags:
-    - tools
+    - other
 ---
 
 在项目目录下新建`.gitignore`文件，`.gitignore`文件对其所在的目录及所在目录的全部子目录均有效。通过将.gitignore文件添加到仓库，其他开发者更新该文件到本地仓库，可以共享同一套忽略规则。
