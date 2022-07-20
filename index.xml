@@ -638,10 +638,10 @@ href="https://github.com/wuxubj/wuxubj.github.io"target="_blank" rel="noopener">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div></description></item><item><title>lumen定时任务</title><link>https://www.vitahlin.com/2022/07/lumen-schedule.html/</link><pubDate>Wed, 20 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/lumen-schedule.html/</guid><description>&lt;p>&lt;code>Lumen&lt;/code>实现定时任务功能的步骤如下。&lt;/p>
-&lt;h1 class="group " id="任务逻辑实现"
+&lt;h2 class="group " id="任务逻辑实现"
 >任务逻辑实现&lt;a href="#%e4%bb%bb%e5%8a%a1%e9%80%bb%e8%be%91%e5%ae%9e%e7%8e%b0"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h1>
+>&lt;/h2>
 &lt;p>在目录&lt;code>app/Console/Commands&lt;/code>目录下新建&lt;code>TestSchedule.php&lt;/code>文件，用来实现定时任务的具体逻辑，代码结构如下：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -734,10 +734,10 @@ href="https://github.com/wuxubj/wuxubj.github.io"target="_blank" rel="noopener">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>上述代码中，&lt;code>$signature&lt;/code>代码执行命令，&lt;code>handler&lt;/code>函数即是具体逻辑的实现函数，这里我们实现一个简单的LOG打印。&lt;/p>
-&lt;h1 class="group " id="定时任务配置"
+&lt;h2 class="group " id="定时任务配置"
 >定时任务配置&lt;a href="#%e5%ae%9a%e6%97%b6%e4%bb%bb%e5%8a%a1%e9%85%8d%e7%bd%ae"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h1>
+>&lt;/h2>
 &lt;p>然后在&lt;code>app/Console/Kernel.php&lt;/code>增加对该定时任务的配置：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -820,10 +820,10 @@ href="https://github.com/wuxubj/wuxubj.github.io"target="_blank" rel="noopener">
 &lt;code>when（Closure）&lt;/code>用来根据给定的测试的结果来限制任务的执行，只有当&lt;code>Closure&lt;/code>返回&lt;code>true&lt;/code>时才执行。
 默认情况，即便有相同的任务还在运行，调度内的任务依旧会被执行，&lt;code>withoutOverlapping&lt;/code>可以用来解决这个问题。
 &lt;strong>值得注意的是，&lt;code>withoutOverlapping&lt;/code>不能和&lt;code>when&lt;/code>共用，即使&lt;code>when&lt;/code>返回值为&lt;code>true&lt;/code>。所以当有&lt;code>withoutOverlapping&lt;/code>需求时，是否执行该任务的判断需要放在&lt;code>handler&lt;/code>函数中。&lt;/strong>&lt;/p>
-&lt;h1 class="group " id="执行"
+&lt;h2 class="group " id="执行"
 >执行&lt;a href="#%e6%89%a7%e8%a1%8c"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h1>
+>&lt;/h2>
 &lt;p>上述代码创建完成后，我们可以通过命令&lt;code>php artisan command:test-schedule&lt;/code>来执行一次定时任务，用来验证代码逻辑是否正确，该命令会立即运行定时任务，并且会忽略&lt;code>when&lt;/code>的判断。&lt;/p>
 &lt;p>确认逻辑正确后，需要把定时任务加到&lt;code>linux cron&lt;/code>配置中去，让它可以定时执行。&lt;/p>
 &lt;p>这里可以配置两个位置，一个是在&lt;code>/etc/cron.d&lt;/code>目录下，新增定时任务文件，形式如下：&lt;/p>
