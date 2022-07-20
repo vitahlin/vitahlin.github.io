@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "hugo/content/posts/other/ssh证书登录.md",
+            "file": "hexo/source/_posts/Hexo自动部署到Github和Coding.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "hugo/content/posts/other/ssh证书登录.md",
+                "file": "hexo/source/_posts/Hexo自动部署到Github和Coding.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,15 +89,15 @@
   },
   "active": "41adefd6cc5a65ec",
   "lastOpenFiles": [
-    "hugo/content/posts/other/如何写好Git commit messages.md",
-    "hugo/content/posts/other/ssh证书登录.md",
-    "hexo/source/_posts/SSH登陆错误 WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!.md",
-    "hexo/source/_posts/macOS上Node.js环境的安装.md",
+    "hexo/source/_posts/iterm2和oh-my-zsh配置.md",
     "hexo/source/_posts/macOS上安装MacVim.md",
-    "hexo/source/_posts/npm常用命令介绍.md",
-    "hexo/source/_posts/MongoDB无法启动解决记录.md",
-    "hexo/source/_posts/Mongoose基本用法.md",
+    "hexo/source/_posts/栈的介绍.md",
+    "hexo/source/_posts/Vim插件powerline安装和配置.md",
     "hexo/source/_posts/Pomelo教程(1)-Pomelo的安装和初始化.md",
-    "hexo/source/_posts/shell传入参数处理的简单介绍.md"
+    "hexo/source/_posts/Pomelo教程(4)-MongoDB数据库安装和连接.md",
+    "hexo/source/_posts/Pomelo教程(8)-session基本用法.md",
+    "hexo/source/_posts/Pomelo源代码分析(1)-判断目录是否为空.md",
+    "hexo/source/_posts/Pomelo源代码分析(4)-pomelo启动命令.md",
+    "hexo/source/_posts/Vim插件The-NERD-tree安装和配置.md"
   ]
 }
