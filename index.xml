@@ -43,8 +43,7 @@
 >采用多说时文章评论数目不显示&lt;a href="#%e9%87%87%e7%94%a8%e5%a4%9a%e8%af%b4%e6%97%b6%e6%96%87%e7%ab%a0%e8%af%84%e8%ae%ba%e6%95%b0%e7%9b%ae%e4%b8%8d%e6%98%be%e7%a4%ba"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h2>
-&lt;p>当采用多说评论系统的时候，不知道因为什么原因，文章的评论数目不能正常显示，显示效果如下，分类后面不能正常显示评论数目，但有分隔号：
-&lt;/p>
+&lt;p>当采用多说评论系统的时候，不知道因为什么原因，文章的评论数目不能正常显示，分类后面不能正常显示评论数目，但有分隔号。&lt;/p>
 &lt;p>修改文件&lt;code>themes\next\source\css\_common\components\post\post-meta.styl&lt;/code>，将原来的代码：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
