@@ -8,7 +8,6 @@ categories:
 
 tags:
     - tools
-    
 ---
 
 终端软件很多，比如很流行的终端软件[iTerm2](https://iterm2.com)，但这里不做介绍，macOS其实原生自带了终端工具 Terminal，我们来了解一下如何美化。
