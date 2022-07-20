@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "hexo/source/_posts/iterm2和oh-my-zsh配置.md",
+            "file": "hexo/source/_posts/ssh证书登录.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "hexo/source/_posts/iterm2和oh-my-zsh配置.md",
+                "file": "hexo/source/_posts/ssh证书登录.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,15 +89,15 @@
   },
   "active": "41adefd6cc5a65ec",
   "lastOpenFiles": [
-    "hexo/source/_posts/Lumen定时任务.md",
-    "hexo/source/_posts/macOS上安装Git和SourceTree.md",
-    "hexo/source/_posts/macOS上Node.js环境的安装.md",
-    "hexo/source/_posts/macOS下的tree命令.md",
+    "hexo/source/_posts/TCP三次握手.md",
+    "hugo/content/posts/other/如何写好Git commit messages.md",
+    "hugo/content/posts/other/git忽略设置.md",
+    "hexo/source/_posts/清除SSH的私钥密码.md",
+    "hexo/source/_posts/队列的介绍.md",
+    "hexo/source/_posts/阿里云安装Ghost.md",
+    "hexo/source/_posts/'__defineGetter__介绍'.md",
+    "hexo/source/_posts/Hexo Next主题设置和优化.md",
     "hexo/source/_posts/Mac上部署Hexo.md",
-    "hexo/source/_posts/Mac下利用alias简化命令.md",
-    "hexo/source/_posts/Mac终端翻墙.md",
-    "hexo/source/_posts/macOS上安装MacVim.md",
-    "hexo/source/_posts/Vim插件The-NERD-tree安装和配置.md",
-    "hexo/source/_posts/virtualenv介绍.md"
+    "hexo/source/_posts/Mac下利用alias简化命令.md"
   ]
 }
