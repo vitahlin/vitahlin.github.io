@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>alogotithm on VitahLin</title><link>https://www.vitahlin.com/categories/alogotithm/</link><description>Recent content in alogotithm on VitahLin</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 20 Jul 2022 00:00:00 +0800</lastBuildDate><atom:link href="https://www.vitahlin.com/categories/alogotithm/index.xml" rel="self" type="application/rss+xml"/><item><title>后缀表达式转中缀表达式</title><link>https://www.vitahlin.com/2022/07/c73f8444-4476-49a9-8e59-39f32482b306.html/</link><pubDate>Wed, 20 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/c73f8444-4476-49a9-8e59-39f32482b306.html/</guid><description>&lt;h1 class="group " id="问题描述"
+>问题描述&lt;a href="#%e9%97%ae%e9%a2%98%e6%8f%8f%e8%bf%b0"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h1>
+&lt;p>将由数字和四则运算符组成的后缀表达式变换为中缀表达式，输入的后缀表达式的运算符不超过15个，要求转换后的中缀表达式中不出现不必要的括号。例如，整个表达式的括号要省略，不影响计算顺序括号要省略。&lt;/p>
+&lt;h2 class="group " id="输入形式"
+>输入形式&lt;a href="#%e8%be%93%e5%85%a5%e5%bd%a2%e5%bc%8f"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>程序从标准输入读入一行字符串，是一个合法的后缀表达式，数字和运算符之间由空格分隔。数字可以是带小数部分的浮点数。&lt;/p>
+&lt;h2 class="group " id="输出形式"
+>输出形式&lt;a href="#%e8%be%93%e5%87%ba%e5%bd%a2%e5%bc%8f"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>向标准输出打印结果，输出只有一行，是转换后的中缀表达式。并且：&lt;/p>
+&lt;ul>
+&lt;li>各分量（包括括号）紧密输出，不使用空格进行分隔；&lt;/li>
+&lt;li>在转换后的各运算数的出现顺序不变；&lt;/li>
+&lt;li>浮点数保留输入时的小数位数。&lt;/li>
+&lt;/ul></description></item></channel></rss>
