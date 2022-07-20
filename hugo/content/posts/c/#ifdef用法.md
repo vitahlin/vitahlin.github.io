@@ -1,17 +1,17 @@
 ---
 title: '#ifdef用法'
-tags: C++
-categories: C++
-comments: true
-copyright: true
-abbrlink: how_to_use_ifdef
-date: 2016-11-29 20:01:33
-updated: 2016-11-29 20:04:33
+<!-- description: 这是一个副标题 -->
+date: 2022-07-20
+slug: how-to-use0#ifdef
+categories:
+    - c
+
+tags:
+    - c
 ---
 
 `#ifdef`用来进行条件编译。一般情况下，源程序中所有的行都参加编译。但是有时希望**对其中一部分内容只在满足一定条件才进行编译，也就是对一部分内容指定编译的条件，这就是“条件编译”**。有时，希望当满足某条件时对一组语句进行编译，而当条件不满足时则编译另一组语句。
 
-<!--more-->
 
 条件编译命令最常见的形式为：
 

@@ -1,20 +1,19 @@
 ---
-title: Hexo Next主题设置和优化
+title: hexo Next主题设置和优化
+<!-- description: 这是一个副标题 -->
+date: 2022-07-20
+slug: hexo-next-theme
+categories:
+    - tools
+
 tags:
-  - Blog
-  - Hexo
-categories: Blog
-comments: true
-abbrlink: set_next_theme_for_hexo
-date: 2016-12-03 13:09:33
-updated: 2016-04-11 15:08:33
-copyright: true
+    - tools
 ---
 
-### 主题样式优化
+# 主题样式优化
 
 
-#### 修改打赏字体不闪动
+## 修改打赏字体不闪动
 
 修改文件`next/source/css/_common/components/post/post-reward.styl`，然后注释其中的函数`wechat:hover`和`alipay:hover`，如下：
 ```css 
@@ -32,7 +31,7 @@ copyright: true
 */
 ```
 
-#### 采用多说时文章评论数目不显示
+## 采用多说时文章评论数目不显示
 
 当采用多说评论系统的时候，不知道因为什么原因，文章的评论数目不能正常显示，显示效果如下，分类后面不能正常显示评论数目，但有分隔号：
 ![](http://oc1mf55gf.bkt.clouddn.com/A0692BE3-87BE-4BFC-9C7F-5152B62B17EB.png)
@@ -53,9 +52,9 @@ copyright: true
 ```
 使文章始终不显示评论数目，而不仅仅在手机模式下。
 
-<!--more-->
 
-#### 修改内链文字样式
+
+## 修改内链文字样式
 
 原来版本的内链样式跟默认的字体很类似，这里进行修改。将链接文本设置为蓝色，鼠标划过时文字颜色加深，并显示下划线。修改文件`themes\next\source\css\_common\components\post\post.styl`，添加如下css样式：
 ```c 
@@ -76,7 +75,7 @@ copyright: true
 参考链接
 - [http://www.wuxubj.cn/2016/08/Hexo-nexT-build-personal-blog/](http://www.wuxubj.cn/2016/08/Hexo-nexT-build-personal-blog/)
 
-#### 修改小段的代码样式
+## 修改小段的代码样式
 
 主题原来的小段代码样式跟默认文章字体有点类似，这里可以修改其样式显示的更清晰点。
 修改文件`themes\next\source\css\_common\components\hightlight\hightlight.style`文件，找到其中的`code`段代码，改为如下形式：
@@ -92,7 +91,7 @@ code {
 ```
 其中的`color`就是字体对应的颜色，`background`对应背景颜色。
 
-#### 修改侧边栏头像为圆形
+## 修改侧边栏头像为圆形
 
 修改文件`themes\next\source\css\_common\components\sidebar\sidebar-author.style`，修改其中的`.site-author-image`段代码，改为如下形式：
 ```css 
@@ -136,16 +135,16 @@ code {
 参考链接
 - [http://codepub.cn/2016/03/20/Hexo-blog-theme-switching-from-Jacman-to-NexT-Mist/](http://codepub.cn/2016/03/20/Hexo-blog-theme-switching-from-Jacman-to-NexT-Mist/)
 
-### 多说CSS修改
+# 多说CSS修改
 
-#### 隐藏评论框底部分享到QQ空间按钮
+## 隐藏评论框底部分享到QQ空间按钮
 ```css 
 .ds-sync{
   display:none !important;
 }
 ```
 
-#### 隐藏底部版权信息
+## 隐藏底部版权信息
 
 ```css 
 #ds-thread #ds-reset .ds-powered-by {
@@ -153,28 +152,29 @@ code {
 }
 ```
 
-#### 参考链接
+## 参考链接
 - [http://www.360doc.com/content/15/0126/21/21724608_444033903.shtml](http://www.360doc.com/content/15/0126/21/21724608_444033903.shtml)
 - [http://shenchaofei.cn/duoshuo-comment-box-css-custom/328.html](http://shenchaofei.cn/duoshuo-comment-box-css-custom/328.html)
 - [http://dev.duoshuo.com/docs/4ff1cfd0397309552c000017](http://dev.duoshuo.com/docs/4ff1cfd0397309552c000017)
 
 
-### 搜索功能
+# 搜索功能
 
 博客的站内搜索网上一般说用`Swiftype`搜索，尝试了下，但是提示只有一个月的免费试用，遂放弃改用`Local Search`。
 
-#### 安装hexo-generator-search
+安装hexo-generator-search：
 ```c
 npm install hexo-generator-search --save
 ```
-#### 编辑站点的配置文件，Hexo目录下的_config.yml文件，新增以下内容：
+
+编辑站点的配置文件，Hexo目录下的_config.yml文件，新增以下内容：
 ```c
 search:
   path: search.xml
   field: post
 ```
 
-### 文章链接唯一化
+# 文章链接唯一化
 
 也许你会数次更改文章题目或者变更文章发布时间，在默认设置下，文章链接都会改变，不利于搜索引擎收录，也不利于分享。唯一永久链接才是更好的选择。安装此插件后，不要在`hexo s`模式下更改文章文件名，否则文章将成空白。
 
@@ -202,7 +202,7 @@ abbrlink:
 - crc32 & hex
 - crc32 & dec
 
-### 文章底部增加版权信息
+# 文章底部增加版权信息
 
 新版的 `Next` 主题应该已经支持文章版权的相关设置，在对应的目录下可以看到带有 `copyright` 相关的代码。
 
