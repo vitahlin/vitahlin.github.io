@@ -7,8 +7,12 @@
         "id": "41adefd6cc5a65ec",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "hugo/content/posts/spring/spring源码分析5-bean生命周期源码解析.md",
+            "mode": "source",
+            "source": false
+          }
         }
       }
     ],
@@ -49,7 +53,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 267.5
+    "width": 395.5
   },
   "right": {
     "id": "9ffe7aec2653e212",
@@ -65,6 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "hugo/content/posts/spring/spring源码分析5-bean生命周期源码解析.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -80,7 +85,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "hugo/content/posts/spring/spring源码分析5-bean生命周期源码解析.md"
+              }
             }
           }
         ]
@@ -90,17 +97,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "d63532b4f97a2e59",
+  "active": "41adefd6cc5a65ec",
   "lastOpenFiles": [
     "hugo/content/posts/spring/spring源码分析4-bean注解方式扫描.md",
     "hugo/content/posts/spring/spring源码分析5-bean生命周期源码解析.md",
+    "README.md",
     "hugo/content/posts/spring/spring源码分析3-核心概念介绍.md",
     "hugo/content/posts/other/Lumen定时任务.md",
     "hugo/content/posts/other/macOS终端配置.md",
     "hugo/content/posts/other/rust安装和升级.md",
     "hugo/content/posts/other/shell传入参数处理的简单介绍.md",
     "hugo/content/posts/other/git忽略设置.md",
-    "hugo/content/posts/other/Hexo Next主题设置和优化.md",
-    "hugo/content/posts/other/ssh证书登录.md"
+    "hugo/content/posts/other/Hexo Next主题设置和优化.md"
   ]
 }
