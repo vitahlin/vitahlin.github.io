@@ -33,9 +33,7 @@ tags:
 
 ## 采用多说时文章评论数目不显示
 
-当采用多说评论系统的时候，不知道因为什么原因，文章的评论数目不能正常显示，显示效果如下，分类后面不能正常显示评论数目，但有分隔号：
-![](http://oc1mf55gf.bkt.clouddn.com/A0692BE3-87BE-4BFC-9C7F-5152B62B17EB.png)
-
+当采用多说评论系统的时候，不知道因为什么原因，文章的评论数目不能正常显示，分类后面不能正常显示评论数目，但有分隔号。
 
 修改文件`themes\next\source\css\_common\components\post\post-meta.styl`，将原来的代码：
 ```css  
