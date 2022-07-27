@@ -4,8 +4,9 @@
     "type": "split",
     "children": [
       {
-        "id": "41adefd6cc5a65ec",
+        "id": "83ed752995105a2e",
         "type": "leaf",
+        "dimension": 74.49139280125195,
         "state": {
           "type": "markdown",
           "state": {
@@ -13,7 +14,20 @@
             "mode": "source",
             "source": false
           }
-        }
+        },
+        "group": "d0c8391e8f9876c1"
+      },
+      {
+        "id": "c3189f911e048205",
+        "type": "leaf",
+        "dimension": 25.508607198748045,
+        "state": {
+          "type": "outline",
+          "state": {
+            "file": "hugo/content/posts/spring/spring源码分析5-bean生命周期源码解析.md"
+          }
+        },
+        "group": "d0c8391e8f9876c1"
       }
     ],
     "direction": "vertical"
@@ -97,12 +111,12 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "41adefd6cc5a65ec",
+  "active": "83ed752995105a2e",
   "lastOpenFiles": [
+    "hugo/content/posts/spring/spring源码分析3-核心概念介绍.md",
     "hugo/content/posts/spring/spring源码分析4-bean注解方式扫描.md",
     "hugo/content/posts/spring/spring源码分析5-bean生命周期源码解析.md",
     "README.md",
-    "hugo/content/posts/spring/spring源码分析3-核心概念介绍.md",
     "hugo/content/posts/other/Lumen定时任务.md",
     "hugo/content/posts/other/macOS终端配置.md",
     "hugo/content/posts/other/rust安装和升级.md",
