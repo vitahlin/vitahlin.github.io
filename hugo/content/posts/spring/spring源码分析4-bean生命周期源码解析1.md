@@ -1,8 +1,8 @@
 ---
-title: spring源码分析5-bean生命周期源码分析1
+title: spring源码分析4-bean生命周期源码分析1
 <!-- description: 这是一个副标题 -->
 date: 2022-07-14
-slug: spring-bean-life-cycle1
+slug: spring-bean-life-cycle-1
 categories:
     - spring
 
@@ -13,7 +13,7 @@ tags:
 
 Spring最重要的功能就是帮助程序员创建对象(也就是IOC)，而启动Spring就是为创建Bean对象 做准备，所以我们先明白Spring到底是怎么去创建Bean的，也就是先弄明白Bean的生命周期。
 
-Bean的生命周期就是指：在Spring中，一个bean是如何生成的，如何销毁的。
+Bean的生命周期就是指：在Spring中，一个bean是如何生成的，如何销毁的，这里我们主要介绍下bean的扫描。
 
 ## 测试代码
 
@@ -601,7 +601,7 @@ protected boolean checkCandidate(String beanName, BeanDefinition beanDefinition)
 ```
 会从当前的bean列表里面判断是否存在相同名字的bean，如果已经存在就会抛出我们平常比较常见的异常内容。不重复就将扫描得到的bean添加到map中。到这里就完成了整个bean扫描的逻辑，我们会有一个map，里面有一系列的 BeanDefinition 对象。接下来就是根据得到的 BeanDefinition 列表进行初始化了。
 
-## bean的生成
+## bean的合并
 
 在`AbstractApplicationContext#refresh()` 中，处理bean生成的逻辑是 `finishBeanFactoryInitialization(beanFactory);` ，我们一步一步看下去，最终执行的代码是`DefaultListableBeanFactory#preInstantiateSingletons` ，源码如下：
 ```java
@@ -675,8 +675,6 @@ public void preInstantiateSingletons() throws BeansException {
 }
 ```
 这里，就是遍历我们上一步保存的bean名字列表，初始化每个bean。
-
-### bean的合并
 
 首先就是要处理bean的合并`getMergedLocalBeanDefinition` ，这里涉及到了**bean的继承**，我们先用代码来演示下bean的继承：
 ```java
