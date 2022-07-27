@@ -1536,8 +1536,8 @@ class="link"
 href="https://www.oschina.net/news/69705/git-commit-message-and-changelog-guide"target="_blank" rel="noopener">https://www.oschina.net/news/69705/git-commit-message-and-changelog-guide&lt;/a
 >
 &lt;/li>
-&lt;/ul></description></item><item><title>spring源码分析5-bean生命周期源码分析1</title><link>https://www.vitahlin.com/2022/07/spring-bean-life-cycle1.html/</link><pubDate>Thu, 14 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/spring-bean-life-cycle1.html/</guid><description>&lt;p>Spring最重要的功能就是帮助程序员创建对象(也就是IOC)，而启动Spring就是为创建Bean对象 做准备，所以我们先明白Spring到底是怎么去创建Bean的，也就是先弄明白Bean的生命周期。&lt;/p>
-&lt;p>Bean的生命周期就是指：在Spring中，一个bean是如何生成的，如何销毁的。&lt;/p>
+&lt;/ul></description></item><item><title>spring源码分析4-bean生命周期源码分析1</title><link>https://www.vitahlin.com/2022/07/spring-bean-life-cycle-1.html/</link><pubDate>Thu, 14 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/spring-bean-life-cycle-1.html/</guid><description>&lt;p>Spring最重要的功能就是帮助程序员创建对象(也就是IOC)，而启动Spring就是为创建Bean对象 做准备，所以我们先明白Spring到底是怎么去创建Bean的，也就是先弄明白Bean的生命周期。&lt;/p>
+&lt;p>Bean的生命周期就是指：在Spring中，一个bean是如何生成的，如何销毁的，这里我们主要介绍下bean的扫描。&lt;/p>
 &lt;h2 class="group " id="测试代码"
 >测试代码&lt;a href="#%e6%b5%8b%e8%af%95%e4%bb%a3%e7%a0%81"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
@@ -2597,8 +2597,8 @@ ClassPathScanningCandidateComponentProvider#isCandidateComponent 源码：&lt;/p
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>会从当前的bean列表里面判断是否存在相同名字的bean，如果已经存在就会抛出我们平常比较常见的异常内容。不重复就将扫描得到的bean添加到map中。到这里就完成了整个bean扫描的逻辑，我们会有一个map，里面有一系列的 BeanDefinition 对象。接下来就是根据得到的 BeanDefinition 列表进行初始化了。&lt;/p>
-&lt;h2 class="group " id="bean的生成"
->bean的生成&lt;a href="#bean%e7%9a%84%e7%94%9f%e6%88%90"
+&lt;h2 class="group " id="bean的合并"
+>bean的合并&lt;a href="#bean%e7%9a%84%e5%90%88%e5%b9%b6"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h2>
 &lt;p>在&lt;code>AbstractApplicationContext#refresh()&lt;/code> 中，处理bean生成的逻辑是 &lt;code>finishBeanFactoryInitialization(beanFactory);&lt;/code> ，我们一步一步看下去，最终执行的代码是&lt;code>DefaultListableBeanFactory#preInstantiateSingletons&lt;/code> ，源码如下：&lt;/p>
@@ -2745,10 +2745,6 @@ ClassPathScanningCandidateComponentProvider#isCandidateComponent 源码：&lt;/p
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>这里，就是遍历我们上一步保存的bean名字列表，初始化每个bean。&lt;/p>
-&lt;h3 class="group " id="bean的合并"
->bean的合并&lt;a href="#bean%e7%9a%84%e5%90%88%e5%b9%b6"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h3>
 &lt;p>首先就是要处理bean的合并&lt;code>getMergedLocalBeanDefinition&lt;/code> ，这里涉及到了&lt;strong>bean的继承&lt;/strong>，我们先用代码来演示下bean的继承：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
