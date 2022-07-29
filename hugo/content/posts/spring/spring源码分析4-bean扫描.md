@@ -223,8 +223,7 @@ protected Set<BeanDefinitionHolder> doScan(String... basePackages) {
 `basePackages` 即指定的扫描路径。
 `findCandidateComponents(basePackage);`  这个方法就是最核心的扫描逻辑。
 
-## 默认扫描流程和有配置bean索引的扫描流程
-
+## 默认扫描流程和有配置bean索引的扫描流程选择
 `ClassPathScanningCandidateComponentProvider#findCandidateComponents` ：
 ```java
 public Set<BeanDefinition> findCandidateComponents(String basePackage) {  
@@ -237,6 +236,8 @@ public Set<BeanDefinition> findCandidateComponents(String basePackage) {
     }  
 }
 ```
+
+### 有索引的扫描流程
 
 这个方法会去判断`this.componentsIndex` 是否有值，这个就是我们配置的bean索引，它加载的是`META-INF/spring.components`中的信息，内容格式如下：
 ```java
