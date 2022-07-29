@@ -380,8 +380,8 @@
 &lt;/div>
 &lt;/div>&lt;p>&lt;code>basePackages&lt;/code> 即指定的扫描路径。
 &lt;code>findCandidateComponents(basePackage);&lt;/code> 这个方法就是最核心的扫描逻辑。&lt;/p>
-&lt;h2 class="group " id="默认扫描流程和有配置bean索引的扫描流程"
->默认扫描流程和有配置bean索引的扫描流程&lt;a href="#%e9%bb%98%e8%ae%a4%e6%89%ab%e6%8f%8f%e6%b5%81%e7%a8%8b%e5%92%8c%e6%9c%89%e9%85%8d%e7%bd%aebean%e7%b4%a2%e5%bc%95%e7%9a%84%e6%89%ab%e6%8f%8f%e6%b5%81%e7%a8%8b"
+&lt;h2 class="group " id="默认扫描流程和有配置bean索引的扫描流程选择"
+>默认扫描流程和有配置bean索引的扫描流程选择&lt;a href="#%e9%bb%98%e8%ae%a4%e6%89%ab%e6%8f%8f%e6%b5%81%e7%a8%8b%e5%92%8c%e6%9c%89%e9%85%8d%e7%bd%aebean%e7%b4%a2%e5%bc%95%e7%9a%84%e6%89%ab%e6%8f%8f%e6%b5%81%e7%a8%8b%e9%80%89%e6%8b%a9"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h2>
 &lt;p>&lt;code>ClassPathScanningCandidateComponentProvider#findCandidateComponents&lt;/code> ：&lt;/p>
@@ -409,7 +409,12 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>这个方法会去判断&lt;code>this.componentsIndex&lt;/code> 是否有值，这个就是我们配置的bean索引，它加载的是&lt;code>META-INF/spring.components&lt;/code>中的信息，内容格式如下：&lt;/p>
+&lt;/div>
+&lt;h3 class="group " id="有索引的扫描流程"
+>有索引的扫描流程&lt;a href="#%e6%9c%89%e7%b4%a2%e5%bc%95%e7%9a%84%e6%89%ab%e6%8f%8f%e6%b5%81%e7%a8%8b"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h3>
+&lt;p>这个方法会去判断&lt;code>this.componentsIndex&lt;/code> 是否有值，这个就是我们配置的bean索引，它加载的是&lt;code>META-INF/spring.components&lt;/code>中的信息，内容格式如下：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
 &lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
