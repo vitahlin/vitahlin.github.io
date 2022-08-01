@@ -53,7 +53,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 395.5
+    "width": 395.5,
+    "collapsed": true
   },
   "right": {
     "id": "9ffe7aec2653e212",
@@ -97,7 +98,7 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "83ed752995105a2e",
+  "active": "d63532b4f97a2e59",
   "lastOpenFiles": [
     "hugo/content/posts/spring/spring源码分析4-bean生命周期源码解析1.md",
     "hugo/content/posts/spring/spring源码分析5-bean生命周期源码解析2.md",

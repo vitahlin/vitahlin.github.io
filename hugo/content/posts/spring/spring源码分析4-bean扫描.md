@@ -616,7 +616,7 @@ public static String decapitalize(String name) {
 ```
 这里会判断类名字的第一个字符和第二个字符，**如果前2个字符全部大写的话，那么直接返回类名；否则将返回首字符小写的类名字。** 比如类，`AbcService` 它的bean名字就是 `abcService` ，类 `ABcService` 它的bean名字则是 `ABcService` 。
 
-我们修改测试，来验证上面添加的bean `ABTestService`  是否符合这个规则。
+可以调整测试代码，来验证上面添加的bean `ABTestService`  是否符合预期。
 ```java
 package org.springframework.vitahlin;  
   
@@ -663,7 +663,7 @@ Exception in thread "main" org.springframework.beans.factory.NoSuchBeanDefinitio
 
 ## 判断bean是否重复
 
-最终调用的是ClassPathBeanDefinitionScanner#checkCandidate：
+最终调用的是`ClassPathBeanDefinitionScanner#checkCandidate` ：
 ```java
 protected boolean checkCandidate(String beanName, BeanDefinition beanDefinition) throws IllegalStateException {  
     // 1.判断容器里面是不是已经存在这个beanName  
