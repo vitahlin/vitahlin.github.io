@@ -1077,7 +1077,7 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>这里会判断类名字的第一个字符和第二个字符，&lt;strong>如果前2个字符全部大写的话，那么直接返回类名；否则将返回首字符小写的类名字。&lt;/strong> 比如类，&lt;code>AbcService&lt;/code> 它的bean名字就是 &lt;code>abcService&lt;/code> ，类 &lt;code>ABcService&lt;/code> 它的bean名字则是 &lt;code>ABcService&lt;/code> 。&lt;/p>
-&lt;p>我们修改测试，来验证上面添加的bean &lt;code>ABTestService&lt;/code> 是否符合这个规则。&lt;/p>
+&lt;p>可以调整测试代码，来验证上面添加的bean &lt;code>ABTestService&lt;/code> 是否符合预期。&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
 &lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -1163,7 +1163,7 @@
 >判断bean是否重复&lt;a href="#%e5%88%a4%e6%96%adbean%e6%98%af%e5%90%a6%e9%87%8d%e5%a4%8d"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h2>
-&lt;p>最终调用的是ClassPathBeanDefinitionScanner#checkCandidate：&lt;/p>
+&lt;p>最终调用的是&lt;code>ClassPathBeanDefinitionScanner#checkCandidate&lt;/code> ：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
 &lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
