@@ -1,5 +1,5 @@
 ---
-title: spring源码分析1-源代码编译
+title: spring源码-源代码编译
 <!-- description: 这是一个副标题 -->
 date: 2022-07-06
 slug: build-spring-framework-source-code

@@ -11,36 +11,49 @@ tags:
     - java
 ---
 
+
+## 前言
+
+本文介绍Spring框架中的一些核心概念，主要回答以下几个问题：
+1. 什么是Bean
+2. BeanDefinition的概念
+3. BeanFactory的概念
+4. 比较核心的BeanFactory实现类
+6. FactoryBean是什么
+7. FactoryBean的作用
+8. 什么是BeanPostProcessor
+
+
 ## bean
 
 什么是 `bean`？我们可以来看下 spring 的官方文档：
 > In Spring, the objects that form the backbone of your application and that are managed by the Spring IoC container are called beans. A bean is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container. Otherwise, a bean is simply one of many objects in your application. Beans, and the dependencies among them, are reflected in the configuration metadata used by a container.
 
-简而言之，**`bean` 是由 Spring IoC 容器实例化、组装和管理的对象。**
+Spring是面向Bean的编程（Bean Oriented Programming, BOP），Bean在Spring中才是真正的主角。Bean在Spring中的作用就像Object对OOP的意义一样，Spring中没有Bean也就没有Spring存在的意义。Spring提供了IOC容器通过配置文件或者注解的方式来管理对象之间的依赖关系。
+简而言之，**`bean` 是由 Spring IoC 容器实例化、组装和管理的对象。** 
+
 
 ## BeanDefinition
 
-用来表示 `bean` 定义，`BeanDefinition` 中存在很多属性来描述一个 `bean` 的特点。比如：
-
-- class，表示 bean 类型
-- scope，表示 bean 作用域，单例或原型等
+用来**表示 `bean` 定义，`BeanDefinition` 中存在很多属性来描述一个 `bean` 的特点**。比如：
+- class，表示 bean 的类型
+- scope，表示 bean 的作用域，单例或原型等
 - lazyInit，表示 bean 是否懒加载
 - initMethodName，表示 bean 初始化时要执行的方法
 - destoryMethodName，表示 bean 销毁时要执行的方法
-- ...
+- ...（等等）
 
-我们可以简单的认为，spring 在扫描class的时候，会根据class文件中的注解等信息，给 `beanDefinition` 对象赋值，所以，`beanDefinition`是对一个类的描述。那spring在真正去初始化、实例化一个bean的时候，直接根据 `beanDefinition` 去初始化就可以，比如，在判断这个bean是根据类型注入，还是根据名字注入的时候，就直接判断 `autowireMode` 的属性值即可。
+我们可以简单的认为，spring 在扫描class的时候，会根据class文件中的注解等信息，给 `BeanDefinition` 对象赋值，所以，`BeanDefinition` 是对一个类的描述。那spring在真正去初始化、实例化一个bean的时候，直接根据 `BeanDefinition` 去初始化就可以，比如，在判断这个bean是根据类型注入还是根据名字注入的时候，就直接判断 `autowireMode` 的属性值即可。 ^92313b
+
+### 编程式定义Bean
 
 在 spring 中，我们通常会通过以下几种方式来定义 `bean`：
-
 1. `<bean/>`
 2. `@Bean`
 3. `@Component`(`@Service`, `@Controller`)
-
 这些，我们可以称之为**声明式定义 `bean`**。
 
 我们还可以编程式定义 `bean`，那就是直接通过 `BeanDefinition`，例如：
-
 ```java
 public class UserService {
     public void hello(){
@@ -122,7 +135,6 @@ public class AnnotatedBeanDefinitionReaderTest {
 ```
 
 执行结果：
-
 ```shell
 
 > Task :spring-vitahlin:AnnotatedBeanDefinitionReaderTest.main()
@@ -195,9 +207,9 @@ org.springframework.vitahlin.bean.HelloService@18a70f16
 ## BeanFactory
 
 `BeanFactory` 表示 `Bean` 工厂，`BeanFactory` 会负责创建 `Bean`，并且提供获取 `Bean` 的 API。
+Bean工厂的概念是Spring作为IoC容器的基础。IoC则将处理事情的责任从应用程序代码转移到框架。
 
 `ApplicationContext` 是 `BeanFactory` 的一种，在 spirng 源码中是这么定义的：
-
 ```java
 public interface ApplicationContext extends EnvironmentCapable, ListableBeanFactory, HierarchicalBeanFactory,
 		MessageSource, ApplicationEventPublisher, ResourcePatternResolver {
@@ -208,9 +220,11 @@ public interface ApplicationContext extends EnvironmentCapable, ListableBeanFact
 `ApplicationContext` 继承了 `ListableBeanFactory` 和 `HierarchicalBeanFactory`，而 `ListableBeanFactory` 和 `HierarchicalBeanFactory` 都继承至 `BeanFactory`，所以我们可以认为 ApplicationContext 继承了 BeanFactory。
 `ApplicationContext` 拥有了 `BeanFactory` 支持的所有功能，而且比 BeanFactory 更加强大，ApplicationContext 还继承了其他接口，比如 MessageSource国际化，ApplicationEventPublisher 事件发布，EnvironmentCapable 获取环境变量等等。
 
-在 spring 源码实现中，当我们 `new` 一个 `ApplicationContext` 时，其底层会 `new` 一个 `BeanFactory` 出来，当使用 `ApplicationContext` 某些方法时，比如 getBean()，底层调用的是 `BeanFactory` 的 getBean() 方法。
+在 spring 源码实现中，当我们 `new` 一个 `ApplicationContext` 时，其底层会 `new` 一个 `BeanFactory` 出来，当使用 `ApplicationContext` 某些方法时，比如 `getBean()` ，底层调用的是 `BeanFactory` 的 `getBean()`  方法。
 
-在 spring 源码中，BeanFactory 接口存在一个非常重要的实现类 `DefaultListableBeanFactory`。所以我们也可以直接使用 DefaultListableBeanFactory，而不用使用 ApplicationContext 的某个实现类。例如：
+### 核心的BeanFactory实现类-DefaultListableBeanFactory
+
+**在 spring 源码中，BeanFactory 接口存在一个非常重要的实现类 `DefaultListableBeanFactory`**。所以我们也可以直接使用 DefaultListableBeanFactory，而不用使用 ApplicationContext 的某个实现类。例如：
 
 ```java
 package org.springframework.vitahlin.bean;
@@ -248,23 +262,23 @@ public class DefaultListableBeanFactoryTest {
 }
 ```
 
-DefaultListableBeanFactory 是非常强大的，支持很多功能，我们可以查看下 DefaultListableBeanFactory 的类继承实现结构：
+`DefaultListableBeanFactory`  是非常强大的，支持很多功能，我们可以查看下 `DefaultListableBeanFactory`  的类继承实现结构：
 
 ![DefaultListableBeanFactory类继承实现结构](https://vitahlin.oss-cn-shanghai.aliyuncs.com/images/blog/2022/07/202207121126755.png)
 
 它实现了很多接口，即拥有很多功能：
 
-1. AliasRegistry 支持别名功能，一个名字可以对应多个别名
-2. BeanDefinitionRegistry 可以注册、保存、移除、获取某个BeanDefinition
-3. Beanfactory Bean工厂，可以根据某个 Bean 的名字、类型、别名获取某个 Bean 对象
-4. SingletonBeanRegistry 可以直接注册、获取某个单例 Bean
-5. SimpleAliasRegistry 它是一个类，实现了 AliasRegistry 接口中所定义的功能，支持别名功能
-6. ListableBeanFactory 在 BeanFactory 的基础上，增加了其他功能，可以获取所有 BeanDefinition 的 BeanNames，可以根据某个类型获取对应的 BeanNames，可以根据某个类型获取 类型-对应的Bean 的映射关系
-7. HierarchicalBeanFactory 在 BeanFactory 的基础上，添加了获取父 BeanFactory 的功能
-8. DefaultListableBeanFactory 它是一个类，实现了 SingletonBeanRegistry 接口，拥有了直接注册、获取某个单例 Bean 的功能
-9. ConfigurableBeanFactory 在 HierarchicalBeanFactory 和 SingletonBeanRegistry 的基础上，添加了设置父 BeanFactory、类加载器（可以指定某个类加载器进行类的加载）、设置 Spring EL表达式解析器（表示该 BeanFactory可以解析EL表达式）、设置类型转化服务(表示该BeanFactory可以进行类型转化)、可以添加 BeanPostProcessor（表示该BeanFactory支持 Bean 的后置处理器）、可以合并 BeanDefinition、可以销毁某个 Bean 等等功能
-10. FactoryBeanRegistrySupport 支持 FactoryBean 的功能
-11. AutowireCapableBeanFactory 直接继承了 BeanFactory，在 BeanFactory 的基础上，支持在创建 Bean 的过程中能对 Bean 进行自动装配
+1. `AliasRegistry`  支持别名功能，一个名字可以对应多个别名
+2. `BeanDefinitionRegistry`  可以注册、保存、移除、获取某个 `BeanDefinition` 
+3. `Beanfactory`  Bean工厂，可以根据某个 Bean 的名字、类型、别名获取某个 Bean 对象
+4. `SingletonBeanRegistry`  可以直接注册、获取某个单例 Bean
+5. `SimpleAliasRegistry`  它是一个类，实现了 AliasRegistry 接口中所定义的功能，支持别名功能
+6. `ListableBeanFactory`  在 `BeanFactory`  的基础上，增加了其他功能，可以获取所有 `BeanDefinition`  的 `BeanNames` ，可以根据某个类型获取对应的 BeanNames，可以根据某个类型获取 类型-对应的Bean 的映射关系
+7. `HierarchicalBeanFactory`  在 `BeanFactory`  的基础上，添加了获取父 `BeanFactory`  的功能
+8. `DefaultListableBeanFactory`  它是一个类，实现了 `SingletonBeanRegistry`  接口，拥有了直接注册、获取某个单例 Bean 的功能
+9. `ConfigurableBeanFactory`  在 `HierarchicalBeanFactory`  和 `SingletonBeanRegistry`  的基础上，添加了设置父 `BeanFactory` 、类加载器（可以指定某个类加载器进行类的加载）、设置 Spring EL表达式解析器（表示该 BeanFactory可以解析EL表达式）、设置类型转化服务(表示该BeanFactory可以进行类型转化)、可以添加 BeanPostProcessor（表示该BeanFactory支持 Bean 的后置处理器）、可以合并 BeanDefinition、可以销毁某个 Bean 等等功能
+10. `FactoryBeanRegistrySupport`  支持 `FactoryBean`  的功能
+11. `AutowireCapableBeanFactory`  直接继承了 `BeanFactory` ，在 `BeanFactory`  的基础上，支持在创建 Bean 的过程中能对 Bean 进行自动装配
 12. AbstractBeanFactory 实现了 ConfigurableBeanFactory 接口，继承了 FactoryBeanRegistrySupport，这个 BeanFactory 功能已经很全面，但是不能自动装配和获取 BeanNames。
 13. ConfigurableListableBeanFactory 继承了 ListableBeanFactory，实现了 AutowireCapableBeanFactory、ConfigurableBeanFactory
 14. AbstractAutowireCapableBeanFactory 继承了 AbstractBeanFactory，实现了 AutowireCapableBeanFactory，拥有自动装配的功能
@@ -282,7 +296,6 @@ ApplicationContext 是个接口，实际上也是一个 BeanFactory，不过比 
 6. MessageSource 拥有国际化功能
 
 我们可以先来看 ApplicationContext 两个比较重要的实现类：
-
 1. AnnotationConfigApplicationContext
 2. ClassPathXmlApplicationContext
 
@@ -335,16 +348,18 @@ System.out.println(resource.contentLength());
 
 ## BeanPostProcessor
 
-表示 Bean 的后置处理器，可以定义一个或多个 BeanPostProcessor。
-一个 BeanPostProcessor 可以在任意一个 Bean 的初始化之前和初始化之后去额外做一些用户自定义的逻辑。我们可以通过判断 beanName 来进行针对性处理（针对某个Bean，或者某部分Bean）。
+表示 Bean 的后置处理器，可以定义一个或多个 `BeanPostProcessor` 。
+一个 `BeanPostProcessor`  可以在**任意一个 `Bean`  的初始化之前和初始化之后去额外做一些用户自定义的逻辑**。我们可以通过判断 beanName 来进行针对性处理（针对某个Bean，或者某部分Bean）。 ^afb5a9
 
 ## BeanFactoryPostProcessor
 
-表示 Bean 工厂的后置处理器，其实和 BeanPostProcessor 类似，BeanPostProcessor 是干涉 Bean 的创建过程，BeanFactoryPostProcessor 是干涉 BeanFactory 的创建过程。
+表示 Bean 工厂的后置处理器，其实和 `BeanPostProcessor`  类似，只不过 `BeanPostProcessor`  是干涉 `Bean`  的创建过程，`BeanFactoryPostProcessor`  是干涉 `BeanFactory`  的创建过程。
 
 ## FactoryBean
 
-我们可以通过 BeanPostProcessor 来干涉 spring 创建 Bean 的过程，但是如果我们想一个 Bean 完完全全由我们来创造，也是可以的，比如通过 `FactoryBean` 接口。
+### FactoryBean简单介绍
+
+我们可以通过 `BeanPostProcessor`  来干涉 spring 创建 Bean 的过程，但是如果我们想一个 Bean 完完全全由我们来创造，也是可以的，比如通过 `FactoryBean` 接口。
 
 `FactoryBean` 翻译过来是工厂Bean，`BeanFactory` 翻译过来是Bean工厂，`FactoryBean` 是bean工厂`beanFactory` 中的一个 `bean`，只不过这个 `bean` 和一般的 `bean` 不一样，它有着自己的特殊之处，特殊在什么地方呢？**这个Bean不是简单的Bean，而是一个能生产或者修饰对象生成的工厂Bean,它的实现与设计模式中的工厂模式和修饰器模式类似。**
 
@@ -373,8 +388,10 @@ public interface FactoryBean<T> {
 
 `FactoryBean` 接口很简单，就提供了三个方法 `getObject`、`getObjectType`、`isSingleton`。就是这三个方法却成为了spring中很多功能的基础，搜索整个spring的源码可以找到很多 `FactoryBean`，除了spring自身提供的以外，在和一些框架进行集成的时候，同样有 `FactoryBean` 的影子，比如和mybatis集成的时候的 `SqlSessionFactoryBean`。
 
-示例代码：
 
+### FactoryBean示例代码 
+
+示例代码：
 ```java
 package org.springframework.vitahlin;
 
@@ -385,7 +402,6 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages = "org.springframework.vitahlin.bean")
 public class BeanScanConfig {
 }
-
 ```
 
 ```java
@@ -478,10 +494,11 @@ myFactoryBean:MyFactoryBean{}
 
 ## ExcludeFilter和IncludeFilter
 
-这两个 Filter 是 spring 扫描中用来过滤的。ExcludeFilter 是排除过滤器，IncludeFilter 是包含过滤器。
+这两个 Filter 是 spring 扫描中用来过滤的。`ExcludeFilter`  是排除过滤器，`IncludeFilter`  是包含过滤器。
+在对 bean 的扫描中会判断 @Component注解的过滤器。
 
 ## MetadataReader、ClassMetadata、AnnotationMetadata
 
-在Spring中需要去解析类的信息，比如类名、类中的方法、类上的注解，这些都可以称之为类的元数 据，所以Spring中对类的元数据做了抽象，并提供了一些工具类。
+在Spring中需要去解析类的信息，比如类名、类中的方法、类上的注解，这些都可以称之为类的元数据，所以Spring中对类的元数据做了抽象，并提供了一些工具类。
 
-MetadataReader表示类的元数据读取器，默认实现类为SimpleMetadataReader。
+`MetadataReader` 表示类的元数据读取器，默认实现类为 `SimpleMetadataReader` 。
