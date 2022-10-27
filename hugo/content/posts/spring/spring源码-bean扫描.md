@@ -1,5 +1,5 @@
 ---
-title: spring源码分析4-bean扫描
+title: spring源码-bean扫描
 <!-- description: 这是一个副标题 -->
 date: 2022-07-29
 slug: spring-bean-scan
