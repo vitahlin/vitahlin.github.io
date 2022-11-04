@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/"><channel><title>VitahLin</title><atom:link href="%7balternate%20%7bRSS%20application/rss+xml%20%20index%20alternate%20%20false%20false%20true%20false%20false%200%7d%20/index.xml%20https://www.vitahlin.com/index.xml%7d" rel="self" type="application/rss+xml"/><link>https://www.vitahlin.com/</link><managingEditor>VitahLin</managingEditor><description>深自缄默，如云漂泊</description><lastBuildDate>Thu, 27 Oct 2022 00:00:00 +0800</lastBuildDate><language>zh-cn</language><generator>Hugo -- gohugo.io</generator><item><title>ssh错误no matching host key type found. Their offer ssh-rsa</title><link>https://www.vitahlin.com/2022/10/solve-no-matching-host-key-their-offer-ssh-rsa.html/</link><pubDate>Thu, 27 Oct 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/10/solve-no-matching-host-key-their-offer-ssh-rsa.html/</guid><description>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/"><channel><title>VitahLin</title><atom:link href="%7balternate%20%7bRSS%20application/rss+xml%20%20index%20alternate%20%20false%20false%20true%20false%20false%200%7d%20/index.xml%20https://www.vitahlin.com/index.xml%7d" rel="self" type="application/rss+xml"/><link>https://www.vitahlin.com/</link><managingEditor>VitahLin</managingEditor><description>深自缄默，如云漂泊</description><lastBuildDate>Thu, 27 Oct 2022 00:00:00 +0800</lastBuildDate><language>zh-cn</language><generator>Hugo -- gohugo.io</generator><item><title>ssh错误no matching host key type found. Their offer ssh-rsa</title><link>https://www.vitahlin.com/2022/10/solve-no-matching-host-key-their-offer-ssh-rsa/</link><pubDate>Thu, 27 Oct 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/10/solve-no-matching-host-key-their-offer-ssh-rsa/</guid><description>
 &lt;h2 class="group " id="问题"
 >问题&lt;a href="#%e9%97%ae%e9%a2%98"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
@@ -99,7 +99,7 @@ class="link"
 href="https://www.openssh.com/legacy.html"target="_blank" rel="noopener">https://www.openssh.com/legacy.html&lt;/a
 >
 &lt;/li>
-&lt;/ul></description></item><item><title>spring源码-bean扫描</title><link>https://www.vitahlin.com/2022/07/spring-bean-scan.html/</link><pubDate>Fri, 29 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/spring-bean-scan.html/</guid><description>
+&lt;/ul></description></item><item><title>spring源码-bean扫描</title><link>https://www.vitahlin.com/2022/07/spring-bean-scan/</link><pubDate>Fri, 29 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/spring-bean-scan/</guid><description>
 &lt;h2 class="group " id="前言"
 >前言&lt;a href="#%e5%89%8d%e8%a8%80"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
@@ -1590,7 +1590,7 @@ href="https://www.openssh.com/legacy.html"target="_blank" rel="noopener">https:/
 >总结&lt;a href="#%e6%80%bb%e7%bb%93"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h2>
-&lt;p>这里仅分析了通用的Bean的扫描，&lt;code>FactoryBean&lt;/code> 的处理会在另外的文中分析。&lt;/p></description></item><item><title>hexo Next主题设置和优化</title><link>https://www.vitahlin.com/2022/07/hexo-next-theme.html/</link><pubDate>Wed, 20 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/hexo-next-theme.html/</guid><description>
+&lt;p>这里仅分析了通用的Bean的扫描，&lt;code>FactoryBean&lt;/code> 的处理会在另外的文中分析。&lt;/p></description></item><item><title>hexo Next主题设置和优化</title><link>https://www.vitahlin.com/2022/07/hexo-next-theme/</link><pubDate>Wed, 20 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/hexo-next-theme/</guid><description>
 &lt;h1 class="group " id="主题样式优化"
 >主题样式优化&lt;a href="#%e4%b8%bb%e9%a2%98%e6%a0%b7%e5%bc%8f%e4%bc%98%e5%8c%96"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
@@ -2229,7 +2229,7 @@ href="https://github.com/wuxubj/wuxubj.github.io"target="_blank" rel="noopener">
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">---&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>lumen定时任务</title><link>https://www.vitahlin.com/2022/07/lumen-schedule.html/</link><pubDate>Wed, 20 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/lumen-schedule.html/</guid><description>&lt;p>&lt;code>Lumen&lt;/code>实现定时任务功能的步骤如下。&lt;/p>
+&lt;/div></description></item><item><title>lumen定时任务</title><link>https://www.vitahlin.com/2022/07/lumen-schedule/</link><pubDate>Wed, 20 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/lumen-schedule/</guid><description>&lt;p>&lt;code>Lumen&lt;/code>实现定时任务功能的步骤如下。&lt;/p>
 &lt;h2 class="group " id="任务逻辑实现"
 >任务逻辑实现&lt;a href="#%e4%bb%bb%e5%8a%a1%e9%80%bb%e8%be%91%e5%ae%9e%e7%8e%b0"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
@@ -2428,7 +2428,7 @@ href="https://github.com/wuxubj/wuxubj.github.io"target="_blank" rel="noopener">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>&lt;code>etc/cron.d&lt;/code>里面的配置是系统级别的，需要指定用户执行。&lt;code>schedule:run&lt;/code>表示开始执行全部的定时任务。&lt;/p>
-&lt;p>还有一种方法是输入命令 &lt;code>crontab -e&lt;/code> 进行编辑，文件在&lt;code>/var/spool/cron/crontabs&lt;/code>目录下，&lt;code>crontab -e&lt;/code>会以当前用户去执行脚本。&lt;code>crontab -l&lt;/code>可以查看当前已经设定的定时任务。&lt;/p></description></item><item><title>ssh证书登录</title><link>https://www.vitahlin.com/2022/07/use-ssh-key-to-login.html/</link><pubDate>Wed, 20 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/use-ssh-key-to-login.html/</guid><description>
+&lt;p>还有一种方法是输入命令 &lt;code>crontab -e&lt;/code> 进行编辑，文件在&lt;code>/var/spool/cron/crontabs&lt;/code>目录下，&lt;code>crontab -e&lt;/code>会以当前用户去执行脚本。&lt;code>crontab -l&lt;/code>可以查看当前已经设定的定时任务。&lt;/p></description></item><item><title>ssh证书登录</title><link>https://www.vitahlin.com/2022/07/use-ssh-key-to-login/</link><pubDate>Wed, 20 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/use-ssh-key-to-login/</guid><description>
 &lt;h1 class="group " id="证书登陆的步骤"
 >证书登陆的步骤&lt;a href="#%e8%af%81%e4%b9%a6%e7%99%bb%e9%99%86%e7%9a%84%e6%ad%a5%e9%aa%a4"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
@@ -2575,7 +2575,7 @@ class="link"
 href="http://www.cnblogs.com/ggjucheng/archive/2012/08/19/2646346.html"target="_blank" rel="noopener">http://www.cnblogs.com/ggjucheng/archive/2012/08/19/2646346.html&lt;/a
 >
 &lt;/li>
-&lt;/ul></description></item><item><title>后缀表达式转中缀表达式</title><link>https://www.vitahlin.com/2022/07/c73f8444-4476-49a9-8e59-39f32482b306.html/</link><pubDate>Wed, 20 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/c73f8444-4476-49a9-8e59-39f32482b306.html/</guid><description>
+&lt;/ul></description></item><item><title>后缀表达式转中缀表达式</title><link>https://www.vitahlin.com/2022/07/c73f8444-4476-49a9-8e59-39f32482b306/</link><pubDate>Wed, 20 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/c73f8444-4476-49a9-8e59-39f32482b306/</guid><description>
 &lt;h1 class="group " id="问题描述"
 >问题描述&lt;a href="#%e9%97%ae%e9%a2%98%e6%8f%8f%e8%bf%b0"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
@@ -3030,7 +3030,7 @@ href="http://www.cnblogs.com/ggjucheng/archive/2012/08/19/2646346.html"target="_
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>如何写好git commit message</title><link>https://www.vitahlin.com/2022/07/how-to-write-git-commit-message.html/</link><pubDate>Wed, 20 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/how-to-write-git-commit-message.html/</guid><description>&lt;p>任何软件项目都是一个协作项目，它至少需要2个开发人员参与，当原始的开发人员将项目开发几个星期或者几个月之后，项目步入正规。不过他们或者后续的开发人员仍然需要经常提交一些代码去修复bug或者实现新的feature。我们经常有这种感受：当一个项目时间过了很久之后，我们对于项目里面的文件和函数功能渐渐淡忘，重新去阅读熟悉这部分代码是很浪费时间并且恼人的一件事。但是这也没法完全避免，我们可以使用一些技巧尽可能减少重新熟悉代码的时间。commit messages 可以满足需要，它也反映了一个开发人员是否是良好的协作者。&lt;/p>
+&lt;/div></description></item><item><title>如何写好git commit message</title><link>https://www.vitahlin.com/2022/07/how-to-write-git-commit-message/</link><pubDate>Wed, 20 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/how-to-write-git-commit-message/</guid><description>&lt;p>任何软件项目都是一个协作项目，它至少需要2个开发人员参与，当原始的开发人员将项目开发几个星期或者几个月之后，项目步入正规。不过他们或者后续的开发人员仍然需要经常提交一些代码去修复bug或者实现新的feature。我们经常有这种感受：当一个项目时间过了很久之后，我们对于项目里面的文件和函数功能渐渐淡忘，重新去阅读熟悉这部分代码是很浪费时间并且恼人的一件事。但是这也没法完全避免，我们可以使用一些技巧尽可能减少重新熟悉代码的时间。commit messages 可以满足需要，它也反映了一个开发人员是否是良好的协作者。&lt;/p>
 &lt;p>编写良好的Commit messages可以达到3个重要的目的：&lt;/p>
 &lt;ul>
 &lt;li>加快review的流程&lt;/li>
@@ -3128,7 +3128,7 @@ class="link"
 href="https://www.oschina.net/news/69705/git-commit-message-and-changelog-guide"target="_blank" rel="noopener">https://www.oschina.net/news/69705/git-commit-message-and-changelog-guide&lt;/a
 >
 &lt;/li>
-&lt;/ul></description></item><item><title>spring源码-核心概念介绍</title><link>https://www.vitahlin.com/2022/07/introduction-to-spring-framework-core-class.html/</link><pubDate>Tue, 12 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/introduction-to-spring-framework-core-class.html/</guid><description>
+&lt;/ul></description></item><item><title>spring源码-核心概念介绍</title><link>https://www.vitahlin.com/2022/07/introduction-to-spring-framework-core-class/</link><pubDate>Tue, 12 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/introduction-to-spring-framework-core-class/</guid><description>
 &lt;h2 class="group " id="前言"
 >前言&lt;a href="#%e5%89%8d%e8%a8%80"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
@@ -3926,7 +3926,7 @@ Bean工厂的概念是Spring作为IoC容器的基础。IoC则将处理事情的�
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h2>
 &lt;p>在Spring中需要去解析类的信息，比如类名、类中的方法、类上的注解，这些都可以称之为类的元数据，所以Spring中对类的元数据做了抽象，并提供了一些工具类。&lt;/p>
-&lt;p>&lt;code>MetadataReader&lt;/code> 表示类的元数据读取器，默认实现类为 &lt;code>SimpleMetadataReader&lt;/code> 。&lt;/p></description></item><item><title>spring源码-各个模块介绍</title><link>https://www.vitahlin.com/2022/07/introduction-to-spring-framework-modules.html/</link><pubDate>Thu, 07 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/introduction-to-spring-framework-modules.html/</guid><description>&lt;p>Spring中的模块划分如下图所示，除了图中的spring-vitahlin外，还有24个模块：
+&lt;p>&lt;code>MetadataReader&lt;/code> 表示类的元数据读取器，默认实现类为 &lt;code>SimpleMetadataReader&lt;/code> 。&lt;/p></description></item><item><title>spring源码-各个模块介绍</title><link>https://www.vitahlin.com/2022/07/introduction-to-spring-framework-modules/</link><pubDate>Thu, 07 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/introduction-to-spring-framework-modules/</guid><description>&lt;p>Spring中的模块划分如下图所示，除了图中的spring-vitahlin外，还有24个模块：
 &lt;/p>
 &lt;h2 class="group " id="1-framework-bom"
 >1. framework-bom&lt;a href="#1-framework-bom"
@@ -4047,7 +4047,7 @@ Bean工厂的概念是Spring作为IoC容器的基础。IoC则将处理事情的�
 >24. spring-websocket&lt;a href="#24-spring-websocket"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h2>
-&lt;p>Spring对websocket的简单封装，提供了及时通信的功能，常用于一些即时通讯功能的开发，例如：聊天室。&lt;/p></description></item><item><title>spring源码-源代码编译</title><link>https://www.vitahlin.com/2022/07/build-spring-framework-source-code.html/</link><pubDate>Wed, 06 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/build-spring-framework-source-code.html/</guid><description>
+&lt;p>Spring对websocket的简单封装，提供了及时通信的功能，常用于一些即时通讯功能的开发，例如：聊天室。&lt;/p></description></item><item><title>spring源码-源代码编译</title><link>https://www.vitahlin.com/2022/07/build-spring-framework-source-code/</link><pubDate>Wed, 06 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/build-spring-framework-source-code/</guid><description>
 &lt;h2 class="group " id="源代码下载"
 >源代码下载&lt;a href="#%e6%ba%90%e4%bb%a3%e7%a0%81%e4%b8%8b%e8%bd%bd"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
