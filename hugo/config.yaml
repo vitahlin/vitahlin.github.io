@@ -31,8 +31,8 @@ paginate: 10
 permalinks:
   # 文章链接的格式
   # Format of posts links
-  posts: /:year/:month/:slug.html # 2019/01/01/hello-world.html
-  pages: /:slug.html # about.html
+  posts: /:year/:month/:slug # 2019/01/01/hello-world.html
+  pages: /:slug # about.html
 
 author:
   name: VitahLin
