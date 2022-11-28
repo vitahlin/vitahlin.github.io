@@ -22,12 +22,12 @@ Spring容器加载方式主要有以下3种：
 
 在项目中使用Spring，通过 `@ComponentScan` 注解可以声明自动注入要扫描的包，spring 会将该包下所有加了 `@Component` 注解的 bean 扫描到 spring 容器中，当然spring也可以通过 `xml` 文件来配置要扫描的Bean，不过现在 SpringBoot 一般都是用 @ComponentScan 注解的方式，所以本文主要介绍自动扫描注解的流程和源码。
 
-
 ## 测试用例
 
 首先，我们新建测试代码来实现基本的 Bean 扫描和调用功能。
 
 扫描配置类 BeanScanConfig：
+
 ```java
 package org.springframework.vitahlin;  
   
@@ -40,7 +40,8 @@ public class BeanScanConfig {
 }
 ```
 
-Service Bean: 
+Service Bean:
+
 ```java
 package org.springframework.vitahlin.bean;  
   
@@ -55,6 +56,7 @@ public class UserService {
 ```
 
 测试的Main函数：
+
 ```java
 package org.springframework.vitahlin;  
   
@@ -72,6 +74,7 @@ public class BeanScanTest {
 ```
 
 执行结果：
+
 ```java
 org.springframework.vitahlin.bean.UserService@4206a205
 hello userService
@@ -84,6 +87,7 @@ hello userService
 ### 容器初始化
 
 首先来看类 `AnnotationConfigApplicationContext`的初始化，`AnnotationConfigApplicationContext` 源码如下：
+
 ```java
 public class AnnotationConfigApplicationContext extends GenericApplicationContext implements AnnotationConfigRegistry {
     
@@ -187,18 +191,19 @@ public void refresh() throws BeansException, IllegalStateException {
 }
 ```
 
-这里要重点关注2个步骤 
-1.  `invokeBeanFactoryPostProcessors(beanFactory)`  
-2. `finishBeanFactoryInitialization(beanFactory)` 
+这里要重点关注2个步骤
+
+1. `invokeBeanFactoryPostProcessors(beanFactory)`
+2. `finishBeanFactoryInitialization(beanFactory)`
 
 其中 `invokeBeanFactoryPostProcessors` 方法处理对bean的扫描，`finishBeanFactoryInitialization` 方法处理对非懒加载单例bean的实例化。
 
 `invokeBeanFactoryPostProcessors` 方法处理了 bean 的扫描过程，实际上它会调用 `scanner.scan()` 方法来完成扫描，我们先来看 `scan` 方法的处理逻辑。
 
-
 ### ClassPathBeanDefinitionScanner#scan方法
 
 `ClassPathBeanDefinitionScanner` 源码如下：
+
 ```java
 private final BeanDefinitionRegistry registry;
 
@@ -221,6 +226,7 @@ public int scan(String... basePackages) {
 `ClassPathBeanDefinitionScanner` 是一个扫描器，这里 `registry` 是一个接口 `BeanDefinitionRegistry`，运行的时候实际的值其实就是 `DefaultListableBeanFactory`。但是这里扫描器只需要完成注册 `BeanDefinition` 就可以了，所以没必要用 `DefaultListableBeanFactory`，更符合单一职责。
 
 接下来来看 `ClassPathBeanDefinitionScanner#doScan`  方法的源码：
+
 ```java
 protected Set<BeanDefinitionHolder> doScan(String... basePackages) {  
     Assert.notEmpty(basePackages, "At least one base package must be specified");  
@@ -269,6 +275,7 @@ protected Set<BeanDefinitionHolder> doScan(String... basePackages) {
 ### 默认扫描流程和有配置bean索引的扫描流程选择
 
 ClassPathScanningCandidateComponentProvider#findCandidateComponents:
+
 ```java
 public Set<BeanDefinition> findCandidateComponents(String basePackage) {  
     if (this.componentsIndex != null && indexSupportsIncludeFilters()) {  
@@ -281,10 +288,10 @@ public Set<BeanDefinition> findCandidateComponents(String basePackage) {
 }
 ```
 
-
 #### 有索引的扫描流程
 
 这个方法会去判断`this.componentsIndex` 是否有值，这个就是我们配置的bean索引，它加载的是`META-INF/spring.components`中的信息，内容格式形如：
+
 ```java
 com.vitahlin.bean.xxxBean=org.springframework.stereotype.Component
 ```
@@ -294,6 +301,7 @@ com.vitahlin.bean.xxxBean=org.springframework.stereotype.Component
 #### 默认的扫描流程scanCandidateComponents
 
 `ClassPathScanningCandidateComponentProvider#scanCandidateComponents` ：
+
 ```java
 private Set<BeanDefinition> scanCandidateComponents(String basePackage) {  
     Set<BeanDefinition> candidates = new LinkedHashSet<>();  
@@ -355,17 +363,20 @@ private Set<BeanDefinition> scanCandidateComponents(String basePackage) {
     return candidates;  
 }
 ```
+
 `scanCandidateComponents` 方法就是扫描的核心流程，
 
 ### 构建扫描路径
 
 这里，传入包路径就是字符串，先构造对应的包路径：
+
 ```java
 String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX +  
     resolveBasePackage(basePackage) + '/' + this.resourcePattern;
 ```
 
 这里可以加个print语句来查看最终的路径是什么：
+
 ```java
 String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX +  
     resolveBasePackage(basePackage) + '/' + this.resourcePattern;  
@@ -374,6 +385,7 @@ System.out.println("packageSearchPath:" + packageSearchPath);
 ```
 
 执行结果：
+
 ```shell
 basePackage:org.springframework.vitahlin.bean
 packageSearchPath:classpath*:org/springframework/vitahlin/bean/**/*.class
@@ -410,6 +422,7 @@ spring 对 MetadataReader 的描述为:
 大概意思是 `@Component` 是任何Spring管理的组件的通用原型。`@Repository` 、`@Service` 和`@Controller` 是派生自 `@Component` 。
 
 `ClassPathScanningCandidateComponentProvider#isCandidateComponent` 源码：
+
 ```java
 protected boolean isCandidateComponent(MetadataReader metadataReader) throws IOException {  
     /** 类和某个类排除过滤器匹配，就忽略 */  
@@ -433,12 +446,14 @@ protected boolean isCandidateComponent(MetadataReader metadataReader) throws IOE
 ```
 
 这里并不是直接判断类上的注解，而是**去判断类的排除过滤器和包含过滤器**：
+
 1. 首先我这个类和任意一个排除过滤器匹配了，那么我就排除这个类
 2. 如果排除过滤器符合，那么继续判断包含过滤器。即如果要成为一个 bean，一定要符合某个包含过滤器才行。
 
 那么这里为什么是通过判断包含过滤器而不是判断是否有注解 `@Component` ？
 
 实际上，在 **spring 的 scanner 初始化的时候会注册一个默认的包含过滤器**，我们来看 `ClassPathBeanDefinitionScanner`  初始化的代码，`ClassPathBeanDefinitionScanner#ClassPathBeanDefinitionScanner` ：
+
 ```java
 public ClassPathBeanDefinitionScanner(BeanDefinitionRegistry registry, boolean useDefaultFilters,  
                                       Environment environment, @Nullable ResourceLoader resourceLoader) {  
@@ -454,6 +469,7 @@ public ClassPathBeanDefinitionScanner(BeanDefinitionRegistry registry, boolean u
 ```
 
 继续跟进方法 `registerDefaultFilters` ，`ClassPathScanningCandidateComponentProvider#registerDefaultFilters`：
+
 ```java
 protected void registerDefaultFilters() {  
     // 添加默认的Component注解包含过滤器  
@@ -475,13 +491,15 @@ protected void registerDefaultFilters() {
     }  
 }
 ```
-**方法的第一行即添加了默认的包含过滤器**。 
+
+**方法的第一行即添加了默认的包含过滤器**。
 
 我们可以新建一个非bean的类来测试下。
 
-#### 非Bean类测试用例 
+#### 非Bean类测试用例
 
 新建一个类Student，但是不加 `@Component`  注解：
+
 ```java
 package org.springframework.vitahlin.bean;  
   
@@ -500,11 +518,13 @@ public class Student {
 ### 构造 BeanDefinition
 
 上一步判断完成后，确认类是一个bean，就会根据元数据开始构造一个 `BeanDefinition` 。
+
 ```java
 ScannedGenericBeanDefinition sbd = new ScannedGenericBeanDefinition(metadataReader);
 ```
 
 跟进 `ScannedGenericBeanDefinition` 的构造函数`ScannedGenericBeanDefinition#ScannedGenericBeanDefinition` ：
+
 ```java
 public ScannedGenericBeanDefinition(MetadataReader metadataReader) {  
     Assert.notNull(metadataReader, "MetadataReader must not be null");  
@@ -516,6 +536,7 @@ public ScannedGenericBeanDefinition(MetadataReader metadataReader) {
 ```
 
 `AbstractBeanDefinition#setBeanClassName` 方法处理：
+
 ```java
 public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccessor
 		implements BeanDefinition, Cloneable {
