@@ -1,5 +1,5 @@
 ---
-title: spring源码-源代码编译
+title: spring源码1-源代码编译
 <!-- description: 这是一个副标题 -->
 date: 2022-07-06
 slug: build-spring-framework-source-code
@@ -13,7 +13,7 @@ tags:
 
 ## 源代码下载
 
-Github源码地址：[https://github.com/spring-projects/spring-framework/tree/v5.3.10](https://github.com/spring-projects/spring-framework/tree/v5.3.10)<br />下载后将目录 `spring-framework-5.3.10` 重命名为 `spring-5.3.10-analyse`。
+Github源码地址：[https://github.com/spring-projects/spring-framework/tree/v5.3.10](https://github.com/spring-projects/spring-framework/tree/v5.3.10)下载后将目录 `spring-framework-5.3.10` 重命名为 `spring-5.3.10-analyse`。
 
 **注意下载后，不能忽略 `spring-aop` 目录下的 `target` 目录。**
 
