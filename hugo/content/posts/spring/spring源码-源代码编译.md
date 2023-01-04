@@ -53,6 +53,7 @@ dependencies {
     api(project(":spring-core"))
     api(project(":spring-aop"))
     api(project(":spring-context"))
+    api(project(":spring-instrument"))
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
