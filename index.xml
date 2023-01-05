@@ -2790,7 +2790,7 @@ Bean工厂的概念是Spring作为IoC容器的基础。IoC则将处理事情的�
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h2>
 &lt;p>在Spring中需要去解析类的信息，比如类名、类中的方法、类上的注解，这些都可以称之为类的元数据，所以Spring中对类的元数据做了抽象，并提供了一些工具类。&lt;/p>
-&lt;p>&lt;code>MetadataReader&lt;/code> 表示类的元数据读取器，默认实现类为 &lt;code>SimpleMetadataReader&lt;/code> 。&lt;/p></description></item><item><title>spring源码-各个模块介绍</title><link>https://www.vitahlin.com/2022/07/introduction-to-spring-framework-modules/</link><pubDate>Thu, 07 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/introduction-to-spring-framework-modules/</guid><description>&lt;p>Spring中的模块划分如下图所示，除了图中的spring-vitahlin外，还有24个模块：
+&lt;p>&lt;code>MetadataReader&lt;/code> 表示类的元数据读取器，默认实现类为 &lt;code>SimpleMetadataReader&lt;/code> 。&lt;/p></description></item><item><title>spring源码2-各模块介绍</title><link>https://www.vitahlin.com/2022/07/introduction-to-spring-framework-modules/</link><pubDate>Thu, 07 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/introduction-to-spring-framework-modules/</guid><description>&lt;p>Spring中的模块划分如下图所示，除了图中的spring-vitahlin外，还有24个模块：
 &lt;/p>
 &lt;h2 class="group " id="1-framework-bom"
 >1. framework-bom&lt;a href="#1-framework-bom"
