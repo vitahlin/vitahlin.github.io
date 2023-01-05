@@ -1,5 +1,5 @@
 ---
-title: Spring源码3-底层核心原理解析
+title: Spring源码3-底层核心原理简单介绍
 <!-- description: 这是一个副标题 -->
 date: 2023-01-05
 slug: spring-source-code-3
