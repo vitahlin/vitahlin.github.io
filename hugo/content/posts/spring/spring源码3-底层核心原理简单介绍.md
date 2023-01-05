@@ -68,7 +68,7 @@ public class HelloWorldTest {
 
 在Java语言中，肯定是根据某个类来创建一个对象的。
 
-我们再看一下实例代码：
+我们再看一下实例化的代码：
 ```java
 AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(HelloWorldScanConfig.class);  
 HelloWorldService userService = (HelloWorldService) context.getBean("helloWorldService");  
@@ -80,7 +80,7 @@ userService.sayHello();
 所以，我们就可以分析出来，在调用 `AnnotationConfigApplicationContext`  的构造方法时，也就是第一行代码，会做这些事情：
 1. 解析类 `HelloWorldScanConfig` ，得到扫描路径
 2. 遍历扫描路径下的所有类，如果发现某个类上存在 `@Component`、`@Service` 等注解，那么 Spring 就把这个类记录下来，存在一个 `Map` 中，比如 `Map<String, Class>`。（**实际上，Spring源码中确实存在类似的这么一个Map，叫做BeanDefinitionMap**）
-3. 3.  Spring 会根据某个规则生成当前类对应的 `beanName` ，作为 key 存入 Map，当前类作为 value
+3. Spring 会根据某个规则生成当前类对应的 `beanName` ，作为 key 存入 Map，当前类作为 value
 
 这样，当调用 `context.getBean("helloWorldService")` 时，就可以根据 `helloWorldService` 找到类 `HelloWorldService` ，从而可以创建对象了。
 
@@ -90,7 +90,7 @@ userService.sayHello();
 1. 利用该类的构造方法来创建一个对象（如果该类中有多个构造方法，Spring 则会进行选择，这个叫**推断构造方法**）
 2. 得到一个对象后，Spring 会判断该对象是否存在被 `@Autowired` 注解了的属性，把这些属性找出来并由 Spring 进行赋值（**依赖注入**）
 3. 依赖注入后，Spring 会判断对象是否实现了 `BeanNameAware` 接口、`BeanClassLoaderAware` 接口、`BeanFactoryAware` 接口，如果实现了，就表示当前对象必须实现该接口中所定义的 `setBeanName()` 、`setBeanClassLoader()`、`setBeanFactory()` 方法，那Spring 就会调用这些方法并传入相应的参数（**Aware回调**）
-4. 4.  Aware回调后，Spring 会判断该对象中是否存在某个方法被 `@PostConstruct` 注解了，如果存在，Spring 会调用当前对象的此方法（**初始化前**）
+4. Aware回调后，Spring 会判断该对象中是否存在某个方法被 `@PostConstruct` 注解了，如果存在，Spring 会调用当前对象的此方法（**初始化前**）
 5. 紧接着，Spring 会判断该对象是否实现了 `InitializingBean`  接口，如果实现了，就表示当前对象必须实现该接口中的`afterPropertiesSet()` 方法，那 Spring 就会调用当前对象中的 `afterPropertiesSet()` 方法（**初始化**）
 6. 最后，Spring 会判断当前对象是否需要 AOP，如果不需要那么 Bean 就创建完了；如果需要 AOP，则会进行动态代理并生成一个代理对象作为 Bean（**初始化后**）
 
