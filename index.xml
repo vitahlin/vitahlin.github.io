@@ -96,7 +96,7 @@
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h2>
 &lt;p>在Java语言中，肯定是根据某个类来创建一个对象的。&lt;/p>
-&lt;p>我们再看一下实例代码：&lt;/p>
+&lt;p>我们再看一下实例化的代码：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
 &lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -114,11 +114,7 @@
 &lt;ol>
 &lt;li>解析类 &lt;code>HelloWorldScanConfig&lt;/code> ，得到扫描路径&lt;/li>
 &lt;li>遍历扫描路径下的所有类，如果发现某个类上存在 &lt;code>@Component&lt;/code>、&lt;code>@Service&lt;/code> 等注解，那么 Spring 就把这个类记录下来，存在一个 &lt;code>Map&lt;/code> 中，比如 &lt;code>Map&amp;lt;String, Class&amp;gt;&lt;/code>。（&lt;strong>实际上，Spring源码中确实存在类似的这么一个Map，叫做BeanDefinitionMap&lt;/strong>）&lt;/li>
-&lt;li>
-&lt;ol start="3">
 &lt;li>Spring 会根据某个规则生成当前类对应的 &lt;code>beanName&lt;/code> ，作为 key 存入 Map，当前类作为 value&lt;/li>
-&lt;/ol>
-&lt;/li>
 &lt;/ol>
 &lt;p>这样，当调用 &lt;code>context.getBean(&amp;quot;helloWorldService&amp;quot;)&lt;/code> 时，就可以根据 &lt;code>helloWorldService&lt;/code> 找到类 &lt;code>HelloWorldService&lt;/code> ，从而可以创建对象了。&lt;/p>
 &lt;h2 class="group " id="bean的创建过程"
@@ -130,11 +126,7 @@
 &lt;li>利用该类的构造方法来创建一个对象（如果该类中有多个构造方法，Spring 则会进行选择，这个叫&lt;strong>推断构造方法&lt;/strong>）&lt;/li>
 &lt;li>得到一个对象后，Spring 会判断该对象是否存在被 &lt;code>@Autowired&lt;/code> 注解了的属性，把这些属性找出来并由 Spring 进行赋值（&lt;strong>依赖注入&lt;/strong>）&lt;/li>
 &lt;li>依赖注入后，Spring 会判断对象是否实现了 &lt;code>BeanNameAware&lt;/code> 接口、&lt;code>BeanClassLoaderAware&lt;/code> 接口、&lt;code>BeanFactoryAware&lt;/code> 接口，如果实现了，就表示当前对象必须实现该接口中所定义的 &lt;code>setBeanName()&lt;/code> 、&lt;code>setBeanClassLoader()&lt;/code>、&lt;code>setBeanFactory()&lt;/code> 方法，那Spring 就会调用这些方法并传入相应的参数（&lt;strong>Aware回调&lt;/strong>）&lt;/li>
-&lt;li>
-&lt;ol start="4">
 &lt;li>Aware回调后，Spring 会判断该对象中是否存在某个方法被 &lt;code>@PostConstruct&lt;/code> 注解了，如果存在，Spring 会调用当前对象的此方法（&lt;strong>初始化前&lt;/strong>）&lt;/li>
-&lt;/ol>
-&lt;/li>
 &lt;li>紧接着，Spring 会判断该对象是否实现了 &lt;code>InitializingBean&lt;/code> 接口，如果实现了，就表示当前对象必须实现该接口中的&lt;code>afterPropertiesSet()&lt;/code> 方法，那 Spring 就会调用当前对象中的 &lt;code>afterPropertiesSet()&lt;/code> 方法（&lt;strong>初始化&lt;/strong>）&lt;/li>
 &lt;li>最后，Spring 会判断当前对象是否需要 AOP，如果不需要那么 Bean 就创建完了；如果需要 AOP，则会进行动态代理并生成一个代理对象作为 Bean（&lt;strong>初始化后&lt;/strong>）&lt;/li>
 &lt;/ol>
