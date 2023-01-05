@@ -2912,8 +2912,8 @@ Bean工厂的概念是Spring作为IoC容器的基础。IoC则将处理事情的�
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h2>
 &lt;p>Spring对websocket的简单封装，提供了及时通信的功能，常用于一些即时通讯功能的开发，例如：聊天室。&lt;/p></description></item><item><title>spring源码1-编译5.3.10源码</title><link>https://www.vitahlin.com/2022/07/build-spring-framework-source-code/</link><pubDate>Wed, 06 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/build-spring-framework-source-code/</guid><description>
-&lt;h2 class="group " id="源代码下载"
->源代码下载&lt;a href="#%e6%ba%90%e4%bb%a3%e7%a0%81%e4%b8%8b%e8%bd%bd"
+&lt;h2 class="group " id="源码下载"
+>源码下载&lt;a href="#%e6%ba%90%e7%a0%81%e4%b8%8b%e8%bd%bd"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h2>
 &lt;p>Github源码地址：&lt;a
@@ -2921,7 +2921,7 @@ class="link"
 href="https://github.com/spring-projects/spring-framework/tree/v5.3.10"target="_blank" rel="noopener">https://github.com/spring-projects/spring-framework/tree/v5.3.10&lt;/a
 >
 下载后将目录 &lt;code>spring-framework-5.3.10&lt;/code> 重命名为 &lt;code>spring-5.3.10-analyse&lt;/code>。&lt;/p>
-&lt;p>&lt;strong>注意下载后，不能忽略 &lt;code>spring-aop&lt;/code> 目录下的 &lt;code>target&lt;/code> 目录。&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>注意gitignore中不能忽略 &lt;code>spring-aop&lt;/code> 目录下的 &lt;code>target&lt;/code> 目录。&lt;/strong>&lt;/p>
 &lt;h2 class="group " id="编译"
 >编译&lt;a href="#%e7%bc%96%e8%af%91"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
@@ -2999,26 +2999,7 @@ href="https://github.com/spring-projects/spring-framework/tree/v5.3.10"target="_
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>模块创建完成后，我们还需要创建测试类来验证导入的 &lt;code>spring&lt;/code> 源代码能否实现依赖注入。&lt;/p>
-&lt;p>创建测试类，目录结构如下：&lt;/p>
-&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>❯ tree -L &lt;span style="color:#bd93f9">2&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├── BeanScanConfig.java
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├── Main.java
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└── bean
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> └── HelloService.java
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>对应的代码：&lt;/p>
+&lt;p>创建测试类，对应的代码：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
 &lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -3032,14 +3013,14 @@ href="https://github.com/spring-projects/spring-framework/tree/v5.3.10"target="_
 &lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">package&lt;/span> org.springframework.vitahlin&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">package&lt;/span> org.springframework.vitahlin.hello&lt;span style="color:#ff79c6">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">import&lt;/span> org.springframework.context.annotation.ComponentScan&lt;span style="color:#ff79c6">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">import&lt;/span> org.springframework.context.annotation.Configuration&lt;span style="color:#ff79c6">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>@Configuration
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>@ComponentScan&lt;span style="color:#ff79c6">(&lt;/span>basePackages &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#f1fa8c">&amp;#34;org.springframework.vitahlin.bean&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">class&lt;/span> &lt;span style="color:#50fa7b">BeanScanConfig&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>@ComponentScan&lt;span style="color:#ff79c6">(&lt;/span>basePackages &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#f1fa8c">&amp;#34;org.springframework.vitahlin.hello&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">class&lt;/span> &lt;span style="color:#50fa7b">HelloWorldScanConfig&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
@@ -3057,14 +3038,14 @@ href="https://github.com/spring-projects/spring-framework/tree/v5.3.10"target="_
 &lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">package&lt;/span> org.springframework.vitahlin.bean&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">package&lt;/span> org.springframework.vitahlin.hello&lt;span style="color:#ff79c6">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">import&lt;/span> org.springframework.stereotype.Component&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">import&lt;/span> org.springframework.stereotype.Service&lt;span style="color:#ff79c6">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>@Component
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">class&lt;/span> &lt;span style="color:#50fa7b">HelloService&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#8be9fd">void&lt;/span> &lt;span style="color:#50fa7b">helloSpring&lt;/span>&lt;span style="color:#ff79c6">(){&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> System&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">out&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">println&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;Hello Spring!&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>@Service
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">class&lt;/span> &lt;span style="color:#50fa7b">HelloWorldService&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#8be9fd">void&lt;/span> &lt;span style="color:#50fa7b">sayHello&lt;/span>&lt;span style="color:#ff79c6">()&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> System&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">out&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">println&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;Hello world&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">);&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
@@ -3088,19 +3069,19 @@ href="https://github.com/spring-projects/spring-framework/tree/v5.3.10"target="_
 &lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">package&lt;/span> org.springframework.vitahlin&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">package&lt;/span> org.springframework.vitahlin.hello&lt;span style="color:#ff79c6">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">import&lt;/span> org.springframework.context.annotation.AnnotationConfigApplicationContext&lt;span style="color:#ff79c6">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">import&lt;/span> org.springframework.vitahlin.bean.HelloService&lt;span style="color:#ff79c6">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">class&lt;/span> &lt;span style="color:#50fa7b">Main&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"> * Bean扫描示例
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"> */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">class&lt;/span> &lt;span style="color:#50fa7b">HelloWorldTest&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">static&lt;/span> &lt;span style="color:#8be9fd">void&lt;/span> &lt;span style="color:#50fa7b">main&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>String&lt;span style="color:#ff79c6">[]&lt;/span> args&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> AnnotationConfigApplicationContext ctx &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">new&lt;/span> AnnotationConfigApplicationContext&lt;span style="color:#ff79c6">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ctx&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">register&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>BeanScanConfig&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">class&lt;/span>&lt;span style="color:#ff79c6">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ctx&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">refresh&lt;/span>&lt;span style="color:#ff79c6">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> HelloService service &lt;span style="color:#ff79c6">=&lt;/span> ctx&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">getBean&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>HelloService&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">class&lt;/span>&lt;span style="color:#ff79c6">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> System&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">out&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">println&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;HelloService&amp;#34;&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> service&lt;span style="color:#ff79c6">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> service&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">helloSpring&lt;/span>&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> AnnotationConfigApplicationContext context &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">new&lt;/span> AnnotationConfigApplicationContext&lt;span style="color:#ff79c6">(&lt;/span>HelloWorldScanConfig&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">class&lt;/span>&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> HelloWorldService userService &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>HelloWorldService&lt;span style="color:#ff79c6">)&lt;/span> context&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">getBean&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;helloWorldService&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> System&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">out&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">println&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>userService&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> userService&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">sayHello&lt;/span>&lt;span style="color:#ff79c6">();&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
@@ -3108,14 +3089,181 @@ href="https://github.com/spring-projects/spring-framework/tree/v5.3.10"target="_
 &lt;/div>&lt;p>执行 &lt;code>main&lt;/code> 函数，结果如下：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">78
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">79
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-vitahlin:Main.main&lt;span style="color:#ff79c6">()&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>HelloServiceorg.springframework.vitahlin.bean.HelloService@6279cee3
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Hello Spring!
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>15:44:23: Executing &lt;span style="color:#f1fa8c">&amp;#39;:spring-vitahlin:HelloWorldTest.main()&amp;#39;&lt;/span>...
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Starting Gradle Daemon...
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Gradle Daemon started in &lt;span style="color:#bd93f9">495&lt;/span> ms
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :buildSrc:compileJava UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :buildSrc:compileGroovy NO-SOURCE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :buildSrc:pluginDescriptors UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :buildSrc:processResources UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :buildSrc:classes UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :buildSrc:jar UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :buildSrc:assemble UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :buildSrc:pluginUnderTestMetadata UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :buildSrc:compileTestJava NO-SOURCE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :buildSrc:compileTestGroovy NO-SOURCE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :buildSrc:processTestResources NO-SOURCE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :buildSrc:testClasses UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :buildSrc:test NO-SOURCE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :buildSrc:validatePlugins UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :buildSrc:check UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :buildSrc:build UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-vitahlin:processResources NO-SOURCE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-expression:processResources UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-aop:processResources UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-core:cglibRepackJar UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-beans:processResources UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-core:objenesisRepackJar UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-context:processResources UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-core:processResources UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-instrument:compileJava UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-instrument:processResources NO-SOURCE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-instrument:classes UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-instrument:jar UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-jcl:compileJava UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-jcl:processResources UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-jcl:classes UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-jcl:jar UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-core:compileKotlin UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-core:compileJava UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-core:classes UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-core:inspectClassesForKotlinIC UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-core:jar UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-expression:compileKotlin UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-expression:compileJava UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-expression:classes UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-expression:inspectClassesForKotlinIC UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-expression:jar UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-beans:compileGroovy UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-beans:compileKotlin UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-beans:compileJava NO-SOURCE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-beans:classes UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-beans:inspectClassesForKotlinIC UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-beans:jar UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-aop:compileJava UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-aop:classes UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-aop:jar UP-TO-DATE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-context:compileKotlin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-context:compileJava
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-context:compileGroovy NO-SOURCE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-context:classes
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-context:inspectClassesForKotlinIC
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-context:jar
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-vitahlin:compileJava
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-vitahlin:classes
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;gt; Task :spring-vitahlin:HelloWorldTest.main&lt;span style="color:#ff79c6">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>org.springframework.vitahlin.hello.HelloWorldService@c540f5a
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Hello world
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Deprecated Gradle features were used in this build, making it incompatible with Gradle 8.0.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>You can use &lt;span style="color:#f1fa8c">&amp;#39;--warning-mode all&amp;#39;&lt;/span> to show the individual deprecation warnings and determine &lt;span style="color:#ff79c6">if&lt;/span> they come from your own scripts or plugins.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>See https://docs.gradle.org/7.2/userguide/command_line_interface.html#sec:command_line_warnings
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>BUILD SUCCESSFUL in 12s
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bd93f9">38&lt;/span> actionable tasks: &lt;span style="color:#bd93f9">6&lt;/span> executed, &lt;span style="color:#bd93f9">32&lt;/span> up-to-date
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>A build scan was not published as you have not authenticated with server &lt;span style="color:#f1fa8c">&amp;#39;ge.spring.io&amp;#39;&lt;/span>.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>15:44:36: Execution finished &lt;span style="color:#f1fa8c">&amp;#39;:spring-vitahlin:HelloWorldTest.main()&amp;#39;&lt;/span>.
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>成功打印地址和输出内容，依赖注入验证成功。&lt;/p></description></item></channel></rss>
+&lt;/div>&lt;p>成功打印地址和输出内容，依赖注入验证成功，但是 gradle 每次都会执行 Task 内容。需要修改 Gradle 的配置，指定 Gradle 为 &lt;code>Intellij IDEA&lt;/code>，如图所示：
+&lt;/p>
+&lt;p>再次执行结果如下：
+&lt;/p>
+&lt;p>执行正常，接下来就可以调试spring源代码了。&lt;/p>
+&lt;h2 class="group " id="参考"
+>参考&lt;a href="#%e5%8f%82%e8%80%83"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a
+class="link"
+href="https://blog.csdn.net/weixin_43405771/article/details/106313378"target="_blank" rel="noopener">https://blog.csdn.net/weixin_43405771/article/details/106313378&lt;/a
+>
+&lt;/li>
+&lt;/ul></description></item></channel></rss>
