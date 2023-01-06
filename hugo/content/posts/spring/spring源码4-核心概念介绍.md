@@ -1,8 +1,8 @@
 ---
-title: spring源码4-核心概念介绍
+title: Spring源码4-核心概念介绍
 <!-- description: 这是一个副标题 -->
 date: 2023-01-06
-slug: introduction-of-spring-core-concepts
+slug: introduction-spring-core-concepts
 categories:
     - spring
 
