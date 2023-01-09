@@ -79,56 +79,12 @@ private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHash
 
 而 **DefaultListableBeanFactory 是 this 的父类 GenericApplicationContext 进行初始化的，因为在 Java 中子类初始化时会先初始化父类。**
 
-`register(componentClasses);` 这里则是处理对配置类的注册过程， bean  的扫描和生成都是在 `refresh()`  方法中执行，因为这里我们先了解 bean 的扫描流程，所以先着重分析 `refresh()` 方法的逻辑。
-
-`AbstractApplicationContext#refresh` 方法源码：
+这里主要关注的就是属性：
 ```java
-@Override  
-public void refresh() throws BeansException, IllegalStateException {  
-    synchronized (this.startupShutdownMonitor) {  
-        StartupStep contextRefresh = this.applicationStartup.start("spring.context.refresh");  
-        prepareRefresh();  
-        ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();  
-        prepareBeanFactory(beanFactory);  
-        try {  
-            postProcessBeanFactory(beanFactory);  
-            StartupStep beanPostProcess = this.applicationStartup.start("spring.context.beans.post-process");  
-            
-            invokeBeanFactoryPostProcessors(beanFactory);  
-            
-            registerBeanPostProcessors(beanFactory);  
-            beanPostProcess.end();  
-            initMessageSource();  
-            initApplicationEventMulticaster();  
-            
-            onRefresh();  
-            registerListeners();  
-            
-            finishBeanFactoryInitialization(beanFactory);  
-            
-            finishRefresh();  
-        } catch (BeansException ex) {  
-            if (logger.isWarnEnabled()) {  
-                logger.warn("Exception encountered during context initialization - " +  
-                    "cancelling refresh attempt: " + ex);  
-            }  
-            destroyBeans();  
-            cancelRefresh(ex);  
-            throw ex;  
-        } finally {  
-            contextRefresh.end();  
-        }  
-    }  
-}
+private final ClassPathBeanDefinitionScanner scanner;
 ```
 
-这里要重点关注2个步骤 
-1.  `invokeBeanFactoryPostProcessors(beanFactory)`  
-2. `finishBeanFactoryInitialization(beanFactory)` 
-
-其中 `invokeBeanFactoryPostProcessors` 方法处理对 bean 的扫描，`finishBeanFactoryInitialization` 方法处理对非懒加载单例 bean 的实例化。
-
-`invokeBeanFactoryPostProcessors`  方法处理了 bean 的扫描过程，实际上它会调用 `scanner.scan()` 方法来完成扫描，我们先来看 `scan` 方法的处理逻辑。
+它就是我们所说的扫描器，我们**可以指定扫描某个路径**，让其对扫描到的类进行解析。接下来就着重来看 ClassPathBeanDefinitionScanner 的扫描逻辑。
 
 ### 核心扫描方法ClassPathBeanDefinitionScanner#scan
 
