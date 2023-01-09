@@ -105,95 +105,16 @@ Bean的生命周期就是指：&lt;strong>在Spring中，一个Bean是如何生�
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>而 &lt;strong>DefaultListableBeanFactory 是 this 的父类 GenericApplicationContext 进行初始化的，因为在 Java 中子类初始化时会先初始化父类。&lt;/strong>&lt;/p>
-&lt;p>&lt;code>register(componentClasses);&lt;/code> 这里则是处理对配置类的注册过程， bean 的扫描和生成都是在 &lt;code>refresh()&lt;/code> 方法中执行，因为这里我们先了解 bean 的扫描流程，所以先着重分析 &lt;code>refresh()&lt;/code> 方法的逻辑。&lt;/p>
-&lt;p>&lt;code>AbstractApplicationContext#refresh&lt;/code> 方法源码：&lt;/p>
+&lt;p>这里主要关注的就是属性：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>@Override
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#8be9fd">void&lt;/span> &lt;span style="color:#50fa7b">refresh&lt;/span>&lt;span style="color:#ff79c6">()&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">throws&lt;/span> BeansException&lt;span style="color:#ff79c6">,&lt;/span> IllegalStateException &lt;span style="color:#ff79c6">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8be9fd;font-style:italic">synchronized&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#ff79c6">this&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">startupShutdownMonitor&lt;/span>&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> StartupStep contextRefresh &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">this&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">applicationStartup&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">start&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;spring.context.refresh&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> prepareRefresh&lt;span style="color:#ff79c6">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ConfigurableListableBeanFactory beanFactory &lt;span style="color:#ff79c6">=&lt;/span> obtainFreshBeanFactory&lt;span style="color:#ff79c6">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> prepareBeanFactory&lt;span style="color:#ff79c6">(&lt;/span>beanFactory&lt;span style="color:#ff79c6">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">try&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> postProcessBeanFactory&lt;span style="color:#ff79c6">(&lt;/span>beanFactory&lt;span style="color:#ff79c6">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> StartupStep beanPostProcess &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">this&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">applicationStartup&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">start&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;spring.context.beans.post-process&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> invokeBeanFactoryPostProcessors&lt;span style="color:#ff79c6">(&lt;/span>beanFactory&lt;span style="color:#ff79c6">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> registerBeanPostProcessors&lt;span style="color:#ff79c6">(&lt;/span>beanFactory&lt;span style="color:#ff79c6">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> beanPostProcess&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">end&lt;/span>&lt;span style="color:#ff79c6">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> initMessageSource&lt;span style="color:#ff79c6">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> initApplicationEventMulticaster&lt;span style="color:#ff79c6">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> onRefresh&lt;span style="color:#ff79c6">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> registerListeners&lt;span style="color:#ff79c6">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> finishBeanFactoryInitialization&lt;span style="color:#ff79c6">(&lt;/span>beanFactory&lt;span style="color:#ff79c6">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> finishRefresh&lt;span style="color:#ff79c6">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span> &lt;span style="color:#ff79c6">catch&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>BeansException ex&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>logger&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">isWarnEnabled&lt;/span>&lt;span style="color:#ff79c6">())&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> logger&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">warn&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;Exception encountered during context initialization - &amp;#34;&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f1fa8c">&amp;#34;cancelling refresh attempt: &amp;#34;&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> ex&lt;span style="color:#ff79c6">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> destroyBeans&lt;span style="color:#ff79c6">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> cancelRefresh&lt;span style="color:#ff79c6">(&lt;/span>ex&lt;span style="color:#ff79c6">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">throw&lt;/span> ex&lt;span style="color:#ff79c6">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span> &lt;span style="color:#ff79c6">finally&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> contextRefresh&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">end&lt;/span>&lt;span style="color:#ff79c6">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">}&lt;/span>
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">private&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">final&lt;/span> ClassPathBeanDefinitionScanner scanner&lt;span style="color:#ff79c6">;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>这里要重点关注2个步骤&lt;/p>
-&lt;ol>
-&lt;li>&lt;code>invokeBeanFactoryPostProcessors(beanFactory)&lt;/code>&lt;/li>
-&lt;li>&lt;code>finishBeanFactoryInitialization(beanFactory)&lt;/code>&lt;/li>
-&lt;/ol>
-&lt;p>其中 &lt;code>invokeBeanFactoryPostProcessors&lt;/code> 方法处理对 bean 的扫描，&lt;code>finishBeanFactoryInitialization&lt;/code> 方法处理对非懒加载单例 bean 的实例化。&lt;/p>
-&lt;p>&lt;code>invokeBeanFactoryPostProcessors&lt;/code> 方法处理了 bean 的扫描过程，实际上它会调用 &lt;code>scanner.scan()&lt;/code> 方法来完成扫描，我们先来看 &lt;code>scan&lt;/code> 方法的处理逻辑。&lt;/p>
+&lt;/div>&lt;p>它就是我们所说的扫描器，我们&lt;strong>可以指定扫描某个路径&lt;/strong>，让其对扫描到的类进行解析。接下来就着重来看 ClassPathBeanDefinitionScanner 的扫描逻辑。&lt;/p>
 &lt;h3 class="group " id="核心扫描方法classpathbeandefinitionscannerscan"
 >核心扫描方法ClassPathBeanDefinitionScanner#scan&lt;a href="#%e6%a0%b8%e5%bf%83%e6%89%ab%e6%8f%8f%e6%96%b9%e6%b3%95classpathbeandefinitionscannerscan"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
