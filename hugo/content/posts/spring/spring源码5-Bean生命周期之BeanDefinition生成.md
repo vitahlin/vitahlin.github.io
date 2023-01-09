@@ -14,6 +14,8 @@ tags:
 
 ## 前言
 
+#spring 
+
 Spring 最重要的功能就是帮助程序员创建对象（也就是IOC），而启动 Spring 就是为创建 Bean 对象做准备，所以我们先明白 Spring 到底是怎么去创建 Bean 的，也就是先弄明白 Bean 的生命周期。
 Bean的生命周期就是指：**在Spring中，一个Bean是如何生成的，如何销毁的**。
 
@@ -301,13 +303,27 @@ Spring 对 MetadataReader 的描述为:
 
 大意是通过 ASM 读取 class IO 流资源组装访问元数据的门面接口。反正，这里通过 MetadataReader 我们就能拿到类的信息，比如类的名字，类的注解信息等。这里使用了 ASM 技术。
 
-### 判断是否是@Component组件
+
+MetadataReader表示类的元数据读取器，主要包含了一个AnnotationMetadata，功能有：
+1.  获取类的名字；
+2.  获取父类的名字；
+3.  获取所实现的所有接口名；
+4.  获取所有内部类的名字；
+5.  判断是不是抽象类；
+6.  判断是不是接口；
+7.  判断是不是一个注解；
+8.  获取拥有某个注解的方法集合；
+9.  获取类上添加的所有注解信息；
+10.  获取类上添加的所有注解类型集合；
+
+
+### 判断类是否是一个bean
 
 **拿到类的元信息后，就需要判断这个类是不是一个 bean**。我们可能定义了一个类，但是这个类并不是我们需要的 Bean，那么这里是怎么处理的呢？ 
 
 > @Component is a generic stereotype for any Spring-managed component. @Repository, @Service, and @Controller are specializations of @Component
 
-大概意思是 `@Component` 是任何Spring管理的组件的通用原型。`@Repository` 、`@Service` 和`@Controller` 是派生自 `@Component` 。
+大概意思是 `@Component` 是任何 Spring 管理的组件的通用原型。`@Repository` 、`@Service` 和`@Controller` 是派生自 `@Component` 。
 
 `ClassPathScanningCandidateComponentProvider#isCandidateComponent` 源码：
 ```java
@@ -396,9 +412,9 @@ public class Student {
 
 所以这里判断包含过滤器即判断类上是否有 `@Component` 注解，如果有那么就是匹配的，即是一个 bean，再判断条件匹配。
 
-### 构造 BeanDefinition
+### 构造 ScannedGenericBeanDefinition
 
-上一步判断完成后，确认类是一个bean，就会根据元数据开始构造一个 `BeanDefinition` 。
+上一步判断完成后，确认类是一个bean，就会根据元数据开始构造一个 `ScannedGenericBeanDefinition` 。
 ```java
 ScannedGenericBeanDefinition sbd = new ScannedGenericBeanDefinition(metadataReader);
 ```
@@ -446,7 +462,7 @@ if (isCandidateComponent(sbd)) {
 }
 ```
 
-构造完 `BeanDefinition` 后，这里还会继续判断bean的类型，比如是不是抽象类。这里涉及到一个概念，**类是否是独立的**。
+构造完 `ScannedGenericBeanDefinition` 后，这里还会继续判断 bean 的类型，比如是不是抽象类。这里涉及到一个概念，**类是否是独立的**。
 
 源码注释中是这么说的：
 > Determine whether the underlying class is independent, i.e. whether it is a top-level class or a nested class (static inner class) that can be constructed independently of an enclosing class.
@@ -465,6 +481,7 @@ protected boolean isCandidateComponent(AnnotatedBeanDefinition beanDefinition) {
         (metadata.isAbstract() && metadata.hasAnnotatedMethods(Lookup.class.getName()))));  
 }
 ```
+
 
 #### 测试用例
 
@@ -490,8 +507,7 @@ public interface UserInterface {
 
 可以看到，结果为 `true` 。
 
-判定类是可以注册 BeanDefinition 的，那么这里就完成了类的扫描，并且生成了对应的 `BeanDefinition` 列表。
-接下来就就开始逐个遍历扫描得到的 BeanDefinition 集合，根据 BeanDefinition 生成对应的 Bean。
+判定类是可以注册 BeanDefinition 的，就将生成的 ScannedGenericBeanDefinition 加入到 一开始定义的 BeanDefinition 集合`Set<BeanDefinition> candidates` 中，那么这里就完成了类的扫描，接下来就就开始逐个遍历扫描得到的 BeanDefinition 集合，根据 BeanDefinition 生成对应的 Bean。
 
 ### Bean的scope处理
 
@@ -526,8 +542,8 @@ public String generateBeanName(BeanDefinition definition, BeanDefinitionRegistry
 ```
 
 这里分为2部分：
-1.  先是判断我们是不是在注解上自定义了bean的名字
-2.  如果没有则根据默认规则生成bean名字
+1.  先是判断我们是不是在注解上自定义了 bean 的名字
+2.  如果没有则根据默认规则生成 bean 名字
 
 #### 判断注解是不是定义了bean名字
 
@@ -580,7 +596,7 @@ protected String buildDefaultBeanName(BeanDefinition definition) {
 }
 ```
 
-`ClassUtils.getShortName`  就是根据bean的全路径名字获取类名，比如 `com.vitahlin.service.HelloSerivce` 得到的 `shortClassName` 就是 `HelloService`。
+`ClassUtils.getShortName`  就是根据 bean 的全路径名字获取类名，比如 `com.vitahlin.service.HelloSerivce` 得到的 `shortClassName` 就是 `HelloService`。
 
 这里，重点来看`Introspector#decapitalize` ：
 ```java
@@ -615,7 +631,7 @@ if (candidate instanceof AbstractBeanDefinition) {
     postProcessBeanDefinition((AbstractBeanDefinition) candidate, beanName);  
 }
 ```
-主要处理一些bean的默认值，比如我们没有设置懒加载选项，就默认设为非懒加载。
+主要处理一些 bean 的默认值，比如我们没有设置懒加载选项，就默认设为非懒加载。
 
 ### 判断Bean是否重复
 
@@ -754,5 +770,14 @@ public void registerBeanDefinition(String beanName, BeanDefinition beanDefinitio
 
 ## 总结
 
-上述整个流程就是 bean 生命周期的第一步-BeanDefinition 的生成，流程图如下：
-![Spring Bean扫描流程.png](https://vitahlin.oss-cn-shanghai.aliyuncs.com/images/blog/202301/202301091036051.png)
+大概总结 bean 的扫描流程如下：
+1. 首先，通过 ResourcePatternResolver 获得指定包路径下的所有`.class`文件（Spring源码中将此文件包装成了Resource 对象）；
+2. 遍历每个 Resource 对象；
+3. 利用 MetadataReaderFactory 解析 Resource 对象得到 MetadataReader（在Spring 源码中 MetadataReaderFactory 具体的实现类为CachingMetadataReaderFactory，MetadataReader 的具体实现类为SimpleMetadataReader）。值得注意的是，CachingMetadataReaderFactory解析某个 `.class`  文件得到 MetadataReader 对象是利用的**ASM**技术，并没有加载这个类到JVM。并且，最终得到的 ScannedGenericBeanDefinition 对象，**beanClass属性存储的是当前类的名字，而不是class对象**。
+4. 利用 MetadataReader 进行 excludeFilters 和 includeFilters，以及条件注解`@Conditional` 的筛选；
+6. 筛选通过后，基于 metadataReader 生成 ScannedGenericBeanDefinition
+7. 再基于 metadataReader 判断是不是对应的类是不是接口或抽象类
+8. 如果筛选通过，那么就表示扫描到了一个Bean，将ScannedGenericBeanDefinition 加入结果集
+
+BeanDefinition集合生成过程的流程图如下：
+![Spring Bean扫描.png](https://vitahlin.oss-cn-shanghai.aliyuncs.com/images/blog/202301/202301091036051.png)
