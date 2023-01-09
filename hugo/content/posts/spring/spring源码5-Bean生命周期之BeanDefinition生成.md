@@ -755,4 +755,4 @@ public void registerBeanDefinition(String beanName, BeanDefinition beanDefinitio
 ## 总结
 
 上述整个流程就是 bean 生命周期的第一步-BeanDefinition 的生成，流程图如下：
-![Spring Bean扫描-导出.png](https://vitahlin.oss-cn-shanghai.aliyuncs.com/images/blog/202301/202301091036051.png)
+![Spring Bean扫描流程.png](https://vitahlin.oss-cn-shanghai.aliyuncs.com/images/blog/202301/202301091036051.png)
