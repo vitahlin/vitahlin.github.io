@@ -16,7 +16,7 @@ Bean的生命周期就是指：&lt;strong>在Spring中，一个Bean是如何生�
 &lt;li>扫描注解方式 AnnotationConfigApplicationContext&lt;/li>
 &lt;li>本地配置文件 FileSystemXmlApplicationContext&lt;/li>
 &lt;/ol>
-&lt;p>我们平常使用 Spring可以通过 &lt;code>@ComponentScan&lt;/code> 注解可以声明自动注入要扫描的包，Spring 会将该包下所有加了 &lt;code>@Component&lt;/code> 注解的 bean 扫描到 Spring 容器中，也可以 通过 xml 文件来配置要扫描的 Bean，不过现在 SpringBoot 一般都是用 &lt;code>@ComponentScan&lt;/code> 注解的方式，所以这里&lt;strong>主要介绍自动扫描注解的流程。&lt;/strong>&lt;/p>
+&lt;p>我们平常使用 Spring可以通过 &lt;code>@ComponentScan&lt;/code> 注解可以声明自动注入要扫描的包，Spring 会将该包下所有加了 &lt;code>@Component&lt;/code> 注解的 Bean 扫描到 Spring 容器中，也可以 通过 xml 文件来配置要扫描的 Bean，不过现在 SpringBoot 一般都是用 &lt;code>@ComponentScan&lt;/code> 注解的方式，所以这里&lt;strong>主要介绍自动扫描注解的流程。&lt;/strong>&lt;/p>
 &lt;h2 class="group " id="bean扫描流程分析"
 >Bean扫描流程分析&lt;a href="#bean%e6%89%ab%e6%8f%8f%e6%b5%81%e7%a8%8b%e5%88%86%e6%9e%90"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
@@ -230,7 +230,7 @@ Bean的生命周期就是指：&lt;strong>在Spring中，一个Bean是如何生�
 >有索引的扫描流程&lt;a href="#%e6%9c%89%e7%b4%a2%e5%bc%95%e7%9a%84%e6%89%ab%e6%8f%8f%e6%b5%81%e7%a8%8b"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h4>
-&lt;p>这个方法会去判断&lt;code>this.componentsIndex&lt;/code> 是否有值，这个就是我们配置的 bean 索引，它加载的是 &lt;code>META-INF/spring.components&lt;/code>中的信息，内容格式形如：&lt;/p>
+&lt;p>这个方法会去判断&lt;code>this.componentsIndex&lt;/code> 是否有值，这个就是我们配置的 Bean 索引，它加载的是 &lt;code>META-INF/spring.components&lt;/code>中的信息，内容格式形如：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
 &lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -364,7 +364,7 @@ Bean的生命周期就是指：&lt;strong>在Spring中，一个Bean是如何生�
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> resolveBasePackage&lt;span style="color:#ff79c6">(&lt;/span>basePackage&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> &lt;span style="color:#f1fa8c">&amp;#39;/&amp;#39;&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> &lt;span style="color:#ff79c6">this&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">resourcePattern&lt;/span>&lt;span style="color:#ff79c6">;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>这里可以加个print语句来查看最终的路径是什么：&lt;/p>
+&lt;/div>&lt;p>这里可以加个 print 语句来查看最终的路径是什么：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
 &lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -429,7 +429,7 @@ Bean的生命周期就是指：&lt;strong>在Spring中，一个Bean是如何生�
 >判断类是否有@Component注解&lt;a href="#%e5%88%a4%e6%96%ad%e7%b1%bb%e6%98%af%e5%90%a6%e6%9c%89component%e6%b3%a8%e8%a7%a3"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h3>
-&lt;p>&lt;strong>拿到类的元信息后，就需要判断这个类是不是一个 bean&lt;/strong>。我们可能定义了一个类，但是这个类并不是我们需要的 Bean，那么这里是怎么处理的呢？&lt;/p>
+&lt;p>&lt;strong>拿到类的元信息后，就需要判断这个类是不是一个Bean&lt;/strong>。我们可能定义了一个类，但是这个类并不是我们需要的 Bean，那么这里是怎么处理的呢？&lt;/p>
 &lt;blockquote>
 &lt;p>@Component is a generic stereotype for any Spring-managed component. @Repository, @Service, and @Controller are specializations of @Component&lt;/p>
 &lt;/blockquote>
@@ -596,14 +596,14 @@ Bean的生命周期就是指：&lt;strong>在Spring中，一个Bean是如何生�
 &lt;/p>
 &lt;p>这里不细讲判断条件注解的源码，我们只需要大概了解流程如下：&lt;/p>
 &lt;ul>
-&lt;li>类如果没有 @Conditional 直接，返回 false，表示不跳过&lt;/li>
-&lt;li>类有 @Conditional 注解，获取类上条件注解的类，执行判定&lt;/li>
+&lt;li>类如果没有 ``@Conditional` 直接，返回 false，表示不跳过&lt;/li>
+&lt;li>类有&lt;code>@Conditional&lt;/code> 注解，获取类上条件注解的类，执行判定&lt;/li>
 &lt;/ul>
 &lt;h3 class="group " id="构造-scannedgenericbeandefinition"
 >构造 ScannedGenericBeanDefinition&lt;a href="#%e6%9e%84%e9%80%a0-scannedgenericbeandefinition"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h3>
-&lt;p>上一步判断完成后，确认类是一个bean，就会根据元数据开始构造一个 &lt;code>ScannedGenericBeanDefinition&lt;/code> 。&lt;/p>
+&lt;p>上一步判断完成后，确认类是一个Bean，就会根据元数据开始构造一个 &lt;code>ScannedGenericBeanDefinition&lt;/code> 。&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
 &lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -823,11 +823,11 @@ Bean的生命周期就是指：&lt;strong>在Spring中，一个Bean是如何生�
 &lt;/div>
 &lt;/div>&lt;p>这里分为2部分：&lt;/p>
 &lt;ol>
-&lt;li>先是判断我们是不是在注解上自定义了 bean 的名字&lt;/li>
-&lt;li>如果没有则根据默认规则生成 bean 名字&lt;/li>
+&lt;li>先是判断我们是不是在注解上自定义了 Bean 的名字&lt;/li>
+&lt;li>如果没有则根据默认规则生成 Bean 名字&lt;/li>
 &lt;/ol>
 &lt;h4 class="group " id="判断注解是不是定义了bean名字"
->判断注解是不是定义了bean名字&lt;a href="#%e5%88%a4%e6%96%ad%e6%b3%a8%e8%a7%a3%e6%98%af%e4%b8%8d%e6%98%af%e5%ae%9a%e4%b9%89%e4%ba%86bean%e5%90%8d%e5%ad%97"
+>判断注解是不是定义了Bean名字&lt;a href="#%e5%88%a4%e6%96%ad%e6%b3%a8%e8%a7%a3%e6%98%af%e4%b8%8d%e6%98%af%e5%ae%9a%e4%b9%89%e4%ba%86bean%e5%90%8d%e5%ad%97"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h4>
 &lt;p>&lt;code>AnnotationBeanNameGenerator#determineBeanNameFromAnnotation&lt;/code> 方法源码：&lt;/p>
@@ -923,7 +923,7 @@ Bean的生命周期就是指：&lt;strong>在Spring中，一个Bean是如何生�
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>&lt;code>ClassUtils.getShortName&lt;/code> 就是根据 bean 的全路径名字获取类名，比如 &lt;code>com.vitahlin.service.HelloSerivce&lt;/code> 得到的 &lt;code>shortClassName&lt;/code> 就是 &lt;code>HelloService&lt;/code>。&lt;/p>
+&lt;/div>&lt;p>&lt;code>ClassUtils.getShortName&lt;/code> 就是根据 Bean 的全路径名字获取类名，比如 &lt;code>com.vitahlin.service.HelloSerivce&lt;/code> 得到的 &lt;code>shortClassName&lt;/code> 就是 &lt;code>HelloService&lt;/code>。&lt;/p>
 &lt;p>这里，重点来看&lt;code>Introspector#decapitalize&lt;/code> ：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -957,7 +957,7 @@ Bean的生命周期就是指：&lt;strong>在Spring中，一个Bean是如何生�
 &lt;/div>
 &lt;/div>&lt;p>会判断类名字的第一个字符和第二个字符，&lt;strong>如果前2个字符全部大写的话，那么直接返回类名；否则将返回首字符小写的类名字。&lt;/strong> 比如类，&lt;code>AbcService&lt;/code> 它的bean名字就是 &lt;code>abcService&lt;/code> ，类 &lt;code>ABcService&lt;/code> 它的bean名字则是 &lt;code>ABcService&lt;/code> 。&lt;/p>
 &lt;p>这里总结下 bean 名字的生成规则：
-判断该类上的注解 @Component 的 value 值&lt;/p>
+判断该类上的注解 &lt;code>@Component&lt;/code> 的 value 值&lt;/p>
 &lt;ul>
 &lt;li>若该值存在, 则返回&lt;/li>
 &lt;li>若该值不存在，则调用方法生成默认名字
@@ -1030,7 +1030,7 @@ Bean的生命周期就是指：&lt;strong>在Spring中，一个Bean是如何生�
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>方法 &lt;code>isCompatible(beanDefinition, existingDef)&lt;/code> 判断已经存在的 Bean和我现在要生成的是不是兼容， 如果兼容不抛异常，但是返回 false，也不会重新注册 Bean 。&lt;/p>
+&lt;/div>&lt;p>方法 &lt;code>isCompatible(beanDefinition, existingDef)&lt;/code> 判断已经存在的 Bean 和我现在要生成的是不是兼容， 如果兼容不抛异常，但是返回 false，也不会重新注册 Bean 。&lt;/p>
 &lt;p>&lt;code>ClassPathBeanDefinitionScanner#isCompatible&lt;/code> ：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
