@@ -1772,9 +1772,11 @@ Bean 工厂的概念是 Spring 作为 IoC 容器的基础。IoC 则将处理事�
 &lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
 &lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
 &lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">class&lt;/span> &lt;span style="color:#50fa7b">MyFactoryBean&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">implements&lt;/span> FactoryBean&lt;span style="color:#ff79c6">&amp;lt;&lt;/span>Student&lt;span style="color:#ff79c6">&amp;gt;&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>@Component
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">class&lt;/span> &lt;span style="color:#50fa7b">MyFactoryBean&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">implements&lt;/span> FactoryBean&lt;span style="color:#ff79c6">&amp;lt;&lt;/span>Student&lt;span style="color:#ff79c6">&amp;gt;&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> @Override
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> Student &lt;span style="color:#50fa7b">getObject&lt;/span>&lt;span style="color:#ff79c6">()&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">throws&lt;/span> Exception &lt;span style="color:#ff79c6">{&lt;/span>
