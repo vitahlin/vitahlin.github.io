@@ -1,6 +1,6 @@
 ---
 title: Spring源码6-Bean生命周期之Bean实例化(上)
-<!-- description: Bean实例化（上） -->
+description: Bean实例化（上）
 date: 2023-01-11
 slug: spring-bean-instantiation-first
 categories:
