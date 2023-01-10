@@ -26,7 +26,7 @@ Spring 容器加载方式主要有以下3种：
 2. 扫描注解方式 AnnotationConfigApplicationContext
 3. 本地配置文件 FileSystemXmlApplicationContext
 
-我们平常使用 Spring可以通过 `@ComponentScan` 注解可以声明自动注入要扫描的包，Spring 会将该包下所有加了 `@Component` 注解的 bean 扫描到 Spring 容器中，也可以 通过 xml 文件来配置要扫描的 Bean，不过现在 SpringBoot 一般都是用 `@ComponentScan` 注解的方式，所以这里**主要介绍自动扫描注解的流程。**
+我们平常使用 Spring可以通过 `@ComponentScan` 注解可以声明自动注入要扫描的包，Spring 会将该包下所有加了 `@Component` 注解的 Bean 扫描到 Spring 容器中，也可以 通过 xml 文件来配置要扫描的 Bean，不过现在 SpringBoot 一般都是用 `@ComponentScan` 注解的方式，所以这里**主要介绍自动扫描注解的流程。**
 
 ## Bean扫描流程分析
 
@@ -150,7 +150,7 @@ public Set<BeanDefinition> findCandidateComponents(String basePackage) {
 
 #### 有索引的扫描流程
 
-这个方法会去判断`this.componentsIndex` 是否有值，这个就是我们配置的 bean 索引，它加载的是 `META-INF/spring.components`中的信息，内容格式形如：
+这个方法会去判断`this.componentsIndex` 是否有值，这个就是我们配置的 Bean 索引，它加载的是 `META-INF/spring.components`中的信息，内容格式形如：
 ```java
 com.vitahlin.bean.xxxBean=org.springframework.stereotype.Component
 ```
@@ -221,7 +221,7 @@ String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX +
     resolveBasePackage(basePackage) + '/' + this.resourcePattern;
 ```
 
-这里可以加个print语句来查看最终的路径是什么：
+这里可以加个 print 语句来查看最终的路径是什么：
 ```java
 String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX +  
     resolveBasePackage(basePackage) + '/' + this.resourcePattern;  
@@ -273,7 +273,7 @@ MetadataReader表示类的元数据读取器，主要包含了一个AnnotationMe
 
 ### 判断类是否有@Component注解
 
-**拿到类的元信息后，就需要判断这个类是不是一个 bean**。我们可能定义了一个类，但是这个类并不是我们需要的 Bean，那么这里是怎么处理的呢？ 
+**拿到类的元信息后，就需要判断这个类是不是一个Bean**。我们可能定义了一个类，但是这个类并不是我们需要的 Bean，那么这里是怎么处理的呢？ 
 
 > @Component is a generic stereotype for any Spring-managed component. @Repository, @Service, and @Controller are specializations of @Component
 
@@ -372,13 +372,12 @@ public class Student {
 ![image.png](https://vitahlin.oss-cn-shanghai.aliyuncs.com/images/blog/2023/202301102055153.png)
 
 这里不细讲判断条件注解的源码，我们只需要大概了解流程如下：
-- 类如果没有 @Conditional 直接，返回 false，表示不跳过
-- 类有 @Conditional 注解，获取类上条件注解的类，执行判定
-
+- 类如果没有 ``@Conditional` 直接，返回 false，表示不跳过
+- 类有`@Conditional` 注解，获取类上条件注解的类，执行判定
 
 ### 构造 ScannedGenericBeanDefinition
 
-上一步判断完成后，确认类是一个bean，就会根据元数据开始构造一个 `ScannedGenericBeanDefinition` 。
+上一步判断完成后，确认类是一个Bean，就会根据元数据开始构造一个 `ScannedGenericBeanDefinition` 。
 ```java
 ScannedGenericBeanDefinition sbd = new ScannedGenericBeanDefinition(metadataReader);
 ```
@@ -506,10 +505,10 @@ public String generateBeanName(BeanDefinition definition, BeanDefinitionRegistry
 ```
 
 这里分为2部分：
-1.  先是判断我们是不是在注解上自定义了 bean 的名字
-2.  如果没有则根据默认规则生成 bean 名字
+1.  先是判断我们是不是在注解上自定义了 Bean 的名字
+2.  如果没有则根据默认规则生成 Bean 名字
 
-#### 判断注解是不是定义了bean名字
+#### 判断注解是不是定义了Bean名字
 
 `AnnotationBeanNameGenerator#determineBeanNameFromAnnotation` 方法源码：
 ```java
@@ -560,7 +559,7 @@ protected String buildDefaultBeanName(BeanDefinition definition) {
 }
 ```
 
-`ClassUtils.getShortName`  就是根据 bean 的全路径名字获取类名，比如 `com.vitahlin.service.HelloSerivce` 得到的 `shortClassName` 就是 `HelloService`。
+`ClassUtils.getShortName`  就是根据 Bean 的全路径名字获取类名，比如 `com.vitahlin.service.HelloSerivce` 得到的 `shortClassName` 就是 `HelloService`。
 
 这里，重点来看`Introspector#decapitalize` ：
 ```java
@@ -580,7 +579,7 @@ public static String decapitalize(String name) {
 会判断类名字的第一个字符和第二个字符，**如果前2个字符全部大写的话，那么直接返回类名；否则将返回首字符小写的类名字。** 比如类，`AbcService` 它的bean名字就是 `abcService` ，类 `ABcService` 它的bean名字则是 `ABcService` 。
 
 这里总结下 bean 名字的生成规则：
-判断该类上的注解 @Component 的 value 值
+判断该类上的注解 `@Component`  的 value 值
 - 若该值存在, 则返回
 - 若该值不存在，则调用方法生成默认名字
         - 若类名前两个字符都是大写字符则直接返回，
@@ -621,7 +620,7 @@ protected boolean checkCandidate(String beanName, BeanDefinition beanDefinition)
 }
 ```
 
-方法 `isCompatible(beanDefinition, existingDef)` 判断已经存在的 Bean和我现在要生成的是不是兼容，  如果兼容不抛异常，但是返回 false，也不会重新注册 Bean  。
+方法 `isCompatible(beanDefinition, existingDef)` 判断已经存在的 Bean 和我现在要生成的是不是兼容，  如果兼容不抛异常，但是返回 false，也不会重新注册 Bean  。
 
 `ClassPathBeanDefinitionScanner#isCompatible` ：
 ```java
