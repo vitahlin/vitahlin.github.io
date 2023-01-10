@@ -334,6 +334,7 @@ public class Student {
 ```
 
 ```java
+@Component
 public class MyFactoryBean implements FactoryBean<Student> {
     
     @Override
