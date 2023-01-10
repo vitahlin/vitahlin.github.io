@@ -34,7 +34,7 @@ Bean的生命周期就是指：&lt;strong>在Spring中，一个Bean是如何生�
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>service&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">sayHello&lt;/span>&lt;span style="color:#ff79c6">();&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>上述几行代码实现了 bean 的扫描和实例化。&lt;/p>
+&lt;/div>&lt;p>上述几行代码实现了 Bean 的扫描和实例化。&lt;/p>
 &lt;p>首先就是容器的初始化，即：&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -104,7 +104,7 @@ Bean的生命周期就是指：&lt;strong>在Spring中，一个Bean是如何生�
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>而 &lt;strong>DefaultListableBeanFactory 是 this 的父类 GenericApplicationContext 进行初始化的，因为在 Java 中子类初始化时会先初始化父类。&lt;/strong>&lt;/p>
-&lt;p>这里主要关注的就是属性：&lt;/p>
+&lt;p>这里主要关注的就是属性&lt;/p>
 &lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
 &lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -425,8 +425,8 @@ Bean的生命周期就是指：&lt;strong>在Spring中，一个Bean是如何生�
 &lt;li>获取类上添加的所有注解信息；&lt;/li>
 &lt;li>获取类上添加的所有注解类型集合；&lt;/li>
 &lt;/ol>
-&lt;h3 class="group " id="判断类是否是一个bean"
->判断类是否是一个bean&lt;a href="#%e5%88%a4%e6%96%ad%e7%b1%bb%e6%98%af%e5%90%a6%e6%98%af%e4%b8%80%e4%b8%aabean"
+&lt;h3 class="group " id="判断类是否有component注解"
+>判断类是否有@Component注解&lt;a href="#%e5%88%a4%e6%96%ad%e7%b1%bb%e6%98%af%e5%90%a6%e6%9c%89component%e6%b3%a8%e8%a7%a3"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h3>
 &lt;p>&lt;strong>拿到类的元信息后，就需要判断这个类是不是一个 bean&lt;/strong>。我们可能定义了一个类，但是这个类并不是我们需要的 Bean，那么这里是怎么处理的呢？&lt;/p>
@@ -471,7 +471,7 @@ Bean的生命周期就是指：&lt;strong>在Spring中，一个Bean是如何生�
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"> */&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">for&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>TypeFilter tf &lt;span style="color:#ff79c6">:&lt;/span> &lt;span style="color:#ff79c6">this&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">includeFilters&lt;/span>&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>tf&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">match&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>metadataReader&lt;span style="color:#ff79c6">,&lt;/span> getMetadataReaderFactory&lt;span style="color:#ff79c6">()))&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">/** 再判断condition条件注解 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">/** 再判断@Condition条件注解 */&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">return&lt;/span> isConditionMatch&lt;span style="color:#ff79c6">(&lt;/span>metadataReader&lt;span style="color:#ff79c6">);&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
@@ -587,7 +587,18 @@ Bean的生命周期就是指：&lt;strong>在Spring中，一个Bean是如何生�
 &lt;/div>
 &lt;/div>&lt;p>然后开始断点：
 图中可以看到，当前 &lt;code>for&lt;/code> 循环处理的是 &lt;code>Student.class&lt;/code> 这个类，然后右键 &lt;code>isCandidateComponent&lt;/code> -&amp;gt; &lt;code>Evuluate Expression&lt;/code> ，得到的结果为 false，即 Spring 不认为 Student 是一个 bean。&lt;/p>
-&lt;p>所以这里判断包含过滤器即判断类上是否有 &lt;code>@Component&lt;/code> 注解，如果有那么就是匹配的，即是一个 bean，再判断条件匹配。&lt;/p>
+&lt;p>所以这里判断包含过滤器即判断类上是否有 &lt;code>@Component&lt;/code> 注解，如果有那么就是匹配的，即是一个 Bean。&lt;/p>
+&lt;h4 class="group " id="条件匹配"
+>条件匹配&lt;a href="#%e6%9d%a1%e4%bb%b6%e5%8c%b9%e9%85%8d"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h4>
+&lt;p>通过 filter 判断是否有 &lt;code>@Component&lt;/code> 注解后，还需要继续判断当前类是否满足条件注解，即 &lt;code>isConditionMatch(metadataReader);&lt;/code> 这个方法，这里最终调用的方法是 &lt;code>ConditionEvaluator#shouldSkip&lt;/code> ，如图所示：
+&lt;/p>
+&lt;p>这里不细讲判断条件注解的源码，我们只需要大概了解流程如下：&lt;/p>
+&lt;ul>
+&lt;li>类如果没有 @Conditional 直接，返回 false，表示不跳过&lt;/li>
+&lt;li>类有 @Conditional 注解，获取类上条件注解的类，执行判定&lt;/li>
+&lt;/ul>
 &lt;h3 class="group " id="构造-scannedgenericbeandefinition"
 >构造 ScannedGenericBeanDefinition&lt;a href="#%e6%9e%84%e9%80%a0-scannedgenericbeandefinition"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
@@ -1231,7 +1242,7 @@ Bean的生命周期就是指：&lt;strong>在Spring中，一个Bean是如何生�
 >总结&lt;a href="#%e6%80%bb%e7%bb%93"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h2>
-&lt;p>大概总结 bean 的扫描流程如下：&lt;/p>
+&lt;p>大概总结 Bean 的扫描流程如下：&lt;/p>
 &lt;ol>
 &lt;li>首先，通过 ResourcePatternResolver 获得指定包路径下的所有&lt;code>.class&lt;/code>文件（Spring源码中将此文件包装成了Resource 对象）；&lt;/li>
 &lt;li>遍历每个 Resource 对象；&lt;/li>
