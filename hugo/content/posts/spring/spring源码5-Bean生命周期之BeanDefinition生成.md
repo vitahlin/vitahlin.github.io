@@ -426,7 +426,7 @@ if (isCandidateComponent(sbd)) {
 }
 ```
 
-构造完 `ScannedGenericBeanDefinition` 后，这里还会继续判断 bean 的类型，比如是不是抽象类。这里涉及到一个概念，**类是否是独立的**。
+构造完 `ScannedGenericBeanDefinition` 后，这里还会继续判断 Bean 的类型，比如是不是抽象类。这里涉及到一个概念，**类是否是独立的**。
 
 源码注释中是这么说的：
 > Determine whether the underlying class is independent, i.e. whether it is a top-level class or a nested class (static inner class) that can be constructed independently of an enclosing class.
@@ -612,26 +612,30 @@ protected boolean checkCandidate(String beanName, BeanDefinition beanDefinition)
     if (originatingDef != null) {  
         existingDef = originatingDef;  
     }  
-    /**  
-     * 判断已经存在的bean和我现在要生成的是不是兼容，  
-     * 如果兼容不抛异常，但是返回false，也不会重新注册bean  
-     */    
     if (isCompatible(beanDefinition, existingDef)) {  
         return false;  
     }  
-    /**  
-     * 如果存在相同beanName的bean，  
-     * 这里就会抛出我们平常比较常见的异常，表示beanName冲突  
-     */  
     throw new ConflictingBeanDefinitionException("Annotation-specified bean name '" + beanName +  
         "' for bean class [" + beanDefinition.getBeanClassName() + "] conflicts with existing, " +  
         "non-compatible bean definition of same name and class [" + existingDef.getBeanClassName() + "]");  
 }
 ```
 
-兼容的概念是有可能一个类会被扫描多次，这里就是检查如果是有两个同名的，允许它们是同一个类被扫描了多次，如果已经扫描过，那么不重复注册直接跳过。如果不是兼容的类，但是名字一样就会抛出我们平常比较常见的异常内容。
+方法 `isCompatible(beanDefinition, existingDef)` 判断已经存在的 Bean和我现在要生成的是不是兼容，  如果兼容不抛异常，但是返回 false，也不会重新注册 Bean  。
 
-不重复就将扫描得到的bean添加到列表中。到这里就完成了整个 bean 扫描的逻辑，接下来就是根据得到的 `BeanDefinition` 集合进行初始化了。
+`ClassPathBeanDefinitionScanner#isCompatible` ：
+```java
+protected boolean isCompatible(BeanDefinition newDefinition, BeanDefinition existingDefinition) {  
+    return (!(existingDefinition instanceof ScannedGenericBeanDefinition) ||  // explicitly registered overriding bean  
+        (newDefinition.getSource() != null && newDefinition.getSource().equals(existingDefinition.getSource())) ||  // scanned same file twice  
+        newDefinition.equals(existingDefinition));  // scanned equivalent class twice  
+}
+```
+这里其实就是判断两个 BeanDefinition 的 resource 是否一致。一个类会被扫描多次，导致两个不同的 BeanDefinition 实际上是同一个类。这时候如果已经扫描过，那么不重复注册直接跳过。
+
+如果不是兼容的类，但是 BeanName 一样就会抛出我们平常比较常见的异常内容。
+
+不重复就将扫描得到的 Bean 添加到列表中。到这里就完成了整个 Bean 扫描的逻辑，接下来就可以根据得到的 `BeanDefinition` 集合进行初始化了。
 
 ### 向容器注册扫描得到的BeanDefinition
 
