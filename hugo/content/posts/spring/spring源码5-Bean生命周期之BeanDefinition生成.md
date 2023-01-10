@@ -36,7 +36,7 @@ AnnotationConfigApplicationContext context = new AnnotationConfigApplicationCont
 HelloWorldService service = (HelloWorldService) context.getBean("helloWorldService");  
 service.sayHello();
 ```
-上述几行代码实现了 bean 的扫描和实例化。
+上述几行代码实现了 Bean 的扫描和实例化。
 
 首先就是容器的初始化，即：
 ```java
@@ -77,7 +77,7 @@ private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHash
 
 而 **DefaultListableBeanFactory 是 this 的父类 GenericApplicationContext 进行初始化的，因为在 Java 中子类初始化时会先初始化父类。**
 
-这里主要关注的就是属性：
+这里主要关注的就是属性 
 ```java
 private final ClassPathBeanDefinitionScanner scanner;
 ```
@@ -271,7 +271,7 @@ MetadataReader表示类的元数据读取器，主要包含了一个AnnotationMe
 10.  获取类上添加的所有注解类型集合；
 
 
-### 判断类是否是一个bean
+### 判断类是否有@Component注解
 
 **拿到类的元信息后，就需要判断这个类是不是一个 bean**。我们可能定义了一个类，但是这个类并不是我们需要的 Bean，那么这里是怎么处理的呢？ 
 
@@ -294,7 +294,7 @@ protected boolean isCandidateComponent(MetadataReader metadataReader) throws IOE
      */  
     for (TypeFilter tf : this.includeFilters) {  
         if (tf.match(metadataReader, getMetadataReaderFactory())) {  
-            /** 再判断condition条件注解 */  
+            /** 再判断@Condition条件注解 */  
             return isConditionMatch(metadataReader);  
         }  
     }  
@@ -364,7 +364,17 @@ public class Student {
 ![](https://vitahlin.oss-cn-shanghai.aliyuncs.com/images/blog/2022/07/202210271938365.png)
 图中可以看到，当前 `for`  循环处理的是 `Student.class`  这个类，然后右键 `isCandidateComponent`  -> `Evuluate Expression` ，得到的结果为 false，即 Spring 不认为 Student 是一个 bean。
 
-所以这里判断包含过滤器即判断类上是否有 `@Component` 注解，如果有那么就是匹配的，即是一个 bean，再判断条件匹配。
+所以这里判断包含过滤器即判断类上是否有 `@Component` 注解，如果有那么就是匹配的，即是一个 Bean。
+
+#### 条件匹配
+
+通过 filter 判断是否有 `@Component`  注解后，还需要继续判断当前类是否满足条件注解，即 `isConditionMatch(metadataReader);` 这个方法，这里最终调用的方法是 `ConditionEvaluator#shouldSkip` ，如图所示：
+![image.png](https://vitahlin.oss-cn-shanghai.aliyuncs.com/images/blog/2023/202301102055153.png)
+
+这里不细讲判断条件注解的源码，我们只需要大概了解流程如下：
+- 类如果没有 @Conditional 直接，返回 false，表示不跳过
+- 类有 @Conditional 注解，获取类上条件注解的类，执行判定
+
 
 ### 构造 ScannedGenericBeanDefinition
 
@@ -724,7 +734,7 @@ public void registerBeanDefinition(String beanName, BeanDefinition beanDefinitio
 
 ## 总结
 
-大概总结 bean 的扫描流程如下：
+大概总结 Bean 的扫描流程如下：
 1. 首先，通过 ResourcePatternResolver 获得指定包路径下的所有`.class`文件（Spring源码中将此文件包装成了Resource 对象）；
 2. 遍历每个 Resource 对象；
 3. 利用 MetadataReaderFactory 解析 Resource 对象得到 MetadataReader（在Spring 源码中 MetadataReaderFactory 具体的实现类为CachingMetadataReaderFactory，MetadataReader 的具体实现类为SimpleMetadataReader）。值得注意的是，CachingMetadataReaderFactory解析某个 `.class`  文件得到 MetadataReader 对象是利用的**ASM**技术，并没有加载这个类到JVM。并且，最终得到的 ScannedGenericBeanDefinition 对象，**beanClass属性存储的是当前类的名字，而不是class对象**。
