@@ -1,13 +1,13 @@
 ---
-title: Mysql索引优化实践
+title: MySQL索引优化实践
 <!-- description: 这是一个副标题 -->
 date: 2022-04-12
 slug: 01GTJYEDXVJ3H44XT1J6DWXXB8
 categories:
-    - mysql
+    - MySQL
 
 tags:
-    - mysql
+    - MySQL
 ---
 
 ## 示例表

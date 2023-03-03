@@ -1,13 +1,13 @@
 ---
-title: Mysql explain命令介绍
+title: MySQL explain命令介绍
 <!-- description: 这是一个副标题 -->
 date: 2022-04-01
 slug: 01GTJVQBR1YCNSGZP4QFJAXDKV
 categories:
-    - mysql
+    - MySQL
 
 tags:
-    - mysql
+    - MySQL
 ---
 
 

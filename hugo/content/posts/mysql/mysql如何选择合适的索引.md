@@ -1,13 +1,13 @@
 ---
-title: Mysql如何选择合适的索引
+title: MySQL 如何选择合适的索引
 <!-- description: 这是一个副标题 -->
 date: 2022-04-13
 slug: 01GTJVW41HQY57FPY1KGGZNG5A
 categories:
-    - mysql
+    - MySQL
 
 tags:
-    - mysql
+    - MySQL
 ---
 
 ## 示例表
