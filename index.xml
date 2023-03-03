@@ -2118,7 +2118,8 @@ Bean 工厂的概念是 Spring 作为 IoC 容器的基础。IoC 则将处理事�
 >ClassPathXmlApplicationContext&lt;a href="#classpathxmlapplicationcontext"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
 >&lt;/h3>
-&lt;p>&lt;/p>
+&lt;p>
+&lt;/p>
 &lt;p>它也是继承了 &lt;code>AbstractApplicationContext&lt;/code>，但是相对于 &lt;code>AnnotationConfigApplicationContext&lt;/code> 而言，功能没有 &lt;code>AnnotationConfigApplicationContext&lt;/code> 强大，比如不能注册 &lt;code>BeanDefinition&lt;/code>&lt;/p>
 &lt;h3 class="group " id="国际化"
 >国际化&lt;a href="#%e5%9b%bd%e9%99%85%e5%8c%96"
