@@ -1,14 +1,13 @@
 ---
-title: Spring源码5-Bean生命周期之BeanDefinition生成
+title: Spring源码5-BeanDefinition生成
 <!-- description: 这是一个副标题 -->
 date: 2023-01-09
-slug: spring-generate-beandefinition-analyse
+slug: 01GTJV0GWKN3X4S9K6F3SSW93T
 categories:
     - spring
 
 tags:
-    - spring
-    - java
+    - Spring
 ---
 
 

@@ -2,14 +2,14 @@
 title: Spring源码2-各模块介绍
 <!-- description: 这是一个副标题 -->
 date: 2022-07-07
-slug: introduction-to-spring-framework-modules
+slug: 01GTJTXN1P6DQGB5ABPXMCGPP3
 categories:
     - spring
 
 tags:
-    - spring
-    - java
+    - Spring
 ---
+
 
 Spring中的模块划分如下图所示，除了图中的spring-vitahlin外，还有24个模块：
 ![spring模块](https://vitahlin.oss-cn-shanghai.aliyuncs.com/images/blog/2022/07/202207071923185.png)

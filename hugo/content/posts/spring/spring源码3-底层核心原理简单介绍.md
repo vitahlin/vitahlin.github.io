@@ -2,13 +2,12 @@
 title: Spring源码3-底层核心原理简单介绍
 <!-- description: 这是一个副标题 -->
 date: 2023-01-05
-slug: introduction-spring-underlying-core-principles
+slug: 01GTJTZGGTWXPG83P6EJXEMGM5
 categories:
     - spring
 
 tags:
-    - spring
-    - java
+    - Spring
 ---
 
 
