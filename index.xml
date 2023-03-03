@@ -1256,7 +1256,535 @@ Bean的生命周期就是指：&lt;strong>在Spring中，一个Bean是如何生�
 &lt;li>如果筛选通过，那么就表示扫描到了一个Bean，将ScannedGenericBeanDefinition 加入结果集&lt;/li>
 &lt;/ol>
 &lt;p>BeanDefinition集合生成过程的流程图如下：
-&lt;/p></description></item><item><title>Spring源码4-核心概念介绍</title><link>https://www.vitahlin.com/2023/01/01gtjv0gwktg7e98gnv5y2yxfr/</link><pubDate>Fri, 06 Jan 2023 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2023/01/01gtjv0gwktg7e98gnv5y2yxfr/</guid><description>
+&lt;/p></description></item><item><title>Spring源码6-BeanDefinition合并</title><link>https://www.vitahlin.com/2023/01/01gtk062gaeyc6f3awdfpg923f/</link><pubDate>Mon, 09 Jan 2023 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2023/01/01gtk062gaeyc6f3awdfpg923f/</guid><description>
+&lt;h2 class="group " id="前言"
+>前言&lt;a href="#%e5%89%8d%e8%a8%80"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>前文分析了 Spring 的 Bean 扫描流程的源码，扫描完成后已经得到了一个 BeanDefinition 集合，接下来就是遍历 BeanDefinition 列表，进行 Bean 的实例化。&lt;/p>
+&lt;h2 class="group " id="spring上下文初始化"
+>Spring上下文初始化&lt;a href="#spring%e4%b8%8a%e4%b8%8b%e6%96%87%e5%88%9d%e5%a7%8b%e5%8c%96"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>首先，来看 Spring 中容器的初始化：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#50fa7b">AnnotationConfigApplicationContext&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>Class&lt;span style="color:#ff79c6">&amp;lt;?&amp;gt;...&lt;/span> componentClasses&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">this&lt;/span>&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> register&lt;span style="color:#ff79c6">(&lt;/span>componentClasses&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> refresh&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>其中，Bean 的实例化流程是在 &lt;code>refresh()&lt;/code> 方法中处理的，跟进方法&lt;code>AnnotationConfigApplicationContext#refresh&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>@Override
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">public&lt;/span> &lt;span style="color:#8be9fd">void&lt;/span> &lt;span style="color:#50fa7b">refresh&lt;/span>&lt;span style="color:#ff79c6">()&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">throws&lt;/span> BeansException&lt;span style="color:#ff79c6">,&lt;/span> IllegalStateException &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8be9fd;font-style:italic">synchronized&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#ff79c6">this&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">startupShutdownMonitor&lt;/span>&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> StartupStep contextRefresh &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">this&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">applicationStartup&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">start&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;spring.context.refresh&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> prepareRefresh&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ConfigurableListableBeanFactory beanFactory &lt;span style="color:#ff79c6">=&lt;/span> obtainFreshBeanFactory&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> prepareBeanFactory&lt;span style="color:#ff79c6">(&lt;/span>beanFactory&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">try&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> postProcessBeanFactory&lt;span style="color:#ff79c6">(&lt;/span>beanFactory&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> StartupStep beanPostProcess &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">this&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">applicationStartup&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">start&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;spring.context.beans.post-process&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> invokeBeanFactoryPostProcessors&lt;span style="color:#ff79c6">(&lt;/span>beanFactory&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> registerBeanPostProcessors&lt;span style="color:#ff79c6">(&lt;/span>beanFactory&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> beanPostProcess&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">end&lt;/span>&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> initMessageSource&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> initApplicationEventMulticaster&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> onRefresh&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> registerListeners&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> finishBeanFactoryInitialization&lt;span style="color:#ff79c6">(&lt;/span>beanFactory&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> finishRefresh&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span> &lt;span style="color:#ff79c6">catch&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>BeansException ex&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>logger&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">isWarnEnabled&lt;/span>&lt;span style="color:#ff79c6">())&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> logger&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">warn&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;Exception encountered during context initialization - &amp;#34;&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f1fa8c">&amp;#34;cancelling refresh attempt: &amp;#34;&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> ex&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> destroyBeans&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> cancelRefresh&lt;span style="color:#ff79c6">(&lt;/span>ex&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">throw&lt;/span> ex&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span> &lt;span style="color:#ff79c6">finally&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> contextRefresh&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">end&lt;/span>&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>其中，Bean 的实例化是在 &lt;code>finishBeanFactoryInitialization(beanFactory)&lt;/code> 中完成的，&lt;code>AbstractApplicationContext#finishBeanFactoryInitialization&lt;/code> 源码如下：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8be9fd;font-style:italic">protected&lt;/span> &lt;span style="color:#8be9fd">void&lt;/span> &lt;span style="color:#50fa7b">finishBeanFactoryInitialization&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>ConfigurableListableBeanFactory beanFactory&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>beanFactory&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">containsBean&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>CONVERSION_SERVICE_BEAN_NAME&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">&amp;amp;&amp;amp;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> beanFactory&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">isTypeMatch&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>CONVERSION_SERVICE_BEAN_NAME&lt;span style="color:#ff79c6">,&lt;/span> ConversionService&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">class&lt;/span>&lt;span style="color:#ff79c6">))&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> beanFactory&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">setConversionService&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> beanFactory&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">getBean&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>CONVERSION_SERVICE_BEAN_NAME&lt;span style="color:#ff79c6">,&lt;/span> ConversionService&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">class&lt;/span>&lt;span style="color:#ff79c6">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(!&lt;/span>beanFactory&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">hasEmbeddedValueResolver&lt;/span>&lt;span style="color:#ff79c6">())&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> beanFactory&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">addEmbeddedValueResolver&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>strVal &lt;span style="color:#ff79c6">-&amp;gt;&lt;/span> getEnvironment&lt;span style="color:#ff79c6">().&lt;/span>&lt;span style="color:#50fa7b">resolvePlaceholders&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>strVal&lt;span style="color:#ff79c6">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> String&lt;span style="color:#ff79c6">[]&lt;/span> weaverAwareNames &lt;span style="color:#ff79c6">=&lt;/span> beanFactory&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">getBeanNamesForType&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>LoadTimeWeaverAware&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">class&lt;/span>&lt;span style="color:#ff79c6">,&lt;/span> &lt;span style="color:#ff79c6">false&lt;/span>&lt;span style="color:#ff79c6">,&lt;/span> &lt;span style="color:#ff79c6">false&lt;/span>&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">for&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>String weaverAwareName &lt;span style="color:#ff79c6">:&lt;/span> weaverAwareNames&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> getBean&lt;span style="color:#ff79c6">(&lt;/span>weaverAwareName&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> beanFactory&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">setTempClassLoader&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#ff79c6">null&lt;/span>&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> beanFactory&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">freezeConfiguration&lt;/span>&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> beanFactory&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">preInstantiateSingletons&lt;/span>&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>生成非懒加载的单例 Bean 的处理逻辑在最后一行 &lt;code>beanFactory.preInstantiateSingletons()&lt;/code>，实际上调用的是 &lt;code>DefaultListableBeanFactory#preInstantiateSingletons&lt;/code>，看这方法命名就知道，实际上这个方法处理了单例 Bean 的实例化。&lt;/p>
+&lt;h2 class="group " id="preinstantiatesingletons-bean的实例化真正入口"
+>preInstantiateSingletons-Bean的实例化真正入口&lt;a href="#preinstantiatesingletons-bean%e7%9a%84%e5%ae%9e%e4%be%8b%e5%8c%96%e7%9c%9f%e6%ad%a3%e5%85%a5%e5%8f%a3"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>跟进方法 &lt;code>preInstantiateSingletons&lt;/code> 来看实例化的具体逻辑，&lt;code>DefaultListableBeanFactory#preInstantiateSingletons&lt;/code> ：
+&lt;/p>
+&lt;p>这里主要有3部分逻辑，分别对应其中三个箭头：&lt;/p>
+&lt;ol>
+&lt;li>BeanDefnition的合并-getMergedLocalBeanDefinition&lt;/li>
+&lt;li>BeanDefnition的实例化-getBean&lt;/li>
+&lt;li>SmartInitializingSingleton接口的实现&lt;/li>
+&lt;/ol>
+&lt;p>接下来，我们就来逐步看这三个步骤，本文重点介绍 BeanDefinition 的合并流程。&lt;/p>
+&lt;h2 class="group " id="getmergedlocalbeandefinition-beandefinition合并"
+>getMergedLocalBeanDefinition-BeanDefinition合并&lt;a href="#getmergedlocalbeandefinition-beandefinition%e5%90%88%e5%b9%b6"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>根据之前扫描得到 Bean 名称集合生成一个新的 Bean 名称数组，然后逐个遍历开始 Bean 的实例化。&lt;/p>
+&lt;p>首先，就是根据 &lt;code>BeanDefinition&lt;/code> 生成 &lt;code>RootBeanDefinition&lt;/code> 对象：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>RootBeanDefinition bd &lt;span style="color:#ff79c6">=&lt;/span> getMergedLocalBeanDefinition&lt;span style="color:#ff79c6">(&lt;/span>beanName&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在 Spring 中，一个 BeanDefinition 是可以设置父 BeanDefinition 的，仅需要调用其 &lt;code>setParentName&lt;/code> 即可，之所以出现父子 Bean 是因为 Spring 允许将相同 Bean 的定义给抽出来，成为一个父 BeanDefinition，这样其它的 BeanDefinition 就能共用这些公共的数据了，&lt;strong>Bean有层次关系，子类需要合并父类的属性方法&lt;/strong>。Spring 中支持父子 BeanDefinition，和 Java 父子类类似，但是完全不是一回事。&lt;/p>
+&lt;p>例如：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">&amp;lt;bean&lt;/span> &lt;span style="color:#50fa7b">id=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;parent&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">class=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;com.vitah.service.Parent&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">scope=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;prototype&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">&amp;lt;bean&lt;/span> &lt;span style="color:#50fa7b">id=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;child&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">class=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;com.vitah.service.Child&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这么定义的情况下，child 是单例 Bean。&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">&amp;lt;bean&lt;/span> &lt;span style="color:#50fa7b">id=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;parent&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">class=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;com.vitah.service.Parent&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">scope=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;prototype&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">&amp;lt;bean&lt;/span> &lt;span style="color:#50fa7b">id=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;child&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">class=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;com.vitah.service.Child&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">parent=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;parent&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>但是这么定义的情况下，child 就是原型 Bean 了。&lt;/p>
+&lt;p>因为 child 的父 BeanDefinition 是 parent，所以会继承 parent 上所定义的 scope 属性。&lt;/p>
+&lt;p>Bean 定义公共的抽象类是 &lt;code>AbstractBeanDefinition&lt;/code> ，普通的 Bean 在 Spring 加载 Bean 定义的时候，实例化出来的是&lt;code>GenericBeanDefinition&lt;/code> ，而 Spring 上下文包括实例化所有 Bean 用的 AbstractBeanDefinition 是 RootBeanDefinition ，这时候就使用 &lt;code>getMergedLocalBeanDefinition&lt;/code> 方法做了一次转化，将非 &lt;code>RootBeanDefinition&lt;/code> 转换为&lt;code> RootBeanDefinition&lt;/code> 以供后续操作。&lt;/p>
+&lt;p>跟进方法 &lt;code>AbstractBeanFactory#getMergedLocalBeanDefinition&lt;/code> :&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">protected&lt;/span> RootBeanDefinition &lt;span style="color:#50fa7b">getMergedLocalBeanDefinition&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>String beanName&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#8be9fd;font-style:italic">throws&lt;/span> BeansException &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> RootBeanDefinition mbd &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">this&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">mergedBeanDefinitions&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">get&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>beanName&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>mbd &lt;span style="color:#ff79c6">!=&lt;/span> &lt;span style="color:#ff79c6">null&lt;/span> &lt;span style="color:#ff79c6">&amp;amp;&amp;amp;&lt;/span> &lt;span style="color:#ff79c6">!&lt;/span>mbd&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">stale&lt;/span>&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">return&lt;/span> mbd&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">return&lt;/span> getMergedBeanDefinition&lt;span style="color:#ff79c6">(&lt;/span>beanName&lt;span style="color:#ff79c6">,&lt;/span> getBeanDefinition&lt;span style="color:#ff79c6">(&lt;/span>beanName&lt;span style="color:#ff79c6">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>mergedBeanDefinitions&lt;/code> 集合会先判断合并之后的 BeanDefinition 是否已经存在了，存在了直接返回。&lt;/p>
+&lt;p>不存在则继续跟进方法 &lt;code>getMergedBeanDefinition&lt;/code> ，最终调用的方法是 &lt;code>AbstractBeanFactory#getMergedBeanDefinition&lt;/code> ：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">78
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">79
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">80
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">81
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">82
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">83
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">84
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">85
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">86
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">87
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">protected&lt;/span> RootBeanDefinition &lt;span style="color:#50fa7b">getMergedBeanDefinition&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> String beanName&lt;span style="color:#ff79c6">,&lt;/span> BeanDefinition bd&lt;span style="color:#ff79c6">,&lt;/span> @Nullable BeanDefinition containingBd&lt;span style="color:#ff79c6">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8be9fd;font-style:italic">throws&lt;/span> BeanDefinitionStoreException &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#8be9fd;font-style:italic">synchronized&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>&lt;span style="color:#ff79c6">this&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">mergedBeanDefinitions&lt;/span>&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">/*** 准备一个RootBeanDefinition变量引用，用于记录要构建和最终要返回的BeanDefinition */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> RootBeanDefinition mbd &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">null&lt;/span>&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> RootBeanDefinition previous &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">null&lt;/span>&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">// Check with full lock now in order to enforce the same merged instance.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>containingBd &lt;span style="color:#ff79c6">==&lt;/span> &lt;span style="color:#ff79c6">null&lt;/span>&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> mbd &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">this&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">mergedBeanDefinitions&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">get&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>beanName&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>mbd &lt;span style="color:#ff79c6">==&lt;/span> &lt;span style="color:#ff79c6">null&lt;/span> &lt;span style="color:#ff79c6">||&lt;/span> mbd&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">stale&lt;/span>&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> previous &lt;span style="color:#ff79c6">=&lt;/span> mbd&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">/*** 判读有没有指定parent */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>bd&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">getParentName&lt;/span>&lt;span style="color:#ff79c6">()&lt;/span> &lt;span style="color:#ff79c6">==&lt;/span> &lt;span style="color:#ff79c6">null&lt;/span>&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"> * Use copy of given root bean definition.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"> * 如果自己就是一个RootBeanDefinition，那么就克隆一下，生成一个新的RootBeanDefinition
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"> */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>bd &lt;span style="color:#ff79c6">instanceof&lt;/span> RootBeanDefinition&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> mbd &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">((&lt;/span>RootBeanDefinition&lt;span style="color:#ff79c6">)&lt;/span> bd&lt;span style="color:#ff79c6">).&lt;/span>&lt;span style="color:#50fa7b">cloneBeanDefinition&lt;/span>&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span> &lt;span style="color:#ff79c6">else&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> mbd &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">new&lt;/span> RootBeanDefinition&lt;span style="color:#ff79c6">(&lt;/span>bd&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">else&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"> * Child bean definition: needs to be merged with parent.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"> * 定义父亲的BeanDefinition
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"> */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> BeanDefinition pbd&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">try&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">/*** 拿到这个bean的parent的名字 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> String parentBeanName &lt;span style="color:#ff79c6">=&lt;/span> transformedBeanName&lt;span style="color:#ff79c6">(&lt;/span>bd&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">getParentName&lt;/span>&lt;span style="color:#ff79c6">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">/*** 当前名字不等于parentBean的名字，递归处理，一直往上找 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(!&lt;/span>beanName&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">equals&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>parentBeanName&lt;span style="color:#ff79c6">))&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> pbd &lt;span style="color:#ff79c6">=&lt;/span> getMergedBeanDefinition&lt;span style="color:#ff79c6">(&lt;/span>parentBeanName&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span> &lt;span style="color:#ff79c6">else&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> BeanFactory parent &lt;span style="color:#ff79c6">=&lt;/span> getParentBeanFactory&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>parent &lt;span style="color:#ff79c6">instanceof&lt;/span> ConfigurableBeanFactory&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> pbd &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">((&lt;/span>ConfigurableBeanFactory&lt;span style="color:#ff79c6">)&lt;/span> parent&lt;span style="color:#ff79c6">).&lt;/span>&lt;span style="color:#50fa7b">getMergedBeanDefinition&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>parentBeanName&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span> &lt;span style="color:#ff79c6">else&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">throw&lt;/span> &lt;span style="color:#ff79c6">new&lt;/span> NoSuchBeanDefinitionException&lt;span style="color:#ff79c6">(&lt;/span>parentBeanName&lt;span style="color:#ff79c6">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f1fa8c">&amp;#34;Parent name &amp;#39;&amp;#34;&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> parentBeanName &lt;span style="color:#ff79c6">+&lt;/span> &lt;span style="color:#f1fa8c">&amp;#34;&amp;#39; is equal to bean name &amp;#39;&amp;#34;&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> beanName &lt;span style="color:#ff79c6">+&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f1fa8c">&amp;#34;&amp;#39;: cannot be resolved without a ConfigurableBeanFactory parent&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span> &lt;span style="color:#ff79c6">catch&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>NoSuchBeanDefinitionException ex&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">throw&lt;/span> &lt;span style="color:#ff79c6">new&lt;/span> BeanDefinitionStoreException&lt;span style="color:#ff79c6">(&lt;/span>bd&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">getResourceDescription&lt;/span>&lt;span style="color:#ff79c6">(),&lt;/span> beanName&lt;span style="color:#ff79c6">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f1fa8c">&amp;#34;Could not resolve parent bean definition &amp;#39;&amp;#34;&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> bd&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">getParentName&lt;/span>&lt;span style="color:#ff79c6">()&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> &lt;span style="color:#f1fa8c">&amp;#34;&amp;#39;&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">,&lt;/span> ex&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">// Deep copy with overridden values.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span> &lt;span style="color:#6272a4">/*** 生成一个新的BeanDefinition，并且覆盖掉父亲的属性 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> mbd &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">new&lt;/span> RootBeanDefinition&lt;span style="color:#ff79c6">(&lt;/span>pbd&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> mbd&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">overrideFrom&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>bd&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">// Set default singleton scope, if not configured before.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(!&lt;/span>StringUtils&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">hasLength&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>mbd&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">getScope&lt;/span>&lt;span style="color:#ff79c6">()))&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> mbd&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">setScope&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>SCOPE_SINGLETON&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">// A bean contained in a non-singleton bean cannot be a singleton itself.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span> &lt;span style="color:#6272a4">// Let&amp;#39;s correct this on the fly here, since this might be the result of
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span> &lt;span style="color:#6272a4">// parent-child merging for the outer bean, in which case the original inner bean
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span> &lt;span style="color:#6272a4">// definition will not have inherited the merged outer bean&amp;#39;s singleton status.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>containingBd &lt;span style="color:#ff79c6">!=&lt;/span> &lt;span style="color:#ff79c6">null&lt;/span> &lt;span style="color:#ff79c6">&amp;amp;&amp;amp;&lt;/span> &lt;span style="color:#ff79c6">!&lt;/span>containingBd&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">isSingleton&lt;/span>&lt;span style="color:#ff79c6">()&lt;/span> &lt;span style="color:#ff79c6">&amp;amp;&amp;amp;&lt;/span> mbd&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">isSingleton&lt;/span>&lt;span style="color:#ff79c6">())&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> mbd&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">setScope&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>containingBd&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">getScope&lt;/span>&lt;span style="color:#ff79c6">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">// Cache the merged bean definition for the time being
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span> &lt;span style="color:#6272a4">// (it might still get re-merged later on in order to pick up metadata changes)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>containingBd &lt;span style="color:#ff79c6">==&lt;/span> &lt;span style="color:#ff79c6">null&lt;/span> &lt;span style="color:#ff79c6">&amp;amp;&amp;amp;&lt;/span> isCacheBeanMetadata&lt;span style="color:#ff79c6">())&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">/*** 放到map中 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">this&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">mergedBeanDefinitions&lt;/span>&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">put&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>beanName&lt;span style="color:#ff79c6">,&lt;/span> mbd&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>previous &lt;span style="color:#ff79c6">!=&lt;/span> &lt;span style="color:#ff79c6">null&lt;/span>&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> copyRelevantMergedBeanDefinitionCaches&lt;span style="color:#ff79c6">(&lt;/span>previous&lt;span style="color:#ff79c6">,&lt;/span> mbd&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">return&lt;/span> mbd&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;h3 class="group " id="没有父beandefinition的情况"
+>没有父BeanDefinition的情况&lt;a href="#%e6%b2%a1%e6%9c%89%e7%88%b6beandefinition%e7%9a%84%e6%83%85%e5%86%b5"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h3>
+&lt;p>源码如下：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>bd&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">getParentName&lt;/span>&lt;span style="color:#ff79c6">()&lt;/span> &lt;span style="color:#ff79c6">==&lt;/span> &lt;span style="color:#ff79c6">null&lt;/span>&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"> * Use copy of given root bean definition.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"> * 如果自己就是一个RootBeanDefinition，那么就克隆一下，生成一个新的RootBeanDefinition
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"> */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>bd &lt;span style="color:#ff79c6">instanceof&lt;/span> RootBeanDefinition&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> mbd &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">((&lt;/span>RootBeanDefinition&lt;span style="color:#ff79c6">)&lt;/span> bd&lt;span style="color:#ff79c6">).&lt;/span>&lt;span style="color:#50fa7b">cloneBeanDefinition&lt;/span>&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span> &lt;span style="color:#ff79c6">else&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> mbd &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">new&lt;/span> RootBeanDefinition&lt;span style="color:#ff79c6">(&lt;/span>bd&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果一个 BeanDefinition 没有设置 &lt;code>parentName&lt;/code> ，表示该 BeanDefinition 是没有父BeanDefinition 的。
+此时，如果这个 BeanDefinition 是 RootBeanDefinition 的实例或子类实例，Spring就会直接克隆一个一模一样的 BeanDefinition，&lt;code>cloneBeanDefinition&lt;/code> 方法的代码很简单，即 &lt;code>new RootBeanDefinition(this)&lt;/code> 。
+如果不是 RootBeanDefinition 类型，则创建一个 RootBeanDefinition 并将当前bd合并进去。&lt;/p>
+&lt;p>这时候肯定会有疑问，两个合并的代码不是一模一样吗？
+其实不是，如果一个 BeanDefinition 是 RootBeanDefinition 的子类，那么调用克隆方法的时候，就会 new 一个该子类，然后开始克隆，比如 &lt;code>new ConfigurationClassBeanDefinition(this)&lt;/code>。&lt;/p>
+&lt;h3 class="group " id="有父beandefinition的情况"
+>有父BeanDefinition的情况&lt;a href="#%e6%9c%89%e7%88%b6beandefinition%e7%9a%84%e6%83%85%e5%86%b5"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h3>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">else&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"> * Child bean definition: needs to be merged with parent.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"> * 定义父亲的BeanDefinition
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"> */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> BeanDefinition pbd&lt;span style="color:#ff79c6">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">try&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">/*** 拿到这个bean的parent的名字 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> String parentBeanName &lt;span style="color:#ff79c6">=&lt;/span> transformedBeanName&lt;span style="color:#ff79c6">(&lt;/span>bd&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">getParentName&lt;/span>&lt;span style="color:#ff79c6">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">/*** 当前名字不等于parentBean的名字，递归处理，一直往上找 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(!&lt;/span>beanName&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">equals&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>parentBeanName&lt;span style="color:#ff79c6">))&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> pbd &lt;span style="color:#ff79c6">=&lt;/span> getMergedBeanDefinition&lt;span style="color:#ff79c6">(&lt;/span>parentBeanName&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span> &lt;span style="color:#ff79c6">else&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> BeanFactory parent &lt;span style="color:#ff79c6">=&lt;/span> getParentBeanFactory&lt;span style="color:#ff79c6">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">if&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>parent &lt;span style="color:#ff79c6">instanceof&lt;/span> ConfigurableBeanFactory&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> pbd &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">((&lt;/span>ConfigurableBeanFactory&lt;span style="color:#ff79c6">)&lt;/span> parent&lt;span style="color:#ff79c6">).&lt;/span>&lt;span style="color:#50fa7b">getMergedBeanDefinition&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>parentBeanName&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span> &lt;span style="color:#ff79c6">else&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">throw&lt;/span> &lt;span style="color:#ff79c6">new&lt;/span> NoSuchBeanDefinitionException&lt;span style="color:#ff79c6">(&lt;/span>parentBeanName&lt;span style="color:#ff79c6">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f1fa8c">&amp;#34;Parent name &amp;#39;&amp;#34;&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> parentBeanName &lt;span style="color:#ff79c6">+&lt;/span> &lt;span style="color:#f1fa8c">&amp;#34;&amp;#39; is equal to bean name &amp;#39;&amp;#34;&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> beanName &lt;span style="color:#ff79c6">+&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f1fa8c">&amp;#34;&amp;#39;: cannot be resolved without a ConfigurableBeanFactory parent&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span> &lt;span style="color:#ff79c6">catch&lt;/span> &lt;span style="color:#ff79c6">(&lt;/span>NoSuchBeanDefinitionException ex&lt;span style="color:#ff79c6">)&lt;/span> &lt;span style="color:#ff79c6">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">throw&lt;/span> &lt;span style="color:#ff79c6">new&lt;/span> BeanDefinitionStoreException&lt;span style="color:#ff79c6">(&lt;/span>bd&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">getResourceDescription&lt;/span>&lt;span style="color:#ff79c6">(),&lt;/span> beanName&lt;span style="color:#ff79c6">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f1fa8c">&amp;#34;Could not resolve parent bean definition &amp;#39;&amp;#34;&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> bd&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">getParentName&lt;/span>&lt;span style="color:#ff79c6">()&lt;/span> &lt;span style="color:#ff79c6">+&lt;/span> &lt;span style="color:#f1fa8c">&amp;#34;&amp;#39;&amp;#34;&lt;/span>&lt;span style="color:#ff79c6">,&lt;/span> ex&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#6272a4">// Deep copy with overridden values.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4">&lt;/span> &lt;span style="color:#6272a4">/*** 生成一个新的BeanDefinition，并且覆盖掉父亲的属性 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> mbd &lt;span style="color:#ff79c6">=&lt;/span> &lt;span style="color:#ff79c6">new&lt;/span> RootBeanDefinition&lt;span style="color:#ff79c6">(&lt;/span>pbd&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> mbd&lt;span style="color:#ff79c6">.&lt;/span>&lt;span style="color:#50fa7b">overrideFrom&lt;/span>&lt;span style="color:#ff79c6">(&lt;/span>bd&lt;span style="color:#ff79c6">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果一个 &lt;code>BeanDefinition&lt;/code> 有父类，那么Spring就会获取到父类的 &lt;code>BeanName&lt;/code> (因为可能存在别名, 所以调用了 &lt;code>transformedBeanName方法&lt;/code> )。&lt;/p>
+&lt;p>如果父类的 &lt;code>BeanName&lt;/code> 和当前 &lt;code>BeanName&lt;/code> 不一样，说明是存在真正的父类的。这个判断是用来防止我们将当前 &lt;code>BeanName&lt;/code> 设置为当前 &lt;code>BeanDefinition&lt;/code> 的父类而导致死循环的。&lt;/p>
+&lt;p>如果真正存在父类，Spring就会先将父类合并了，因为父类可能还有父类，该递归方法结束后就能获取到一个完整的父 BeanDefinition 了，然后 &lt;code>new&lt;/code> 了一个 &lt;code>RootBeanDefinition&lt;/code> ，将完整的父 BeanDefinition 放入进去，从而初步完成了合并。&lt;/p>
+&lt;p>执行后，我们就得到了&lt;strong>最终的合并之后的 BeanDefinition，放到了 Map 对象 &lt;code>mergedBeanDefinitions&lt;/code> 中，后续都是从 &lt;code>mergedBeanDefinitions&lt;/code> 拿合并后的 BeanDefiniton 进行实例化。&lt;/strong>&lt;/p></description></item><item><title>Spring源码4-核心概念介绍</title><link>https://www.vitahlin.com/2023/01/01gtjv0gwktg7e98gnv5y2yxfr/</link><pubDate>Fri, 06 Jan 2023 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2023/01/01gtjv0gwktg7e98gnv5y2yxfr/</guid><description>
 &lt;h2 class="group " id="前言"
 >前言&lt;a href="#%e5%89%8d%e8%a8%80"
 >&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
@@ -3703,125 +4231,4 @@ class="link"
 href="https://www.oschina.net/news/69705/git-commit-message-and-changelog-guide"target="_blank" rel="noopener">https://www.oschina.net/news/69705/git-commit-message-and-changelog-guide&lt;/a
 >
 &lt;/li>
-&lt;/ul></description></item><item><title>Spring源码2-各模块介绍</title><link>https://www.vitahlin.com/2022/07/01gtjtxn1p6dqgb5abpxmcgpp3/</link><pubDate>Thu, 07 Jul 2022 00:00:00 +0800</pubDate><guid>https://www.vitahlin.com/2022/07/01gtjtxn1p6dqgb5abpxmcgpp3/</guid><description>&lt;p>Spring中的模块划分如下图所示，除了图中的spring-vitahlin外，还有24个模块：
-&lt;/p>
-&lt;h2 class="group " id="1-framework-bom"
->1. framework-bom&lt;a href="#1-framework-bom"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>通过该模块，可以解决Spring中的模块与其他框架整合时产生jar包版本的冲突，默认为空实现。&lt;/p>
-&lt;h2 class="group " id="2-integration-tests"
->2. integration-tests&lt;a href="#2-integration-tests"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>spring的集成测试模块。&lt;/p>
-&lt;h2 class="group " id="3-spring-aop"
->3. spring-aop&lt;a href="#3-spring-aop"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>面向切面编程时使用。Spring通过&amp;quot;横切&amp;quot;的方式将贯穿于多业务中的公共功能独立抽取出来，形成单独的切面，并指定切面的具体动作，在需要使用该功能时，动态地将该功能切入到需要的地方。&lt;/p>
-&lt;h2 class="group " id="4-spring-aspects"
->4. spring-aspects&lt;a href="#4-spring-aspects"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>用来实现 &lt;code>AspectJ&lt;/code> 框架的集成。&lt;code>AspectJ&lt;/code> 是一个通过Java扩展出之后的框架，框架里面定义了 AOP 的语法，通过特殊的编译器完成编译期间的代码植入，最后生成增强之后的 Class 文件。&lt;/p>
-&lt;h2 class="group " id="5-spring-beans"
->5. spring-beans&lt;a href="#5-spring-beans"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>完成spring框架的基本功能，里面定义了大量和Bean有关的接口、类和注解。例如，bean定义的顶层接口 &lt;code>BeanDefinition&lt;/code>，Bean装配相关的注解 &lt;code>Autowired&lt;/code>、&lt;code>Qualifier&lt;/code>、&lt;code>Value&lt;/code>，用来创建bean的工厂接口 &lt;code>BeanFactory&lt;/code> 和一些具体的工厂方法等。&lt;/p>
-&lt;h2 class="group " id="6-spring-context"
->6. spring-context&lt;a href="#6-spring-context"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>用来实现spring的上下文功能，以及spring的IOC，例如初始化spring容器时所使用的 &lt;code>ApplicationContext&lt;/code> 接口和常用的抽象实现类 &lt;code>AnnotationConfigApplicationContext&lt;/code> 或者 &lt;code>ClasspathXmlApplicationContext&lt;/code> 等。&lt;/p>
-&lt;h2 class="group " id="7-spring-context-indexer"
->7. spring-context-indexer&lt;a href="#7-spring-context-indexer"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>用来创建spring应用启动时候所选组件的索引，以提高应用的启动速度。通常情况下，应用启动的时候会扫描类路径下所有组件，但是如果组件特别多，会导致应用启动特别慢。该模块可以在应用的编译器对应用的类路径下的组件创建索引，在启动的时候通过索引去加载和初始化组件，可以大大提高应用启动速度。&lt;/p>
-&lt;h2 class="group " id="8-spring-context-support"
->8. spring-context-support&lt;a href="#8-spring-context-support"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>用来提供spring上下文的一些扩展模块，例如实现邮件服务、视图解析、缓存的支持、定时任务调度等。&lt;/p>
-&lt;h2 class="group " id="9-spring-core"
->9. spring-core&lt;a href="#9-spring-core"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>spring的核心功能实现，例如控制反转(IOC)、依赖注入(DI)、&lt;code>asm&lt;/code> 以及 &lt;code>cglib&lt;/code> 的实现。&lt;/p>
-&lt;h2 class="group " id="10-spring-expression"
->10. spring-expression&lt;a href="#10-spring-expression"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>提供spring表达式语言等支持，SPEL。&lt;/p>
-&lt;h2 class="group " id="11-spring-instrument"
->11. spring-instrument&lt;a href="#11-spring-instrument"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>实现spirng对服务器的代理接口功能实现，实现的是类级别或者 &lt;code>ClassLoader&lt;/code> 级别的代理功能。&lt;/p>
-&lt;h2 class="group " id="12-spring-jcl"
->12. spring-jcl&lt;a href="#12-spring-jcl"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>通过适配器设计模式实现的一个用来统一管理日志的框架，对外提供统一的接口，采用“适配器”将日志的操作全部委托给具体的日志框架，提供了对多种日志框架的支持。&lt;/p>
-&lt;h2 class="group " id="13-spring-jdbc"
->13. spring-jdbc&lt;a href="#13-spring-jdbc"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>spring对JDBC(Java Data Base Connector)功能的支持，里面定义了用于操作数据的多种API，常用的即 JdbcTemplate。通过模版设计模式将数据库的操作和具体业务分离，降低了数据库操作和业务功能的耦合。&lt;/p>
-&lt;h2 class="group " id="14-spring-jms"
->14. spring-jms&lt;a href="#14-spring-jms"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>对Java消息服务的支持，对JDK中的JMS API进行了简单的封装。&lt;/p>
-&lt;h2 class="group " id="15-spring-messaging"
->15. spring-messaging&lt;a href="#15-spring-messaging"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>实现基于消息来构建服务的功能。&lt;/p>
-&lt;h2 class="group " id="16-spring-orm"
->16. spring-orm&lt;a href="#16-spring-orm"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>提供一些整合第三方ORM框架的抽象接口，用来支持与第三方ORM框架进行整合，例如：MyBatis、Hibernate、Spring JPA等。&lt;/p>
-&lt;h2 class="group " id="17-spring-oxm"
->17. spring-oxm&lt;a href="#17-spring-oxm"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>spring用来对对象和 xml(Object/xml) 映射的支持，完成 xml 和 object 对象的相互转换。&lt;/p>
-&lt;h2 class="group " id="18-spring-r2dbc"
->18. spring-r2dbc&lt;a href="#18-spring-r2dbc"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>r2dbc 是支持使用反应式编程API访问关系型数据库的桥梁，定义统一接口规范，不同数据库厂家通过实现该规范提供驱动程序包。&lt;/p>
-&lt;h2 class="group " id="19-spring-test"
->19. spring-test&lt;a href="#19-spring-test"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>Spring对Junit测试框架的简单封装，用来快速构建应用的单元测试功能及Mock测试。&lt;/p>
-&lt;h2 class="group " id="20-spring-tx"
->20. spring-tx&lt;a href="#20-spring-tx"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>对一些数据访问框架提供的声明式事务或者编程式事务（通过配置文件进行事务的声明）的支持。例如 Hibernate、Mybatis、JPA 等。&lt;/p>
-&lt;h2 class="group " id="21-spring-web"
->21. spring-web&lt;a href="#21-spring-web"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>用来支持 web 系统的功能。例如文件上传、与JSF的集成、规律器 Filter 的支持等。&lt;/p>
-&lt;h2 class="group " id="22-spring-webflux"
->22. spring-webflux&lt;a href="#22-spring-webflux"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>spring5中新增的一个通过响应式编程来实现 web 功能的框架。内部支持了 reactive 和非阻塞式的功能。例如可以通过tcp的长连接来实现数据传输。webmvc的升级版，webmvc是基于 servlet 的，而 webflux 是基于 reactive 的。&lt;/p>
-&lt;h2 class="group " id="23-spring-webmvc"
->23. spring-webmvc&lt;a href="#23-spring-webmvc"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>用来支持SpringMVC的功能，包括了和SpringMVC框架相关的所有类或者接口，例如常用的DispatcherServlet、ModelAndView、HandlerAdaptor等。另外提供了支持国际化、标签、主题、FreeMarker、Velocity、XSLT的相关类。注意：如果使用了其他类似于smart-framework的独立MVC框架，则不需要使用该模块中的任何类。&lt;/p>
-&lt;h2 class="group " id="24-spring-websocket"
->24. spring-websocket&lt;a href="#24-spring-websocket"
->&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
->&lt;/h2>
-&lt;p>Spring对websocket的简单封装，提供了及时通信的功能，常用于一些即时通讯功能的开发，例如：聊天室。&lt;/p></description></item></channel></rss>
+&lt;/ul></description></item></channel></rss>
