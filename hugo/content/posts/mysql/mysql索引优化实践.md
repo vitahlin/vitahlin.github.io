@@ -2,7 +2,7 @@
 title: Mysql索引优化实践
 <!-- description: 这是一个副标题 -->
 date: 2022-04-12
-slug: mysql-indexing-optimization-practices
+slug: 01GTJYEDXVJ3H44XT1J6DWXXB8
 categories:
     - mysql
 

@@ -10,7 +10,6 @@ tags:
     - Spring
 ---
 
-
 ## 前言
 
 Spring 最重要的功能就是帮助程序员创建对象（也就是IOC），而启动 Spring 就是为创建 Bean 对象做准备，所以我们先明白 Spring 到底是怎么去创建 Bean 的，也就是先弄明白 Bean 的生命周期。

@@ -2,13 +2,12 @@
 title: Mysql如何选择合适的索引
 <!-- description: 这是一个副标题 -->
 date: 2022-04-13
-slug: mysql-how-to-choose-the-right-index
+slug: 01GTJVW41HQY57FPY1KGGZNG5A
 categories:
     - mysql
 
 tags:
     - mysql
-    - database
 ---
 
 ## 示例表

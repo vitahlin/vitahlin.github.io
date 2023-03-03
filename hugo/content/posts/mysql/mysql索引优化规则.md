@@ -2,7 +2,7 @@
 title: Mysql索引优化规则
 <!-- description: 这是一个副标题 -->
 date: 2022-04-10
-slug: mysql-indexing-optimization-rules
+slug: 01GTJYEDXV0QJBXKPMWWKQMP66
 categories:
     - mysql
 
