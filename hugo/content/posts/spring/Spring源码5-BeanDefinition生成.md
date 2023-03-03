@@ -4,7 +4,7 @@ title: Spring源码5-BeanDefinition生成
 date: 2023-01-09
 slug: 01GTJV0GWKN3X4S9K6F3SSW93T
 categories:
-    - spring
+    - Spring
 
 tags:
     - Spring

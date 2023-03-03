@@ -12,11 +12,10 @@ tags:
 
 `Lumen`实现定时任务功能的步骤如下。
 
-
 ## 任务逻辑实现
 
-
 在目录`app/Console/Commands`目录下新建`TestSchedule.php`文件，用来实现定时任务的具体逻辑，代码结构如下：
+
 ```php
 <?php
 
@@ -120,9 +119,11 @@ class Kernel extends ConsoleKernel
 确认逻辑正确后，需要把定时任务加到`linux cron`配置中去，让它可以定时执行。
 
 这里可以配置两个位置，一个是在`/etc/cron.d`目录下，新增定时任务文件，形式如下：
+
 ```c
 * * * * * laradock php /var/www/artisan schedule:run >> /dev/null 2>&1
 ```
+
 `etc/cron.d`里面的配置是系统级别的，需要指定用户执行。`schedule:run`表示开始执行全部的定时任务。
 
 还有一种方法是输入命令 `crontab -e` 进行编辑，文件在`/var/spool/cron/crontabs`目录下，`crontab -e`会以当前用户去执行脚本。`crontab -l`可以查看当前已经设定的定时任务。

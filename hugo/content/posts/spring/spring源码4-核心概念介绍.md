@@ -4,7 +4,7 @@ title: Spring源码4-核心概念介绍
 date: 2023-01-06
 slug: 01GTJV0GWKTG7E98GNV5Y2YXFR
 categories:
-    - spring
+    - Spring
 
 tags:
     - Spring

@@ -1,8 +1,8 @@
 ---
-title: maxOS环境下终端配置
+title: macOS环境下终端配置
 <!-- description: 这是一个副标题 -->
 date: 2022-07-04
-slug: mac-terminal
+slug: 01GTJZNNW5JARPPAFC9YZATAJX
 categories:
     - tools
 

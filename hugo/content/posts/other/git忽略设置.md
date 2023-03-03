@@ -2,7 +2,7 @@
 title: git忽略设置
 <!-- description: 这是一个副标题 -->
 date: 2022-07-05
-slug: gitignore-settings
+slug: 01GTJZNNW55KY5VCQM3E2ESDMS
 categories:
     - other
 
