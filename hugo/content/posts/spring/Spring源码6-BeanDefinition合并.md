@@ -2,12 +2,14 @@
 title: Spring源码6-BeanDefinition合并
 <!-- description: 这是一个副标题 -->
 date: 2023-01-09
+lastmod: 2023-03-06
 slug: 01GTK062GAEYC6F3AWDFPG923F
 categories:
     - Spring
 tags:
     - Spring
 ---
+
 
 ## 前言
 
@@ -16,7 +18,6 @@ tags:
 ## Spring上下文初始化
 
 首先，来看 Spring 中容器的初始化：
-
 ```java
 public AnnotationConfigApplicationContext(Class<?>... componentClasses) {  
     this();  
@@ -25,7 +26,7 @@ public AnnotationConfigApplicationContext(Class<?>... componentClasses) {
 }
 ```
 
-其中，Bean 的实例化流程是在 `refresh()`  方法中处理的，跟进方法`AnnotationConfigApplicationContext#refresh`：
+其中，Bean 的实例化流程是在 `refresh()`  方法中处理的，跟进方法 `AnnotationConfigApplicationContext#refresh`：
 ```java
 @Override  
 public void refresh() throws BeansException, IllegalStateException {  
@@ -99,9 +100,9 @@ public void refresh() throws BeansException, IllegalStateException {
 ![image.png](https://vitahlin.oss-cn-shanghai.aliyuncs.com/images/blog/2023/202301102210871.png)
 
 这里主要有3部分逻辑，分别对应其中三个箭头：
-1. BeanDefnition的合并-getMergedLocalBeanDefinition
-2. BeanDefnition的实例化-getBean
-3. SmartInitializingSingleton接口的实现
+1. BeanDefnition 的合并-getMergedLocalBeanDefinition；
+2. BeanDefnition 的实例化-getBean；
+3. SmartInitializingSingleton 接口的实现。
 
 接下来，我们就来逐步看这三个步骤，本文重点介绍 BeanDefinition 的合并流程。
 
@@ -114,7 +115,7 @@ public void refresh() throws BeansException, IllegalStateException {
 RootBeanDefinition bd = getMergedLocalBeanDefinition(beanName);
 ```
 
-在 Spring 中，一个 BeanDefinition 是可以设置父 BeanDefinition 的，仅需要调用其 `setParentName`   即可，之所以出现父子 Bean 是因为 Spring 允许将相同 Bean 的定义给抽出来，成为一个父 BeanDefinition，这样其它的 BeanDefinition 就能共用这些公共的数据了，**Bean有层次关系，子类需要合并父类的属性方法**。Spring 中支持父子 BeanDefinition，和 Java 父子类类似，但是完全不是一回事。
+在 Spring 中，一个 BeanDefinition 是可以设置父 BeanDefinition 的，仅需要调用其 `setParentName`   即可，之所以出现父子 Bean 是因为 Spring 允许将相同 Bean 的定义给抽出来，成为一个父 BeanDefinition，这样其它的 BeanDefinition 就能共用这些公共的数据了，**Bean 有层次关系，子类需要合并父类的属性方法**。Spring 中支持父子 BeanDefinition，和 Java 父子类类似，但是完全不是一回事。
 
 例如：
 ```xml
@@ -131,7 +132,7 @@ RootBeanDefinition bd = getMergedLocalBeanDefinition(beanName);
 
 因为 child 的父 BeanDefinition 是 parent，所以会继承 parent 上所定义的 scope 属性。
 
-Bean 定义公共的抽象类是 `AbstractBeanDefinition` ，普通的 Bean 在 Spring 加载 Bean 定义的时候，实例化出来的是`GenericBeanDefinition` ，而 Spring 上下文包括实例化所有 Bean 用的 AbstractBeanDefinition 是 RootBeanDefinition ，这时候就使用 `getMergedLocalBeanDefinition` 方法做了一次转化，将非 `RootBeanDefinition` 转换为` RootBeanDefinition` 以供后续操作。
+Bean 定义公共的抽象类是 `AbstractBeanDefinition` ，普通的 Bean 在 Spring 加载 Bean 定义的时候，实例化出来的是 `GenericBeanDefinition` ，而 Spring 上下文包括实例化所有 Bean 用的 AbstractBeanDefinition 是 RootBeanDefinition ，这时候就使用 `getMergedLocalBeanDefinition` 方法做了一次转化，将非 `RootBeanDefinition` 转换为 ` RootBeanDefinition` 以供后续操作。
 
 跟进方法 `AbstractBeanFactory#getMergedLocalBeanDefinition` :
 ```java
@@ -256,7 +257,7 @@ if (bd.getParentName() == null) {
 
 如果一个 BeanDefinition 没有设置 `parentName` ，表示该 BeanDefinition 是没有父BeanDefinition 的。
 此时，如果这个 BeanDefinition 是 RootBeanDefinition 的实例或子类实例，Spring就会直接克隆一个一模一样的 BeanDefinition，`cloneBeanDefinition` 方法的代码很简单，即 `new RootBeanDefinition(this)` 。 
-如果不是 RootBeanDefinition 类型，则创建一个 RootBeanDefinition 并将当前bd合并进去。
+如果不是 RootBeanDefinition 类型，则创建一个 RootBeanDefinition 并将当前 bd 合并进去。
 
 这时候肯定会有疑问，两个合并的代码不是一模一样吗？
 其实不是，如果一个 BeanDefinition 是 RootBeanDefinition 的子类，那么调用克隆方法的时候，就会 new 一个该子类，然后开始克隆，比如 `new ConfigurationClassBeanDefinition(this)`。
@@ -297,10 +298,12 @@ if (bd.getParentName() == null) {
 }
 ```
 
-如果一个 `BeanDefinition` 有父类，那么Spring就会获取到父类的 `BeanName` (因为可能存在别名, 所以调用了 `transformedBeanName方法` )。
-
+如果一个 `BeanDefinition` 有父类，那么 Spring 就会获取到父类的 `BeanName` (因为可能存在别名, 所以调用了 `transformedBeanName方法` )。
 如果父类的 `BeanName` 和当前  `BeanName` 不一样，说明是存在真正的父类的。这个判断是用来防止我们将当前 `BeanName` 设置为当前 `BeanDefinition` 的父类而导致死循环的。
+如果真正存在父类，Spring 就会先将父类合并了，因为父类可能还有父类，该递归方法结束后就能获取到一个完整的父 BeanDefinition 了，然后 `new`  了一个 `RootBeanDefinition` ，将完整的父 BeanDefinition 放入进去，从而初步完成了合并。
 
-如果真正存在父类，Spring就会先将父类合并了，因为父类可能还有父类，该递归方法结束后就能获取到一个完整的父 BeanDefinition 了，然后 `new`  了一个 `RootBeanDefinition` ，将完整的父 BeanDefinition 放入进去，从而初步完成了合并。
+执行后，我们就得到了**最终的合并之后的 BeanDefinition，放到了 Map 对象 `mergedBeanDefinitions` 中，后续就从 `mergedBeanDefinitions` 拿合并后的 BeanDefiniton 进行实例化。**
 
-执行后，我们就得到了**最终的合并之后的 BeanDefinition，放到了 Map 对象 `mergedBeanDefinitions` 中，后续都是从 `mergedBeanDefinitions` 拿合并后的 BeanDefiniton 进行实例化。**
+## 结语
+
+主要介绍了 BeanDefinition 的合并流程，后续继续分析 Spring 如何根据合并的 BeanDefinition 来得到 Bean 对象。

@@ -733,9 +733,10 @@ public void registerBeanDefinition(String beanName, BeanDefinition beanDefinitio
 
 至此就完成了Bean 的扫描整个流程，容器中已经有了对应的 `BeanDefinition`，后续就可以根据 `BeanDefinition` 集合进行 bean 的实例化。
 
-## 总结
+## 结语
 
 大概总结 Bean 的扫描流程如下：
+
 1. 首先，通过 ResourcePatternResolver 获得指定包路径下的所有`.class`文件（Spring源码中将此文件包装成了Resource 对象）；
 2. 遍历每个 Resource 对象；
 3. 利用 MetadataReaderFactory 解析 Resource 对象得到 MetadataReader（在Spring 源码中 MetadataReaderFactory 具体的实现类为CachingMetadataReaderFactory，MetadataReader 的具体实现类为SimpleMetadataReader）。值得注意的是，CachingMetadataReaderFactory解析某个 `.class`  文件得到 MetadataReader 对象是利用的**ASM**技术，并没有加载这个类到JVM。并且，最终得到的 ScannedGenericBeanDefinition 对象，**beanClass属性存储的是当前类的名字，而不是class对象**。
