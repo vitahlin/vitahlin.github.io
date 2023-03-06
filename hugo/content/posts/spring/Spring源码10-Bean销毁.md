@@ -1,8 +1,8 @@
 ---
 title: Spring源码10-Bean销毁
 <!-- description: 这是一个副标题 -->
-date: 2023-03-07
-lastmod: 2023-03-07
+date: 2023-03-05
+lastmod: 2023-03-05
 slug: 01GTVCEZZJF24WKGKFHF4DS7A1
 categories:
     - Spring
